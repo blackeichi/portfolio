@@ -1,3 +1,9 @@
+import { Intro } from "../components/Container/intro";
+
 export default function Home() {
-  return <div>안녕</div>;
+  return (
+    <div>
+      <Intro />
+    </div>
+  );
 }
