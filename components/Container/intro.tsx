@@ -2,6 +2,8 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { bgColor, greenColor } from "../../styles/color";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 const me = [
   "#Front-End",
@@ -11,24 +13,50 @@ const me = [
   "#Responsibility",
   "#Goodlistener",
 ];
+const na = [
+  "#프론트엔드",
+  "#열정",
+  "#친절",
+  "#꾸준함",
+  "#책임감",
+  "#좋은 청취자",
+];
 
 export const Intro = () => {
+  const [open, setOpen] = useState(false);
   return (
     <div className="flex min-h-screen flex-col font-KOFIHDrLEEJWTTF lg:flex-row">
       <div
         className="flex w-full flex-col items-center  justify-around gap-16 py-10 pt-32 pl-5 sm:gap-32 sm:py-16 sm:pt-40 lg:h-screen lg:w-1/5 lg:items-start lg:gap-0 lg:py-0 lg:pt-10"
         style={{ backgroundColor: bgColor }}
       >
-        <div className="static left-5 flex flex-col items-center whitespace-normal text-center font-bold text-white  lg:items-start lg:whitespace-nowrap">
+        <div className=" relative left-5 flex flex-col items-center whitespace-normal text-center font-bold text-white  lg:items-start lg:whitespace-nowrap">
           <h1 className="text-2xl sm:text-4xl">한정우&apos;s Portfolio</h1>
-          <h1 className="font-Pretendard text-7xl sm:text-9xl">BRAND ME</h1>
-          <div className="flex gap-2">
+          <h1 className="mb-4 font-Pretendard text-7xl sm:text-9xl">
+            BRAND ME
+          </h1>
+          <motion.div
+            onHoverStart={() => setOpen(true)}
+            onHoverEnd={() => setOpen(false)}
+            className="absolute -bottom-5 z-10 flex gap-2"
+          >
             {me.map((word, index) => (
               <h1 key={index} className="font-Pretendard text-xs sm:text-base">
                 {word}
               </h1>
             ))}
-          </div>
+          </motion.div>
+          <motion.div
+            className="absolute -bottom-6 flex gap-2"
+            initial={{ opacity: 0, bottom: -24 }}
+            animate={{ opacity: open ? 1 : 0, bottom: open ? -40 : -24 }}
+          >
+            {na.map((word, index) => (
+              <h1 key={index} className="font-Pretendard text-xs sm:text-base">
+                {word}
+              </h1>
+            ))}
+          </motion.div>
         </div>
         <div className="flex items-center gap-4">
           <img
