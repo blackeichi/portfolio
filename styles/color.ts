@@ -1,1 +1,2 @@
-export const bgColor = "#7C73E6";
+export const bgColor = "#202224";
+export const greenColor = "#12B886";
