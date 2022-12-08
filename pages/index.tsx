@@ -2,12 +2,9 @@ import { AboutMe } from "../components/Container/AboutMe";
 import { Header } from "../components/Container/Header";
 import { Intro } from "../components/Container/intro";
 import { color } from "../styles/color";
-import { motion, useScroll } from "framer-motion";
+import { useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-scroll";
-import { cls } from "../utils/utils";
+import { FixedMenu } from "../components/Container/FixedMenu";
 
 export default function Home() {
   const { scrollY } = useScroll();
@@ -36,21 +33,9 @@ export default function Home() {
         style={{ backgroundColor: color.grayColor }}
       >
         <AboutMe />
+        <div className="h-screen w-full bg-green-500"></div>
       </div>
-      <div className="fixed bottom-2 right-2 z-30 sm:bottom-10 sm:right-10">
-        <Link to={"init"} spy={true} smooth={true} duration={500}>
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: scrolled ? 1 : 0 }}
-            transition={{ duration: 0.1 }}
-            className={cls(
-              "flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 border-gray-500 bg-white text-xl shadow-md shadow-gray-700 duration-200 hover:bg-gray-200 sm:h-16 sm:w-16 sm:text-3xl"
-            )}
-          >
-            <FontAwesomeIcon icon={faArrowUp} />
-          </motion.div>
-        </Link>
-      </div>
+      <FixedMenu scrolled={scrolled} />
     </div>
   );
 }
