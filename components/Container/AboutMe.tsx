@@ -15,7 +15,7 @@ export const AboutMe = () => {
           <img className="w-full" src="/myPic.jpg" />
         </div>
       </div>
-      <div className="z-10 flex min-h-screen w-full items-center justify-center px-10 sm:px-20 md:px-40 lg:w-1/2 lg:px-10">
+      <div className="z-10 flex h-full w-full items-center justify-center px-10 sm:px-20 md:px-40 lg:w-1/2 lg:px-10">
         <div className="flex h-4/5 w-full flex-col items-center gap-5 pt-8">
           <div className="flex flex-col sm:items-center">
             <Title title="About Me" />
@@ -35,7 +35,7 @@ export const AboutMe = () => {
             </div>
           </div>
 
-          <div className="grid w-full grid-cols-3 px-2 sm:mt-3">
+          <div className="grid w-full grid-cols-2 px-2 sm:mt-3 sm:grid-cols-3">
             <Icon icon="name" title="이름" text="한정우" />
             <Icon icon="mbti" title="MBTI" text="INFJ" />
             <Icon icon="birth" title="생년월일" text="95.06.13" />
