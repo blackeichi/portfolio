@@ -11,7 +11,7 @@ export const Header = ({ scrolled }: any) => {
           ? "text-white shadow-sm shadow-gray-800"
           : "text-gray-400 shadow-none"
       )}
-      style={{ backgroundColor: scrolled ? "rgba(0,0,0,0.6)" : "transparent" }}
+      style={{ backgroundColor: scrolled ? "rgba(0,0,0,0.8)" : "transparent" }}
     >
       <Menu to={"about"} text={"ABOUT ME"} scrolled={scrolled} />
       <Menu to={"about"} text={"ABOUT ME"} scrolled={scrolled} />

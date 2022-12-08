@@ -11,12 +11,12 @@ export const AboutMe = () => {
     >
       <div className="absolute top-5 left-5 hidden w-40 items-center justify-center opacity-50 sm:flex sm:w-72 lg:relative lg:w-1/2 lg:opacity-100">
         <img className="h-4/5 rounded-2xl" src="/Backimg.webp" />
-        <div className="absolute aspect-square w-28 overflow-hidden rounded-full border-4 border-gray-300 sm:w-64">
+        <div className="absolute aspect-square overflow-hidden rounded-full border-4 border-gray-300 sm:w-64 lg:w-80">
           <img className="w-full" src="/myPic.jpg" />
         </div>
       </div>
       <div className="z-10 flex h-full w-full items-center justify-center px-10 sm:px-20 md:px-40 lg:w-1/2 lg:px-10">
-        <div className="flex h-4/5 w-full flex-col items-center gap-5 pt-8">
+        <div className="flex h-4/5 w-full flex-col items-center gap-5 pt-24">
           <div className="flex flex-col sm:items-center">
             <Title title="About Me" />
             <div
