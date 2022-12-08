@@ -3,7 +3,7 @@ import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { bgColor, greenColor } from "../../styles/color";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 
 const me = [
   "#Front-End",
@@ -27,6 +27,7 @@ export const Intro = () => {
   return (
     <div className="flex  w-full flex-col font-KOFIHDrLEEJWTTF lg:flex-row">
       <div
+        id="test"
         className="flex w-full flex-col items-center justify-around gap-16 py-10 pt-20 sm:gap-32 sm:py-16 sm:pt-40 lg:h-screen lg:w-1/5 lg:items-start lg:gap-0 lg:py-0 lg:pl-5 lg:pt-10"
         style={{ backgroundColor: bgColor }}
       >

@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-const test = atom({
+export const test1 = atom({
   key: "test",
-  default: "",
+  default: {} as any,
 });
