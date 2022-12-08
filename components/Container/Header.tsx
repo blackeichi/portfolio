@@ -1,31 +1,20 @@
-import { motion, useScroll } from "framer-motion";
 import { Link } from "react-scroll";
-import { useEffect, useState } from "react";
-import { bgColor } from "../../styles/color";
+import { color } from "../../styles/color";
 import { cls } from "../../utils/utils";
 
-export const Header = () => {
-  const { scrollY } = useScroll();
-  const [scrolled, setScroll] = useState(false);
-  useEffect(() => {
-    return scrollY.onChange((latest) => {
-      if (latest > 95) {
-        setScroll(true);
-      } else {
-        setScroll(false);
-      }
-    });
-  }, []);
+export const Header = ({ scrolled }: any) => {
   return (
     <div
       className={cls(
-        "fixed z-20 h-16 w-full",
-        scrolled ? "shadow-md shadow-gray-800" : "shadow-none"
+        "fixed z-20 flex h-16 w-full items-center justify-end px-5",
+        scrolled
+          ? "text-white shadow-sm shadow-gray-800"
+          : "text-gray-400 shadow-none"
       )}
-      style={{ backgroundColor: scrolled ? bgColor : "transparent" }}
+      style={{ backgroundColor: scrolled ? color.bgColor : "transparent" }}
     >
-      <Link to="test" spy={true} smooth={true} duration={300}>
-        <span>이동하기</span>
+      <Link to="about" spy={true} smooth={true} duration={500}>
+        <span>ABOUT ME</span>
       </Link>
     </div>
   );
