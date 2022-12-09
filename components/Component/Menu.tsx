@@ -12,7 +12,9 @@ export const Menu = ({ to, text, scrolled }: TMenu) => {
     <div
       className={cls(
         "cursor-pointer",
-        scrolled ? "hover:text-red-400" : "hover:text-white"
+        scrolled
+          ? "hover:text-red-400"
+          : "hover:text-red-400 lg:hover:text-white"
       )}
     >
       <Link to={to} spy={true} smooth={true} duration={500}>

@@ -9,7 +9,7 @@ export const AboutMe = () => {
       className="relative box-border flex min-h-screen w-full items-center justify-center gap-10 py-5"
       style={{ color: color.bgColor }}
     >
-      <div className="absolute top-5 left-5 hidden w-40 items-center justify-center opacity-50 sm:flex sm:w-96 lg:relative lg:opacity-100">
+      <div className="absolute top-20 left-10 hidden w-40 items-center justify-center opacity-50 sm:flex sm:w-96 lg:relative lg:opacity-100">
         <img className="w-full rounded-2xl" src="/Backimg.webp" />
         <div className="absolute aspect-square overflow-hidden rounded-full border-4 border-gray-300 sm:w-64 lg:w-3/4">
           <img className="w-full" src="/myPic.jpg" />
