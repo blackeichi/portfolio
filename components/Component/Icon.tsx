@@ -16,7 +16,7 @@ type TIcon = {
 
 export const Icon = ({ icon, title, text }: TIcon) => {
   return (
-    <div className="mt-5 flex gap-4" style={{ color: color.darkGary }}>
+    <div className="mt-6 flex gap-4 sm:mt-12" style={{ color: color.darkGary }}>
       <div className="text-3xl">
         <FontAwesomeIcon
           icon={
