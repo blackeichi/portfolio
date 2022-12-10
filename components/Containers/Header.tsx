@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { color } from "../../styles/color";
 import { cls } from "../../utils/utils";
-import { Menu } from "../Component/Menu";
+import { Menu } from "../Components/Menu";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";

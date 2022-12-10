@@ -1,10 +1,11 @@
-import { AboutMe } from "../components/Container/AboutMe";
-import { Header } from "../components/Container/Header";
-import { Intro } from "../components/Container/intro";
+import { AboutMe } from "../components/Containers/AboutMe";
+import { Header } from "../components/Containers/Header";
+import { Intro } from "../components/Containers/intro";
 import { color } from "../styles/color";
 import { useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
-import { FixedMenu } from "../components/Container/FixedMenu";
+import { FixedMenu } from "../components/Containers/FixedMenu";
+import { Project } from "../components/Containers/Project";
 
 export default function Home() {
   const { scrollY } = useScroll();
@@ -33,6 +34,7 @@ export default function Home() {
         style={{ backgroundColor: color.grayColor }}
       >
         <AboutMe />
+        <Project />
         <div className="h-screen w-full bg-green-500"></div>
       </div>
       <FixedMenu scrolled={scrolled} />

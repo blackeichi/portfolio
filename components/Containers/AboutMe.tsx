@@ -1,6 +1,6 @@
 import { color } from "../../styles/color";
-import { Icon } from "../Component/Icon";
-import { Title } from "../Component/Title";
+import { Icon } from "../Components/Icon";
+import { Title } from "../Components/Title";
 
 export const AboutMe = () => {
   return (
