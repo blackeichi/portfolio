@@ -39,8 +39,8 @@ export const Header = ({ scrolled }: any) => {
         className="absolute top-12 left-0 z-10 flex w-full flex-col items-start justify-center gap-5 border-b-2 border-white bg-zinc-800 py-3 pl-5 sm:top-16 lg:hidden"
       >
         <Menu to={"about"} text={"ABOUT ME"} scrolled={scrolled} />
-        <Menu to={"about"} text={"ABOUT ME"} scrolled={scrolled} />
-        <Menu to={"about"} text={"ABOUT ME"} scrolled={scrolled} />
+        <Menu to={"about"} text={"ARCHIVING"} scrolled={scrolled} />
+        <Menu to={"about"} text={"PROJECT"} scrolled={scrolled} />
       </motion.div>
     </div>
   );
