@@ -11,7 +11,7 @@ export const Header = ({ scrolled }: any) => {
   return (
     <div
       className={cls(
-        "fixed z-20 flex h-12 w-full items-center justify-end text-lg sm:h-16 lg:px-5",
+        "fixed z-40 flex h-12 w-full items-center justify-end text-lg sm:h-16 lg:px-5",
         scrolled
           ? "bg-zinc-800 text-white"
           : "bg-zinc-800 text-white lg:bg-transparent lg:text-gray-400"

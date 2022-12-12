@@ -6,6 +6,7 @@ import { useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
 import { FixedMenu } from "../components/Containers/FixedMenu";
 import { Project } from "../components/Containers/Project";
+import { FrontCover } from "../components/Containers/FrontCover";
 
 export default function Home() {
   const { scrollY } = useScroll();
@@ -28,7 +29,10 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col items-center">
       <Header scrolled={scrolled} />
-      <Intro scrolled={scrolled} bigscrolled={bigscrolled} />
+      <FrontCover />
+      <div className="z-10 min-h-screen w-full bg-slate-500"></div>
+      {/* 
+
       <div
         className="items-cente flex w-full flex-col"
         style={{ backgroundColor: color.grayColor }}
@@ -36,7 +40,7 @@ export default function Home() {
         <AboutMe />
         <Project />
         <div className="h-screen w-full bg-green-500"></div>
-      </div>
+      </div> */}
       <FixedMenu scrolled={scrolled} />
     </div>
   );

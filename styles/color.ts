@@ -1,7 +1,6 @@
 export const color = {
-  grayColor: "#F5F5F5",
-  bgColor: "#202224",
-  darkGary: "#333333",
-  greenColor: "#12B886",
-  whiteColor: "#F0FAF4",
+  bgColor: "#E0DCD1",
+  brown: "#A99C8B",
+  greenColor: "#B3C3A6",
+  yellowColor: "#DFE1AD",
 };

@@ -6,11 +6,14 @@ module.exports = {
   theme: {
     extend: {},
     fontFamily: {
+      PuradakGentleGothicR: ["PuradakGentleGothicR"],
+      SF_HambakSnow: ["SF_HambakSnow"],
       Cafe24Shiningstar: ["Cafe24Shiningstar"],
       MonoplexKRRegular: ["MonoplexKR-Regular"],
       KOFIHDrLEEJWTTF: ["KOFIHDrLEEJWTTF-B"],
       Pretendard: ["Pretendard-Regular"],
       Humanbumsuk: ["Humanbumsuk"],
+      MonoplexKR: ["MonoplexKR-Regular"],
     },
   },
   plugins: [],
