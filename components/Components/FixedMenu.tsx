@@ -13,9 +13,8 @@ export const FixedMenu = ({ scrolled }: any) => {
           initial={{ scale: 0 }}
           animate={{ scale: scrolled ? 1 : 0 }}
           transition={{ duration: 0.1 }}
-          style={{ backgroundColor: color.whiteColor }}
           className={cls(
-            "flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-xl shadow-md duration-200 hover:bg-gray-200 sm:h-14 sm:w-14 sm:text-3xl"
+            "flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white text-xl shadow-md duration-200 hover:bg-gray-200 sm:h-14 sm:w-14 sm:text-3xl"
           )}
         >
           <FontAwesomeIcon icon={faArrowUp} />

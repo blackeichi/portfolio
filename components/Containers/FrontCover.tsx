@@ -2,74 +2,88 @@ import { useState } from "react";
 import { color } from "../../styles/color";
 import { Subtitle } from "../Components/Subtitle";
 import { motion } from "framer-motion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 export const FrontCover = () => {
-  const [open, setOpen] = useState(false);
   return (
     <div
       id="init"
-      className="flex h-screen w-full flex-col pl-5 font-Pretendard lg:pl-14"
+      className="flex h-screen w-full flex-col justify-center pl-5 font-Pretendard sm:justify-start lg:pl-14"
       style={{ backgroundColor: color.bgColor }}
     >
       <div
-        className="relative z-20 flex h-1/2 w-full flex-col justify-end gap-2"
+        className="relative z-20 flex w-full flex-col justify-end gap-1 sm:h-1/2"
         style={{ backgroundColor: color.bgColor }}
       >
-        <Subtitle text="PORTFOLIO" color={color.greenColor} size="80px" />
-        <motion.div
-          className="max-w-fit"
-          onHoverStart={() => setOpen(true)}
-          onHoverEnd={() => setOpen(false)}
-        >
-          <Subtitle
-            font={false}
-            text="#Front-End,
-          #Passion,
-          #Kind,
-          #Steady,
-          #Responsibility,
-          #Goodlistener,
-          #Sometimes funny"
-            color={color.yellowColor}
-            size="10px"
-          />
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, top: 170 }}
-          animate={{ opacity: open ? 1 : 0, top: open ? 170 : 162 }}
-          className="absolute"
-        >
-          <Subtitle
-            font={false}
-            text="#프론트엔드,
-            #열정,
-            #친절,
-            #꾸준함,
-            #책임감,
-            #좋은 청취자,
-            #가끔 익살꾸러기"
-            color={color.yellowColor}
-            size="11px"
-          />
-        </motion.div>
+        <Subtitle text="PORTFOLIO" color={color.greenColor} size="100px" />
+        <Subtitle
+          text="FRONT END WEB DEVELOPER"
+          color={color.yellowColor}
+          size="20px"
+        />
         <div
-          className="mt-3 h-1/2"
+          className="mt-3 h-0 sm:h-1/2"
           style={{ borderLeft: `3px solid ${color.brown}` }}
         />
       </div>
       <div className="z-10 flex h-1/2 w-full">
         <div className="relative flex h-full w-9/12 flex-col justify-start gap-2">
           <div
-            className="h-1/2"
+            className="h-3/5"
             style={{ borderLeft: `3px solid ${color.brown}` }}
           />
-          <div></div>
+          <div className="relative bottom-10 flex flex-col gap-1 whitespace-nowrap pl-5 font-KOFIHDrLEEJWTTF text-sm font-bold">
+            <h1>
+              Han <u>JeongWoo</u>
+            </h1>
+            <div
+              className="flex max-w-fit cursor-pointer gap-2 "
+              onClick={() =>
+                window.open("https://open.kakao.com/o/sn2vWbSe", "_blank")
+              }
+            >
+              <img
+                className="h-4 w-4 rounded-md"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/KakaoTalk_logo.svg/900px-KakaoTalk_logo.svg.png"
+              />
+              <h1>010-9492-2246</h1>
+            </div>
+            <a href="mailto:blackeichi@naver.com" className="max-w-fit ">
+              <div className="flex cursor-pointer items-center gap-2">
+                <FontAwesomeIcon icon={faEnvelope} />
+                <h1>blackeichi@naver.com</h1>
+              </div>
+            </a>
+            <div
+              className="flex max-w-fit cursor-pointer items-center gap-2"
+              onClick={() =>
+                window.open("https://github.com/blackeichi", "_blank")
+              }
+            >
+              <FontAwesomeIcon icon={faGithub} />
+              <h1>GitHub</h1>
+            </div>
+            <div
+              className="flex max-w-fit cursor-pointer items-center gap-1 "
+              onClick={() =>
+                window.open("https://velog.io/@blackeichi", "_blank")
+              }
+            >
+              <img
+                className="w-4 rounded-md"
+                src="https://pbs.twimg.com/profile_images/1228368893321736193/Ov0og7E8_400x400.jpg"
+              />
+              <h1>Velog</h1>
+            </div>
+          </div>
         </div>
         <div className="relative flex w-1/6">
           <div
-            className="h fixed bottom-7 -z-10 hidden h-2/6 w-1/6 opacity-90 md:block lg:bottom-0 lg:h-3/6"
+            className=" fixed bottom-7 -z-10 hidden h-2/6 w-1/6 opacity-80 md:block lg:bottom-0 lg:h-3/6"
             style={{
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)),url("/photo(2).jpg")`,
+              backgroundImage: `url("/photo(2).jpg")`,
               backgroundPosition: "center",
               backgroundSize: "cover",
             }}

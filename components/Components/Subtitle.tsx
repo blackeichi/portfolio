@@ -9,12 +9,11 @@ type TSubtitle = {
 };
 
 export const Subtitle = ({ text, size, color, font = true }: TSubtitle) => {
-  console.log(color);
   return (
     <div
       style={{ fontSize: `${size}` }}
       className={cls(
-        "relative box-border flex max-h-fit max-w-fit items-center  text-center font-bold ",
+        "relative box-border flex max-h-fit max-w-fit items-center  text-center font-bold",
         font ? "font-SF_HambakSnow" : ""
       )}
     >

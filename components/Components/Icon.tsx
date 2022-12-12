@@ -16,8 +16,8 @@ type TIcon = {
 
 export const Icon = ({ icon, title, text }: TIcon) => {
   return (
-    <div className="mt-6 flex gap-4 sm:mt-12" style={{ color: color.darkGary }}>
-      <div className="text-3xl">
+    <div className="mt-2 flex gap-2 text-black">
+      <div className="text-xl">
         <FontAwesomeIcon
           icon={
             icon === "name"
@@ -30,8 +30,8 @@ export const Icon = ({ icon, title, text }: TIcon) => {
           }
         />
       </div>
-      <div className="flex flex-col justify-start">
-        <h1 className="text-lg font-bold">{title}</h1>
+      <div className="flex flex-col justify-start text-xs">
+        <h1 className="font-bold">{title}</h1>
         <h1>{text}</h1>
       </div>
     </div>

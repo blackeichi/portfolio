@@ -1,10 +1,9 @@
 import { AboutMe } from "../components/Containers/AboutMe";
 import { Header } from "../components/Containers/Header";
-import { Intro } from "../components/Containers/intro";
 import { color } from "../styles/color";
 import { useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
-import { FixedMenu } from "../components/Containers/FixedMenu";
+import { FixedMenu } from "../components/Components/FixedMenu";
 import { Project } from "../components/Containers/Project";
 import { FrontCover } from "../components/Containers/FrontCover";
 
@@ -30,14 +29,17 @@ export default function Home() {
     <div className="flex min-h-screen flex-col items-center">
       <Header scrolled={scrolled} />
       <FrontCover />
-      <div className="z-10 min-h-screen w-full bg-slate-500"></div>
+      <div
+        className="z-10 min-h-screen w-full"
+        style={{ backgroundColor: color.bgColor }}
+      >
+        <AboutMe />
+      </div>
       {/* 
-
       <div
         className="items-cente flex w-full flex-col"
         style={{ backgroundColor: color.grayColor }}
       >
-        <AboutMe />
         <Project />
         <div className="h-screen w-full bg-green-500"></div>
       </div> */}
