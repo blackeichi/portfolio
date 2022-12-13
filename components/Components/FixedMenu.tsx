@@ -7,14 +7,14 @@ import { color } from "../../styles/color";
 
 export const FixedMenu = ({ scrolled }: any) => {
   return (
-    <div className="fixed bottom-5 right-16 z-30 sm:bottom-6 sm:right-24">
+    <div className="fixed bottom-6 right-24 z-30 hidden sm:flex">
       <Link to={"init"} spy={true} smooth={true} duration={500}>
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: scrolled ? 1 : 0 }}
           transition={{ duration: 0.1 }}
           className={cls(
-            "flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white text-xl shadow-md duration-200 hover:bg-gray-200 sm:h-14 sm:w-14 sm:text-3xl"
+            "flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-white text-3xl shadow-md duration-200 hover:bg-gray-200"
           )}
         >
           <FontAwesomeIcon icon={faArrowUp} />

@@ -26,13 +26,10 @@ export default function Home() {
     });
   }, []);
   return (
-    <div className="flex min-h-screen flex-col items-center">
+    <div className="flex min-h-screen flex-col items-center overflow-clip">
       <Header scrolled={scrolled} />
       <FrontCover />
-      <div
-        className="z-10 min-h-screen w-full"
-        style={{ backgroundColor: color.bgColor }}
-      >
+      <div className="z-10 w-full" style={{ backgroundColor: color.bgColor }}>
         <AboutMe />
       </div>
       {/* 
