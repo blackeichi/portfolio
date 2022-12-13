@@ -2,16 +2,36 @@ import { color } from "../../styles/color";
 import { Icon } from "../Components/Icon";
 import { Subtitle } from "../Components/Subtitle";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCube, Pagination, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/effect-cube";
 import "swiper/css/pagination";
 import { StackIcon } from "../Components/StackIcon";
+import { cls } from "../../utils/utils";
 
 export const AboutMe = () => {
   const [open, setOpen] = useState(false);
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
+  const [mouseOn, setMouseOn] = useState(false);
+  const [right, setRight] = useState(false);
+  useEffect(() => {
+    if (mouseOn) {
+      const mouseMove = (e: any) => {
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        setX(mouseX);
+        setY(mouseY);
+      };
+      window.addEventListener("mousemove", mouseMove);
+      return () => {
+        window.removeEventListener("mousemove", mouseMove);
+      };
+    }
+  });
+
   return (
     <div
       id="about"
@@ -180,34 +200,50 @@ export const AboutMe = () => {
           <div
             id="BlankBox"
             className="hidden h-4 md:flex"
-            style={{ width: "350px" }}
+            style={{ width: "360px" }}
           />
-          {/* <div
-              style={{
-                background: `linear-gradient(${color.bgColor},${color.ocherColor}) ${color.lightOcher},)`,
-              }}
-              className=" flex w-80 flex-col gap-3 px-6 py-10 font-KOFIHDrLEEJWTTF text-base "
-            >
-              <span>
-                안녕하세요. 꾸준한 자기발전과 업무에 대한 책임감을 가지고 있는
-                신뢰형 인재 한정우입니다.{" "}
-              </span>
-              <span>
-                프론트엔드 개발자를 희망하며 새로운 것을 공부하는 것에 대한
-                열정을 가지고 있습니다.
-              </span>
-              <span>
-                동료들과 팀에 잘 어우러지는 성격이며, 조직에 헌신적인 태도를
-                가지고 있습니다.
-              </span>
-            </div> */}
-          <div className="mb-10 grid h-14 grid-cols-3 gap-3">
+          <div
+            style={{
+              top: `${y - 240}px`,
+              left: right ? `${x - 260}px` : `${x + 10}px`,
+              border: "2px solid black",
+              backgroundColor: color.lightBg,
+            }}
+            className={cls(
+              "fixed top-0 left-0  z-20 h-60 w-64 flex-col justify-center gap-3 rounded-lg px-6 font-KOFIHDrLEEJWTTF text-sm",
+              mouseOn ? "flex" : "hidden"
+            )}
+          >
+            <span>
+              안녕하세요. 꾸준한 자기발전과 업무에 대한 책임감을 가지고 있는
+              신뢰형 인재 한정우입니다.{" "}
+            </span>
+            <span>
+              프론트엔드 개발자를 희망하며 새로운 것을 공부하는 것에 대한 열정을
+              가지고 있습니다.
+            </span>
+            <span>
+              동료들과 팀에 잘 어우러지는 성격이며, 조직에 헌신적인 태도를
+              가지고 있습니다.
+            </span>
+          </div>
+          <motion.div
+            onHoverStart={() => setMouseOn(true)}
+            onHoverEnd={() => setMouseOn(false)}
+            className="mb-10 grid h-14 grid-cols-3 gap-3"
+          >
             <Icon icon="name" title="이름" text="한정우" />
             <Icon icon="mbti" title="MBTI" text="INFJ" />
-            <Icon icon="birth" title="생년월일" text="95.06.13" />
+            <motion.div
+              onHoverStart={() => setRight(true)}
+              onHoverEnd={() => setRight(false)}
+            >
+              <Icon icon="birth" title="생년월일" text="95.06.13" />
+            </motion.div>
+
             <Icon icon="certi" title="자격증" text="정보처리기사" />
             <Icon icon="certi" title="자격증" text="컴활 1급" />
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>
