@@ -31,6 +31,7 @@ export default function Home() {
       <FrontCover />
       <div className="z-10 w-full" style={{ backgroundColor: color.bgColor }}>
         <AboutMe />
+        <Project />
       </div>
       {/* 
       <div

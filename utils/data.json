@@ -1,0 +1,34 @@
+{
+  "projects": [
+    {
+      "title": "Lol-Warriors",
+      "subtitle": "리그오브레전드 전적 검색",
+      "stack": [
+        "REACT",
+        "TYPESCRIPT",
+        "RECOIL",
+        "REACT-ROUTER-DOM",
+        "STYLED-COMPONENTS",
+        "NETLIFY"
+      ],
+      "function": [
+        "LOL게임의 전적 검색 기능",
+        "검색 기록 저장",
+        "여러 언어 제공",
+        "최근 게임의 통계 표시",
+        "각 매치의 상세 내용",
+        "현재 진행 중인 매치 표시"
+      ],
+      "Link": {
+        "git": "https://github.com/blackeichi/lol-warriors",
+        "app": "https://lolwr.me/",
+        "velog": "https://velog.io/@blackeichi/React-Project-League-of-LegendLOL-%EC%A0%84%EC%A0%81-%EA%B2%80%EC%83%89-%EC%82%AC%EC%9D%B4%ED%8A%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0"
+      },
+      "image": [
+        "/img/lolwr/pic1.PNG",
+        "/img/lolwr/pic2.PNG",
+        "/img/lolwr/pic3.PNG"
+      ]
+    }
+  ]
+}
