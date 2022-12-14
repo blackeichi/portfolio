@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { FixedMenu } from "../components/Components/FixedMenu";
 import { Project } from "../components/Containers/Project";
 import { FrontCover } from "../components/Containers/FrontCover";
+import { Story } from "../components/Containers/Story";
+import { Bye } from "../components/Containers/Bye";
 
 export default function Home() {
   const { scrollY } = useScroll();
@@ -32,15 +34,9 @@ export default function Home() {
       <div className="z-10 w-full" style={{ backgroundColor: color.bgColor }}>
         <AboutMe />
         <Project />
+        <Story />
+        <Bye />
       </div>
-      {/* 
-      <div
-        className="items-cente flex w-full flex-col"
-        style={{ backgroundColor: color.grayColor }}
-      >
-        <Project />
-        <div className="h-screen w-full bg-green-500"></div>
-      </div> */}
       <FixedMenu scrolled={scrolled} />
     </div>
   );

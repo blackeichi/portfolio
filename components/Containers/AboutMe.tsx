@@ -99,7 +99,7 @@ export const AboutMe = () => {
               disableOnInteraction: false,
             }}
             modules={[Autoplay, EffectCube, Pagination]}
-            className="mySwiper"
+            className="mySwiper shadow-xl"
           >
             <SwiperSlide>
               <div
@@ -122,7 +122,6 @@ export const AboutMe = () => {
                 <StackIcon src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white" />
                 <StackIcon src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
                 <StackIcon src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white" />
-
                 <StackIcon src="https://img.shields.io/badge/styled_component-DB7093?style=for-the-badge&logo=styled-components&logoColor=white" />
                 <StackIcon src="https://img.shields.io/badge/tailwindCSS-06B6D4?style=for-the-badge&logo=Tailwind%20CSS&logoColor=white" />
                 <StackIcon src="https://img.shields.io/badge/Recoil-black?style=for-the-badge&logo=Recoil&logoColor=white" />
@@ -202,31 +201,6 @@ export const AboutMe = () => {
             className="hidden h-4 md:flex"
             style={{ width: "360px" }}
           />
-          <div
-            style={{
-              top: `${y - 240}px`,
-              left: right ? `${x - 260}px` : `${x + 10}px`,
-              border: "2px solid black",
-              backgroundColor: color.lightBg,
-            }}
-            className={cls(
-              "fixed top-0 left-0  z-20 h-60 w-64 flex-col justify-center gap-3 rounded-lg px-6 font-KOFIHDrLEEJWTTF text-sm",
-              mouseOn ? "flex" : "hidden"
-            )}
-          >
-            <span>
-              안녕하세요. 꾸준한 자기발전과 업무에 대한 책임감을 가지고 있는
-              신뢰형 인재 한정우입니다.{" "}
-            </span>
-            <span>
-              프론트엔드 개발자를 희망하며 새로운 것을 공부하는 것에 대한 열정을
-              가지고 있습니다.
-            </span>
-            <span>
-              동료들과 팀에 잘 어우러지는 성격이며, 조직에 헌신적인 태도를
-              가지고 있습니다.
-            </span>
-          </div>
           <motion.div
             onHoverStart={() => setMouseOn(true)}
             onHoverEnd={() => setMouseOn(false)}

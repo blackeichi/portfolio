@@ -11,6 +11,7 @@ module.exports = {
       MonoplexKRRegular: ["MonoplexKR-Regular"],
       KOFIHDrLEEJWTTF: ["KOFIHDrLEEJWTTF-B"],
       HallymGothic: ["HallymGothic-Regular"],
+      GothicA1Light: ["GothicA1-Light"],
     },
   },
   plugins: [],

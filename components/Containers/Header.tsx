@@ -11,12 +11,13 @@ export const Header = ({ scrolled }: any) => {
   return (
     <div
       className={cls(
-        "fixed z-40 flex h-12 w-full items-center justify-end text-lg text-white sm:h-10 md:px-4"
+        "fixed z-40 flex h-12 w-full items-center justify-end text-lg text-white sm:h-10 md:px-4",
+        scrolled ? "md:bg-zinc-800" : ""
       )}
     >
       <div className="hidden gap-5 md:flex">
         <Menu to={"about"} text={"ABOUT ME"} scrolled={scrolled} />
-        <Menu to={"about"} text={"ABOUT ME"} scrolled={scrolled} />
+        <Menu to={"project"} text={"PROJECT"} scrolled={scrolled} />
         <Menu to={"about"} text={"ABOUT ME"} scrolled={scrolled} />
       </div>
       <div className="absolute top-0 z-20 flex h-12 w-full items-center justify-end bg-transparent px-3 sm:h-16 md:hidden">
@@ -36,10 +37,10 @@ export const Header = ({ scrolled }: any) => {
         initial={{ top: 0 }}
         animate={{ top: open ? 0 : -300 }}
         transition={{ duration: 0.5 }}
-        className="absolute left-0 z-10 flex w-full flex-col items-start justify-center gap-5 border-b-2 border-white bg-zinc-700 py-5 pl-5 md:hidden"
+        className="absolute left-0 z-10 flex w-full flex-col items-start justify-center gap-5 border-b-2 border-white bg-zinc-800 py-5 pt-16 pl-5 md:hidden"
       >
         <Menu to={"about"} text={"ABOUT ME"} scrolled={scrolled} />
-        <Menu to={"about"} text={"ARCHIVING"} scrolled={scrolled} />
+        <Menu to={"project"} text={"PROJECT"} scrolled={scrolled} />
         <Menu to={"about"} text={"PROJECT"} scrolled={scrolled} />
       </motion.div>
     </div>

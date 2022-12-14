@@ -5,12 +5,13 @@ import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { HoveredText } from "../Components/HoveredText";
 
 export const FrontCover = () => {
   return (
     <div
       id="init"
-      className="flex h-screen w-full flex-col justify-center pl-5 font-Pretendard sm:justify-start lg:pl-14"
+      className="font-Pretendard flex h-screen w-full flex-col justify-center pl-5 sm:justify-start lg:pl-14"
       style={{ backgroundColor: color.bgColor }}
     >
       <div
@@ -48,12 +49,12 @@ export const FrontCover = () => {
                 className="h-4 w-4 rounded-md"
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/KakaoTalk_logo.svg/900px-KakaoTalk_logo.svg.png"
               />
-              <h1>010-9492-2246</h1>
+              <HoveredText text="010-9492-2246" />
             </div>
             <a href="mailto:blackeichi@naver.com" className="max-w-fit ">
               <div className="flex cursor-pointer items-center gap-2">
                 <FontAwesomeIcon icon={faEnvelope} />
-                <h1>blackeichi@naver.com</h1>
+                <HoveredText text="blackeichi@naver.com" />
               </div>
             </a>
             <div
@@ -63,7 +64,7 @@ export const FrontCover = () => {
               }
             >
               <FontAwesomeIcon icon={faGithub} />
-              <h1>GitHub</h1>
+              <HoveredText text="GitHub" />
             </div>
             <div
               className="flex max-w-fit cursor-pointer items-center gap-1 "
@@ -75,7 +76,7 @@ export const FrontCover = () => {
                 className="w-4 rounded-md"
                 src="https://pbs.twimg.com/profile_images/1228368893321736193/Ov0og7E8_400x400.jpg"
               />
-              <h1>Velog</h1>
+              <HoveredText text="Velog" />
             </div>
           </div>
         </div>
