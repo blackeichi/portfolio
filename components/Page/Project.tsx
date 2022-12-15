@@ -19,7 +19,7 @@ export type Tproject = {
 };
 
 export const Project = () => {
-  const projects = data.projects;
+  const { projects } = data;
   return (
     <div
       id="project"

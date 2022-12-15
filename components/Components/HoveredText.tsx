@@ -6,9 +6,10 @@ import { cls } from "../../utils/utils";
 type Type = {
   text: string;
   btn?: boolean;
+  large?: boolean;
 };
 
-export const HoveredText = ({ text, btn = false }: Type) => {
+export const HoveredText = ({ text, btn = false, large = false }: Type) => {
   const [hover, setHover] = useState(false);
   return (
     <motion.div
@@ -23,8 +24,8 @@ export const HoveredText = ({ text, btn = false }: Type) => {
       <motion.div
         className={cls("absolute top-0 -z-10 h-full w-full")}
         style={{ backgroundColor: color.brown }}
-        initial={{ x: -150 }}
-        animate={{ x: hover ? (btn ? -10 : 0) : -150 }}
+        initial={{ x: large ? -250 : -150 }}
+        animate={{ x: hover ? (btn ? -10 : 0) : large ? -250 : -150 }}
         transition={{ duration: 0.4, type: "tween" }}
       />
     </motion.div>

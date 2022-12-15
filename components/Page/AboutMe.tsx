@@ -9,7 +9,6 @@ import "swiper/css";
 import "swiper/css/effect-cube";
 import "swiper/css/pagination";
 import { StackIcon } from "../Components/StackIcon";
-import { cls } from "../../utils/utils";
 
 export const AboutMe = () => {
   const [open, setOpen] = useState(false);

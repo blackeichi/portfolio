@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { cls } from "../../utils/utils";
-import { Tproject } from "../Containers/Project";
+import { Tproject } from "../Page/Project";
 import { HoveredText } from "./HoveredText";
 
 type Teach = {

@@ -1,13 +1,13 @@
-import { AboutMe } from "../components/Containers/AboutMe";
-import { Header } from "../components/Containers/Header";
+import { AboutMe } from "../components/Page/AboutMe";
+import { Header } from "../components/Page/Header";
 import { color } from "../styles/color";
 import { useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
 import { FixedMenu } from "../components/Components/FixedMenu";
-import { Project } from "../components/Containers/Project";
-import { FrontCover } from "../components/Containers/FrontCover";
-import { Story } from "../components/Containers/Story";
-import { Bye } from "../components/Containers/Bye";
+import { Project } from "../components/Page/Project";
+import { FrontCover } from "../components/Page/FrontCover";
+import { Story } from "../components/Page/Story";
+import { Bye } from "../components/Page/Bye";
 
 export default function Home() {
   const { scrollY } = useScroll();
