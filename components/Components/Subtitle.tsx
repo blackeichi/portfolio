@@ -7,6 +7,7 @@ type TSubtitle = {
   color: string;
   font?: boolean;
   fontColor?: string;
+  notpd?: boolean;
 };
 
 export const Subtitle = ({
@@ -15,13 +16,14 @@ export const Subtitle = ({
   color,
   font = true,
   fontColor = "black",
+  notpd = false,
 }: TSubtitle) => {
   return (
     <div
       style={{ fontSize: `${size}` }}
       className={cls(
-        "relative box-border flex max-h-fit max-w-fit items-center  text-center font-bold",
-        font ? "font-SF_HambakSnow" : ""
+        "relative box-border flex max-h-fit max-w-fit items-center  text-center ",
+        font ? "font-SF_HambakSnow font-bold" : ""
       )}
     >
       <h1 className="z-10 flex items-center pl-3 " style={{ color: fontColor }}>
@@ -29,7 +31,7 @@ export const Subtitle = ({
       </h1>
       <div
         className="absolute h-3/6"
-        style={{ backgroundColor: color, width: "110%" }}
+        style={{ backgroundColor: color, width: notpd ? "100%" : "110%" }}
       />
     </div>
   );

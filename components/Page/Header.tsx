@@ -18,7 +18,8 @@ export const Header = ({ scrolled }: any) => {
       <div className="hidden gap-5 md:flex">
         <Menu to={"about"} text={"ABOUT ME"} scrolled={scrolled} />
         <Menu to={"project"} text={"PROJECT"} scrolled={scrolled} />
-        <Menu to={"about"} text={"ABOUT ME"} scrolled={scrolled} />
+        <Menu to={"coverletter"} text={"COVER LETTER"} scrolled={scrolled} />
+        <Menu to={"regards"} text={"B.REGARDS"} scrolled={scrolled} />
       </div>
       <div className="absolute top-0 z-20 flex h-12 w-full items-center justify-end bg-transparent px-3 sm:h-16 md:hidden">
         <motion.div
@@ -41,7 +42,8 @@ export const Header = ({ scrolled }: any) => {
       >
         <Menu to={"about"} text={"ABOUT ME"} scrolled={scrolled} />
         <Menu to={"project"} text={"PROJECT"} scrolled={scrolled} />
-        <Menu to={"about"} text={"PROJECT"} scrolled={scrolled} />
+        <Menu to={"coverletter"} text={"COVER LETTER"} scrolled={scrolled} />
+        <Menu to={"regards"} text={"B.REGARDS"} scrolled={scrolled} />
       </motion.div>
     </div>
   );

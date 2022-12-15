@@ -7,7 +7,7 @@ import { FixedMenu } from "../components/Components/FixedMenu";
 import { Project } from "../components/Page/Project";
 import { FrontCover } from "../components/Page/FrontCover";
 import { Story } from "../components/Page/Story";
-import { Bye } from "../components/Page/Bye";
+import { Regards } from "../components/Page/Regards";
 
 export default function Home() {
   const { scrollY } = useScroll();
@@ -35,7 +35,7 @@ export default function Home() {
         <AboutMe />
         <Project />
         <Story />
-        <Bye />
+        <Regards />
       </div>
       <FixedMenu scrolled={scrolled} />
     </div>

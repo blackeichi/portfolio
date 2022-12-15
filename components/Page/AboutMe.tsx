@@ -52,7 +52,6 @@ export const AboutMe = () => {
             onHoverEnd={() => setOpen(false)}
           >
             <Subtitle
-              font={false}
               text="
           #Passion,
           #Kind,

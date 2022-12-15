@@ -11,7 +11,11 @@ export type TStory = {
 export const Story = () => {
   const { coverLetter } = data;
   return (
-    <div className="flex min-h-screen w-full flex-col px-10 py-10 font-SF_HambakSnow md:px-28 md:pt-28">
+    <div
+      id="coverletter"
+      className="flex min-h-screen w-full flex-col px-10 py-10 font-SF_HambakSnow md:px-28 md:pt-28"
+      style={{ borderBottom: `3px solid ${color.brown}` }}
+    >
       <div className="mb-20 flex w-full flex-col items-center md:items-start">
         <Subtitle color={color.greenColor} size="40px" text="Cover letter" />
         <div className="cursor-pointer">
