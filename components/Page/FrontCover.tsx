@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { color } from "../../styles/color";
 import { Subtitle } from "../Components/Subtitle";
-import { motion } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
