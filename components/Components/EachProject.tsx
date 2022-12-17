@@ -1,8 +1,10 @@
 import Link from "next/link";
 import React from "react";
+import { color } from "../../styles/color";
 import { cls } from "../../utils/utils";
 import { Tproject } from "../Page/Project";
 import { HoveredText } from "./HoveredText";
+import { Subtitle } from "./Subtitle";
 
 type Teach = {
   project: Tproject;
@@ -39,7 +41,7 @@ export const EachProject = ({ project, index }: Teach) => {
           id="Project_subtitle"
           className={cls("flex flex-col", right ? " items-end" : "")}
         >
-          <div className="flex max-w-fit py-6 text-4xl">
+          <div className="flex max-w-fit py-12 text-4xl">
             <h1>{project.subtitle}</h1>
           </div>
           <div
@@ -53,7 +55,7 @@ export const EachProject = ({ project, index }: Teach) => {
         >
           <div
             className={cls(
-              "flex flex-wrap gap-3 py-6",
+              "flex flex-wrap gap-3 py-8",
               right ? " justify-end" : ""
             )}
           >
@@ -92,8 +94,8 @@ export const EachProject = ({ project, index }: Teach) => {
           </Link>
         </div>
       </div>
-      <div className="relative mt-14 flex w-screen flex-col items-center py-14 px-10">
-        <div className="absolute top-0 h-full w-full py-14 px-10">
+      <div className="relative mt-14 flex w-screen flex-col items-center py-14 px-10 xl:px-28">
+        <div className="absolute top-0 h-full w-full py-14 px-10 xl:px-28">
           <h1
             className={cls(
               "absolute top-7 text-4xl ",
@@ -120,20 +122,46 @@ export const EachProject = ({ project, index }: Teach) => {
             ></div>
           </div>
         </div>
-        <div
-          className={cls(
-            "z-10 mt-14 flex w-full grid-cols-2 gap-2 overflow-x-scroll md:my-14 md:grid md:overflow-clip"
-          )}
-        >
-          {project.image.map((pic, index) => (
-            <img className="ProjectImg " key={index} src={pic} />
-          ))}
-          <div className="hidden h-full w-full md:flex"></div>
+        <div className="grid grid-rows-2 md:block">
+          <div
+            className={cls(
+              "z-10 mt-14 flex w-full gap-2 overflow-x-scroll md:my-14 md:grid md:grid-cols-2 md:overflow-clip"
+            )}
+          >
+            {project.image.map((pic, index) => (
+              <img className="ProjectImg " key={index} src={pic} />
+            ))}
+            <div className="hidden h-full w-full justify-center gap-4 md:flex md:flex-col lg:gap-10">
+              {project.description.map((des: any, index) => (
+                <div className="font-GothicA1Light" key={index}>
+                  <Subtitle
+                    color={color.brown}
+                    size="17px"
+                    text={des.title}
+                    font={false}
+                  />
+                  <h1 className="mt-1 text-sm ">{des.text}</h1>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div
+            style={{ height: "300px" }}
+            className="mb-14 flex w-full flex-col justify-center gap-4 md:hidden lg:gap-10"
+          >
+            {project.description.map((des: any, index) => (
+              <div className="font-GothicA1Light" key={index}>
+                <Subtitle
+                  color={color.brown}
+                  size="17px"
+                  text={des.title}
+                  font={false}
+                />
+                <h1 className="mt-1 text-sm ">{des.text}</h1>
+              </div>
+            ))}
+          </div>
         </div>
-        <div
-          style={{ height: "300px" }}
-          className="h-70 mb-14 flex w-full bg-black md:hidden"
-        ></div>
       </div>
     </div>
   );

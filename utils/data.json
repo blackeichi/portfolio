@@ -31,9 +31,107 @@
       ],
       "color": "#9055A2",
       "description": [
-        { "title": "API", "text": "" },
-        { "title": "가장 마음에 드는 부분", "text": "" },
-        { "title": "", "text": "" }
+        {
+          "title": "언어",
+          "text": "한국어, 영어, 일본어의 세 가지 언어를 제공할 수 있도록 제작하였습니다."
+        },
+        {
+          "title": "반응형 css",
+          "text": "모바일에서도 사용하는데 지장이 없도록 반응형 앱으로 구현하는데 신경을 썼습니다."
+        },
+        {
+          "title": "기능",
+          "text": "유저를 검색하면 해당 유저의 매치 정보와 개인 프로필, 숙련도, 최근 게임들의 성적을 확인할 수 있습니다."
+        }
+      ]
+    },
+    {
+      "title": "Husic",
+      "subtitle": "Listening to music to improve concentration",
+      "stack": [
+        "NEXT",
+        "TYPESCRIPT",
+        "TAILWIND",
+        "PLANETSCALE",
+        "RECOIL",
+        "VERCEL"
+      ],
+      "function": [
+        "유튜브 영상 업로드",
+        "업로드 된 영상 시청",
+        "관련 추천 영상 제공",
+        "자동 재생 기능",
+        "좋아요와 댓글로 커뮤니케이션 가능",
+        "개인 Profile 및 Search"
+      ],
+      "Link": {
+        "git": "https://github.com/blackeichi/husic",
+        "app": "https://husic.vercel.app/",
+        "velog": "https://velog.io/@blackeichi/Next.JS-Project-%EC%9C%A0%ED%8A%9C%EB%B8%8C-%EC%9D%8C%EC%95%85-%EB%93%A3%EA%B8%B0-%EC%82%AC%EC%9D%B4%ED%8A%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0"
+      },
+      "image": [
+        "/img/husic/pic1.PNG",
+        "/img/husic/pic2.PNG",
+        "/img/husic/pic3.PNG"
+      ],
+      "color": "black",
+      "description": [
+        {
+          "title": "API",
+          "text": "Youtube API를 이용하여 비디오 데이터를 가져왔습니다."
+        },
+        {
+          "title": "Data Base",
+          "text": "Planet Scale Data base를 이용하였으며 유저 정보, 댓글, 좋아요, 영상 업로드 등을 저장하는데 사용하였습니다."
+        },
+        {
+          "title": "백엔드",
+          "text": "Next.js로 백엔드를 구현한 프로젝트입니다. HTTP Method를 활용해 REST API를 구현하려고 시도하였습니다."
+        }
+      ]
+    },
+    {
+      "title": "Diary",
+      "subtitle": "Manage schedule with diary && calendar",
+      "stack": [
+        "REACT",
+        "TYPESCRIPT",
+        "FIREBASE",
+        "RECOIL",
+        "REACT-ROUTER-DOM",
+        "STYLED-COMPONENTS",
+        "NETLIFY"
+      ],
+      "function": [
+        "로그인/회원가입",
+        "로그인된 유저가 작성한 MEMO 제공",
+        "로그인된 유저의 CALENDAR 제공",
+        "Comunity를 통해 유저간의 커뮤니케이션 가능"
+      ],
+      "Link": {
+        "git": "https://github.com/blackeichi/h_diary",
+        "app": "https://benevolent-narwhal-21dde8.netlify.app/#/",
+        "velog": "https://velog.io/@blackeichi/React-Project-%EB%82%98%EC%99%80-%EC%9A%B0%EB%A6%AC%EC%9D%98-%EB%8B%A4%EC%9D%B4%EC%96%B4%EB%A6%AC"
+      },
+      "image": [
+        "/img/diary/pic1.png",
+        "/img/diary/pic2.PNG",
+        "/img/diary/pic3.PNG"
+      ],
+      "color": "#1A73E8",
+      "description": [
+        {
+          "title": "Authentication",
+          "text": "Firebase의 Authentication를 이용하여 로그인/회원가입을 구현하였습니다."
+        },
+        {
+          "title": "Data Base",
+          "text": "Firebase의 Realtime Databas에 데이터를 저장하였으며, Storage를 통해 이미지를 저장 및 이용할 수 있도록 하였습니다."
+        },
+        {
+          "title": "기능",
+          "text": "커뮤니티에서 유저들끼리 글을 공유할 수 있으며, 메모와 캘린더를 이용하여 자신만의 다이어리를 작성할 수 있습니다."
+        }
       ]
     }
   ],
@@ -45,7 +143,7 @@
         "한의과대학 행정조교로 최근까지 일을 하였었습니다. 이때 단과 대학건물에 리모델링 작업을 하게 되었고 제가 담당자로서 진행하기로 하였습니다. 그런데 리모델링을 시작하기 전에 작업해야 할 사항이 계속 늘어났고 고용된 업체 사장님은 사전에 협의한 작업기간 4일에서 하루를 더 연장해야 할 것 같다고 하였습니다.",
         "하지만 학과에서는 예산 때문에 작업기간이 연장되면 인부들을 더 이상 고용할 수 없는 상황이었습니다. 그래서 저는 4일동안 아침 6시에 출근하여 퇴근시간보다 2시간 더 일하며 이 일이 무사히 마무리할 수 있도록 현장에서 직접 일을 하며 업무지시를 내렸고 제 시간내에 끝낼 수 있게 되었습니다.",
         "이외에도 저는 업무에 책임감을 가지고 직접 행동을 보여줌으로써 학과 교수님들과 동료들에게 인정받을 수 있었습니다.",
-        " 어디서든 동료들과잘 어우러지며 커뮤니케이션을 잘하는 편입니다. 또한 조직과 동료들의 위해 개인적인 희생을 어느정도 감수하는 성격을 가지고 있습니다."
+        "어디서든 동료들과잘 어우러지며 커뮤니케이션을 잘하는 편입니다. 또한 조직과 동료들의 위해 개인적인 희생을 어느정도 감수하는 성격을 가지고 있습니다."
       ]
     },
     {
