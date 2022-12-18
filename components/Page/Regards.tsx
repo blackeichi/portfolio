@@ -1,13 +1,21 @@
+import { motion } from "framer-motion";
 import { color } from "../../styles/color";
 import { Subtitle } from "../Components/Subtitle";
+import { cardVariants } from "./FrontCover";
 
 export const Regards = () => {
   return (
-    <div
+    <motion.div
+      initial="offscreen"
+      whileInView="onscreen"
+      viewport={{ once: true, amount: 0.3 }}
       id="regards"
       className="flex h-screen w-full items-center justify-center font-MonoplexKRRegular"
     >
-      <div className="flex flex-col items-center justify-center gap-5">
+      <motion.div
+        variants={cardVariants}
+        className="flex flex-col items-center justify-center gap-5"
+      >
         <div>
           <div className="mr-36">
             <Subtitle
@@ -58,7 +66,7 @@ export const Regards = () => {
           <h1>H.P 010-9492-2246</h1>
           <h1>E-Mail blackeichi@naver.com</h1>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };

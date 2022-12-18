@@ -1,12 +1,26 @@
 import { useState } from "react";
 import { color } from "../../styles/color";
 import { Subtitle } from "../Components/Subtitle";
-import { motion, useScroll } from "framer-motion";
+import { motion, useScroll, Variants } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { HoveredText } from "../Components/HoveredText";
 
+export const cardVariants: Variants = {
+  offscreen: {
+    y: 150,
+    opacity: 0,
+  },
+  onscreen: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: "tween",
+      duration: 0.8,
+    },
+  },
+};
 export const FrontCover = () => {
   return (
     <div
@@ -14,28 +28,41 @@ export const FrontCover = () => {
       className="font-Pretendard flex h-screen w-full flex-col justify-center pl-5 sm:justify-start lg:pl-14"
       style={{ backgroundColor: color.bgColor }}
     >
-      <div
+      <motion.div
         className="relative z-20 flex w-full flex-col justify-end gap-1 sm:h-1/2"
         style={{ backgroundColor: color.bgColor }}
+        initial="offscreen"
+        whileInView="onscreen"
+        viewport={{ once: true, amount: 0.3 }}
       >
-        <Subtitle text="PORTFOLIO" color={color.greenColor} size="100px" />
-        <Subtitle
-          text="FRONT END WEB DEVELOPER"
-          color={color.yellowColor}
-          size="20px"
-        />
+        <motion.div variants={cardVariants}>
+          <Subtitle text="PORTFOLIO" color={color.greenColor} size="100px" />
+          <Subtitle
+            text="FRONT END WEB DEVELOPER"
+            color={color.yellowColor}
+            size="20px"
+          />
+        </motion.div>
         <div
           className="mt-3 h-0 sm:h-1/2"
           style={{ borderLeft: `3px solid ${color.brown}` }}
         />
-      </div>
+      </motion.div>
       <div className="z-10 flex h-1/2 w-full">
-        <div className="relative flex h-full w-9/12 flex-col justify-start gap-2">
+        <motion.div
+          initial="offscreen"
+          whileInView="onscreen"
+          viewport={{ once: true, amount: 0.3 }}
+          className="relative flex h-full w-9/12 flex-col justify-start gap-2"
+        >
           <div
             className="h-3/5"
             style={{ borderLeft: `3px solid ${color.brown}` }}
           />
-          <div className="relative bottom-10 flex flex-col gap-1 whitespace-nowrap pl-5 font-KOFIHDrLEEJWTTF text-sm font-bold">
+          <motion.div
+            variants={cardVariants}
+            className="relative bottom-10 flex flex-col gap-1 whitespace-nowrap pl-5 font-SF_HambakSnow text-sm font-bold"
+          >
             <h1>
               Han <u>JeongWoo</u>
             </h1>
@@ -54,7 +81,7 @@ export const FrontCover = () => {
             <a href="mailto:blackeichi@naver.com" className="max-w-fit ">
               <div className="flex cursor-pointer items-center gap-2">
                 <FontAwesomeIcon icon={faEnvelope} />
-                <HoveredText text="blackeichi@naver.com" />
+                <HoveredText large={true} text="blackeichi@naver.com" />
               </div>
             </a>
             <div
@@ -78,10 +105,16 @@ export const FrontCover = () => {
               />
               <HoveredText text="Velog" />
             </div>
-          </div>
-        </div>
-        <div className="relative flex w-1/6">
-          <div
+          </motion.div>
+        </motion.div>
+        <motion.div
+          initial="offscreen"
+          whileInView="onscreen"
+          viewport={{ once: true, amount: 0.3 }}
+          className="relative flex w-1/6"
+        >
+          <motion.div
+            variants={cardVariants}
             className=" fixed bottom-7 -z-10 hidden h-2/6 w-1/6 opacity-80 md:block lg:bottom-0 lg:h-3/6"
             style={{
               backgroundImage: `url("/photo(2).jpg")`,
@@ -93,7 +126,7 @@ export const FrontCover = () => {
             className="absolute bottom-0 h-1/6 w-full"
             style={{ backgroundColor: color.bgColor }}
           />
-        </div>
+        </motion.div>
         <div className="w-1/12" style={{ backgroundColor: color.bgColor }} />
       </div>
     </div>

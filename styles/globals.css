@@ -195,3 +195,12 @@ a {
     height: fit-content;
   }
 }
+::-webkit-scrollbar {
+  background-color: #e0dcd1;
+  color: white;
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #a2907c;
+  border-radius: 10px;
+}

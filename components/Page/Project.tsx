@@ -2,6 +2,8 @@ import { color } from "../../styles/color";
 import { EachProject } from "../Components/EachProject";
 import { Subtitle } from "../Components/Subtitle";
 import data from "../../utils/data.json";
+import { motion } from "framer-motion";
+import { cardVariants } from "./FrontCover";
 
 export type Tproject = {
   title: string;
@@ -17,7 +19,6 @@ export type Tproject = {
   color: string;
   description: any[];
 };
-
 export const Project = () => {
   const { projects } = data;
   return (
@@ -32,14 +33,23 @@ export const Project = () => {
           minHeight: "90vh",
         }}
       >
-        <div className="md:px-28">
-          <Subtitle color={color.greenColor} size="40px" text="Projects" />
+        <motion.div
+          initial="offscreen"
+          whileInView="onscreen"
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          <motion.div variants={cardVariants} className="md:px-28">
+            <Subtitle color={color.greenColor} size="40px" text="Projects" />
+          </motion.div>
+        </motion.div>
+
+        <div className="flex flex-col  gap-48">
+          {projects.map((project: Tproject, index) => (
+            <div key={index}>
+              <EachProject project={project} index={index} />
+            </div>
+          ))}
         </div>
-        {projects.map((project: Tproject, index) => (
-          <div key={index}>
-            <EachProject project={project} index={index} />
-          </div>
-        ))}
       </div>
     </div>
   );

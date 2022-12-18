@@ -92,7 +92,7 @@
     },
     {
       "title": "Diary",
-      "subtitle": "Manage schedule with diary && calendar",
+      "subtitle": "Manage schedule with diary & calendar",
       "stack": [
         "REACT",
         "TYPESCRIPT",

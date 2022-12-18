@@ -1,7 +1,9 @@
+import { motion } from "framer-motion";
 import Link from "next/link";
 import React from "react";
 import { color } from "../../styles/color";
 import { cls } from "../../utils/utils";
+import { cardVariants } from "../Page/FrontCover";
 import { Tproject } from "../Page/Project";
 import { HoveredText } from "./HoveredText";
 import { Subtitle } from "./Subtitle";
@@ -22,80 +24,123 @@ export const EachProject = ({ project, index }: Teach) => {
       )}
     >
       <div className="px-10 md:px-28">
-        <div
-          id="Project_title"
-          className={cls("flex flex-col", right ? " items-end" : "")}
+        <motion.div
+          initial="offscreen"
+          whileInView="onscreen"
+          viewport={{ once: true, amount: 0.3 }}
         >
-          <div className={"flex max-w-fit py-6"}>
-            <div className="border-r border-solid border-gray-400 pr-10">
-              project {index + 1}
+          <motion.div
+            variants={cardVariants}
+            id="Project_title"
+            className={cls("flex flex-col", right ? " items-end" : "")}
+          >
+            <div className={"flex max-w-fit py-6"}>
+              <div className="border-r border-solid border-gray-400 pr-10">
+                project {index + 1}
+              </div>
+              <h1 className="pl-10 ">{project.title}</h1>
             </div>
-            <h1 className="pl-10 ">{project.title}</h1>
-          </div>
-          <div
-            style={{ borderBottom: "3px solid rgba(0,0,0,0.7)" }}
-            className="h-1 w-20"
-          ></div>
-        </div>
-        <div
-          id="Project_subtitle"
-          className={cls("flex flex-col", right ? " items-end" : "")}
+            <div
+              style={{ borderBottom: "3px solid rgba(0,0,0,0.7)" }}
+              className="h-1 w-20"
+            ></div>
+          </motion.div>
+        </motion.div>
+        <motion.div
+          initial="offscreen"
+          whileInView="onscreen"
+          viewport={{ once: true, amount: 0.3 }}
         >
-          <div className="flex max-w-fit py-12 text-4xl">
-            <h1>{project.subtitle}</h1>
-          </div>
-          <div
-            style={{ borderBottom: "3px solid rgba(0,0,0,0.7)" }}
-            className="h-1 w-40"
-          ></div>
-        </div>
-        <div
-          id="Project_stack"
-          className={cls("flex flex-col", right ? " items-end" : "")}
+          <motion.div
+            variants={cardVariants}
+            id="Project_subtitle"
+            className={cls("flex flex-col", right ? " items-end" : "")}
+          >
+            <div className="flex max-w-fit py-12 font-PuradakGentleGothicR text-4xl text-zinc-700">
+              <h1>{project.subtitle}</h1>
+            </div>
+            <div
+              style={{ borderBottom: "3px solid rgba(0,0,0,0.7)" }}
+              className="h-1 w-40"
+            ></div>
+          </motion.div>
+        </motion.div>
+        <motion.div
+          initial="offscreen"
+          whileInView="onscreen"
+          viewport={{ once: true, amount: 0.3 }}
         >
-          <div
+          <motion.div
+            variants={cardVariants}
+            id="Project_stack"
+            className={cls("flex flex-col", right ? " items-end" : "")}
+          >
+            <div
+              className={cls(
+                "flex flex-wrap gap-3 py-8",
+                right ? " justify-end" : ""
+              )}
+            >
+              {project.stack.map((stack, index) => (
+                <h1 key={index}>{stack}</h1>
+              ))}
+            </div>
+            <div
+              style={{ borderBottom: "3px solid rgba(0,0,0,0.7)" }}
+              className="h-1 w-40"
+            ></div>
+          </motion.div>
+        </motion.div>
+        <motion.div
+          initial="offscreen"
+          whileInView="onscreen"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.div
+            variants={cardVariants}
+            id="Project_func"
             className={cls(
-              "flex flex-wrap gap-3 py-8",
-              right ? " justify-end" : ""
+              "flex flex-col gap-4 py-6 font-GothicA1Light font-semibold",
+              right ? " items-end" : ""
             )}
           >
-            {project.stack.map((stack, index) => (
-              <h1 key={index}>{stack}</h1>
+            {project.function.map((func, index) => (
+              <h1 key={index}>{func}.</h1>
             ))}
-          </div>
-          <div
-            style={{ borderBottom: "3px solid rgba(0,0,0,0.7)" }}
-            className="h-1 w-40"
-          ></div>
-        </div>
-        <div
-          id="Project_func"
-          className={cls(
-            "flex flex-col gap-3 py-6 font-GothicA1Light font-semibold",
-            right ? " items-end" : ""
-          )}
+          </motion.div>
+        </motion.div>
+        <motion.div
+          initial="offscreen"
+          whileInView="onscreen"
+          viewport={{ once: true, amount: 0.3 }}
         >
-          {project.function.map((func, index) => (
-            <h1 key={index}>{func}.</h1>
-          ))}
-        </div>
-        <div
-          id="Project_Link"
-          className={cls("flex gap-6", right ? " justify-end" : "")}
-        >
-          <Link target="_blank" href={project.Link.git}>
-            <HoveredText btn={true} text="GITHUB" />
-          </Link>
-          <Link target="_blank" href={project.Link.app}>
-            <HoveredText btn={true} text="SEE LIVE" />
-          </Link>
-          <Link target="_blank" href={project.Link.velog}>
-            <HoveredText btn={true} text="VELOG" />
-          </Link>
-        </div>
+          <motion.div
+            variants={cardVariants}
+            id="Project_Link"
+            className={cls("mt-7 flex gap-6", right ? " justify-end" : "")}
+          >
+            <Link target="_blank" href={project.Link.git}>
+              <HoveredText btn={true} text="GITHUB" />
+            </Link>
+            <Link target="_blank" href={project.Link.app}>
+              <HoveredText btn={true} text="SEE LIVE" />
+            </Link>
+            <Link target="_blank" href={project.Link.velog}>
+              <HoveredText btn={true} text="VELOG" />
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
-      <div className="relative mt-14 flex w-screen flex-col items-center py-14 px-10 xl:px-28">
-        <div className="absolute top-0 h-full w-full py-14 px-10 xl:px-28">
+      <motion.div
+        initial="offscreen"
+        whileInView="onscreen"
+        viewport={{ once: true, amount: 0.3 }}
+        className="relative mt-10 flex w-screen flex-col items-center py-14 px-10 xl:px-28"
+      >
+        <motion.div
+          variants={cardVariants}
+          className="absolute top-0 h-full w-full py-14 px-10 xl:px-28"
+        >
           <h1
             className={cls(
               "absolute top-7 text-4xl ",
@@ -121,11 +166,14 @@ export const EachProject = ({ project, index }: Teach) => {
               }
             ></div>
           </div>
-        </div>
-        <div className="grid grid-rows-2 md:block">
+        </motion.div>
+        <motion.div
+          variants={cardVariants}
+          className="grid grid-rows-2 md:block"
+        >
           <div
             className={cls(
-              "z-10 mt-14 flex w-full gap-2 overflow-x-scroll md:my-14 md:grid md:grid-cols-2 md:overflow-clip"
+              "scrollBox z-10 mt-14 flex w-full gap-2 overflow-x-scroll md:my-14 md:grid md:grid-cols-2 md:overflow-clip"
             )}
           >
             {project.image.map((pic, index) => (
@@ -161,8 +209,8 @@ export const EachProject = ({ project, index }: Teach) => {
               </div>
             ))}
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 };

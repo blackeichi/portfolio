@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { cls } from "../../utils/utils";
+import { cardVariants } from "../Page/FrontCover";
 import { TStory } from "../Page/Story";
 import { HoveredText } from "./HoveredText";
 
@@ -11,8 +12,12 @@ type Teach = {
 export const EachStory = ({ story, index }: Teach) => {
   const [open, setOpen] = useState(false);
   return (
-    <div>
-      <div>
+    <motion.div
+      initial="offscreen"
+      whileInView="onscreen"
+      viewport={{ once: true, amount: 0.3 }}
+    >
+      <motion.div variants={cardVariants}>
         <div
           onClick={() => setOpen((prev) => !prev)}
           className={cls(
@@ -28,7 +33,7 @@ export const EachStory = ({ story, index }: Teach) => {
           </div>
         </div>
         <div className="h-1 w-10 border-b-2 border-solid"></div>
-      </div>
+      </motion.div>
       {open ? (
         <div className="mt-5 overflow-hidden">
           <motion.div
@@ -43,6 +48,6 @@ export const EachStory = ({ story, index }: Teach) => {
           </motion.div>
         </div>
       ) : null}
-    </div>
+    </motion.div>
   );
 };
