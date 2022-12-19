@@ -21,6 +21,20 @@ export const cardVariants: Variants = {
     },
   },
 };
+export const cardVariants2: Variants = {
+  offscreen: {
+    y: 150,
+    opacity: 0,
+  },
+  onscreen: {
+    y: 0,
+    opacity: 0.8,
+    transition: {
+      type: "tween",
+      duration: 0.8,
+    },
+  },
+};
 export const FrontCover = () => {
   return (
     <div
@@ -29,7 +43,7 @@ export const FrontCover = () => {
       style={{ backgroundColor: color.bgColor }}
     >
       <motion.div
-        className="relative z-20 flex w-full flex-col justify-end gap-1 sm:h-1/2"
+        className="relative flex w-full flex-col justify-end gap-1 sm:h-1/2"
         style={{ backgroundColor: color.bgColor }}
         initial="offscreen"
         whileInView="onscreen"
@@ -53,7 +67,7 @@ export const FrontCover = () => {
           initial="offscreen"
           whileInView="onscreen"
           viewport={{ once: true, amount: 0.3 }}
-          className="relative flex h-full w-9/12 flex-col justify-start gap-2"
+          className="relative flex h-full w-8/12 flex-col justify-start gap-2"
         >
           <div
             className="h-3/5"
@@ -111,11 +125,11 @@ export const FrontCover = () => {
           initial="offscreen"
           whileInView="onscreen"
           viewport={{ once: true, amount: 0.3 }}
-          className="relative flex w-1/6"
+          className="relative flex w-4/12"
         >
           <motion.div
-            variants={cardVariants}
-            className=" fixed bottom-7 -z-10 hidden h-2/6 w-1/6 opacity-80 md:block lg:bottom-0 lg:h-3/6"
+            variants={cardVariants2}
+            className=" fixed bottom-7 -z-10 hidden h-3/6 w-3/12 opacity-80 md:block lg:bottom-0 lg:h-3/5"
             style={{
               backgroundImage: `url("/photo(2).jpg")`,
               backgroundPosition: "center",
@@ -127,7 +141,6 @@ export const FrontCover = () => {
             style={{ backgroundColor: color.bgColor }}
           />
         </motion.div>
-        <div className="w-1/12" style={{ backgroundColor: color.bgColor }} />
       </div>
     </div>
   );

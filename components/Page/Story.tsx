@@ -25,14 +25,12 @@ export const Story = () => {
         className="mb-20 flex w-full flex-col items-center md:items-start"
       >
         <Subtitle color={color.greenColor} size="40px" text="Cover letter" />
-        <div className="cursor-pointer">
-          <Subtitle
-            font={false}
-            text="OPEN RESUME"
-            color={color.yellowColor}
-            size="13px"
-          />
-        </div>
+        <Subtitle
+          font={false}
+          text="HAN JEONGWOO"
+          color={color.yellowColor}
+          size="13px"
+        />
       </motion.div>
       {coverLetter.map((story: TStory, index) => (
         <div className="font-GothicA1Light font-bold" key={index}>

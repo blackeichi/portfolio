@@ -19,16 +19,18 @@ export const EachStory = ({ story, index }: Teach) => {
     >
       <motion.div variants={cardVariants}>
         <div
-          onClick={() => setOpen((prev) => !prev)}
           className={cls(
-            "flex max-w-fit cursor-pointer pt-10 pb-4 ",
+            "flex max-w-fit pt-10 pb-4 ",
             open ? "font-semibold text-gray-600" : "text-black"
           )}
         >
           <div className="border-r border-solid border-gray-400 pr-5">
             story {index + 1}
           </div>
-          <div className="pl-5">
+          <div
+            onClick={() => setOpen((prev) => !prev)}
+            className="cursor-pointer pl-5 "
+          >
             <HoveredText text={story.title} large={true} />
           </div>
         </div>

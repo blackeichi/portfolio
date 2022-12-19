@@ -199,8 +199,12 @@ a {
   background-color: #e0dcd1;
   color: white;
   width: 10px;
+  height: 10px;
 }
 ::-webkit-scrollbar-thumb {
   background-color: #a2907c;
   border-radius: 10px;
+}
+.shadowText {
+  -webkit-text-stroke: 0.2px white;
 }

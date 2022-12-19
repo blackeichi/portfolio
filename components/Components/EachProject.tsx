@@ -177,17 +177,25 @@ export const EachProject = ({ project, index }: Teach) => {
             )}
           >
             {project.image.map((pic, index) => (
-              <img className="ProjectImg " key={index} src={pic} />
+              <img className="ProjectImg" key={index} src={pic} />
             ))}
             <div className="hidden h-full w-full justify-center gap-4 md:flex md:flex-col lg:gap-10">
               {project.description.map((des: any, index) => (
                 <div className="font-GothicA1Light" key={index}>
-                  <Subtitle
-                    color={color.brown}
-                    size="17px"
-                    text={des.title}
-                    font={false}
-                  />
+                  <div
+                    style={{
+                      textShadow:
+                        "-2px 0 white, 0 2px white, 2px 0 white, 0 -2px white",
+                    }}
+                  >
+                    <Subtitle
+                      color={project.color}
+                      size="20px"
+                      text={des.title}
+                      font={false}
+                    />
+                  </div>
+
                   <h1 className="mt-1 text-sm ">{des.text}</h1>
                 </div>
               ))}
