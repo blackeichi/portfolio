@@ -42,7 +42,7 @@ export default function Home() {
     });
   }, []);
   return (
-    <div className="flex min-h-screen flex-col items-center overflow-clip">
+    <div className="flex min-h-screen flex-col items-center overflow-clip text-zinc-700">
       <Header scrolled={scrolled} />
       <FrontCover />
 
