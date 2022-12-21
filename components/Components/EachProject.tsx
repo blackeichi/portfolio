@@ -56,7 +56,7 @@ export const EachProject = ({ project, index }: Teach) => {
             id="Project_subtitle"
             className={cls("flex flex-col", right ? " items-end" : "")}
           >
-            <div className="flex max-w-fit py-12 font-PuradakGentleGothicR text-4xl text-zinc-700">
+            <div className="flex max-w-fit py-16 font-PuradakGentleGothicR text-4xl text-zinc-700">
               <h1>{project.subtitle}</h1>
             </div>
             <div
@@ -100,7 +100,7 @@ export const EachProject = ({ project, index }: Teach) => {
             variants={cardVariants}
             id="Project_func"
             className={cls(
-              "flex flex-col gap-4 py-6 font-GothicA1Light font-semibold",
+              "flex flex-col gap-4 py-12 font-GothicA1Light font-semibold",
               right ? " items-end" : ""
             )}
           >
@@ -117,7 +117,7 @@ export const EachProject = ({ project, index }: Teach) => {
           <motion.div
             variants={cardVariants}
             id="Project_Link"
-            className={cls("mt-7 flex gap-6", right ? " justify-end" : "")}
+            className={cls("flex gap-6", right ? " justify-end" : "")}
           >
             <Link target="_blank" href={project.Link.git}>
               <HoveredText btn={true} text="GITHUB" />
@@ -135,7 +135,7 @@ export const EachProject = ({ project, index }: Teach) => {
         initial="offscreen"
         whileInView="onscreen"
         viewport={{ once: true, amount: 0.3 }}
-        className="relative mt-10 flex w-screen flex-col items-center py-14 px-10 xl:px-28"
+        className="relative mt-28 flex w-screen flex-col items-center py-14 px-10 xl:px-28"
       >
         <motion.div
           variants={cardVariants}
@@ -196,7 +196,7 @@ export const EachProject = ({ project, index }: Teach) => {
                     />
                   </div>
 
-                  <h1 className="mt-1 text-sm ">{des.text}</h1>
+                  <h1 className="mt-1 text-sm lg:mt-5 ">{des.text}</h1>
                 </div>
               ))}
             </div>
@@ -213,7 +213,7 @@ export const EachProject = ({ project, index }: Teach) => {
                   text={des.title}
                   font={false}
                 />
-                <h1 className="mt-1 text-sm ">{des.text}</h1>
+                <h1 className="mt-3 text-sm ">{des.text}</h1>
               </div>
             ))}
           </div>

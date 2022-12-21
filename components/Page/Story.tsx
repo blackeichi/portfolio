@@ -22,7 +22,7 @@ export const Story = () => {
     >
       <motion.div
         variants={cardVariants}
-        className="mb-20 flex w-full flex-col items-center md:items-start"
+        className="mb-20 flex w-full flex-col items-center gap-2 md:items-start"
       >
         <Subtitle color={color.greenColor} size="40px" text="Cover letter" />
         <Subtitle
