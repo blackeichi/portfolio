@@ -136,6 +136,7 @@ export const FrontCover = () => {
               backgroundSize: "cover",
             }}
           />
+
           <div
             className="absolute bottom-0 h-1/6 w-full"
             style={{ backgroundColor: color.bgColor }}

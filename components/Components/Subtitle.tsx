@@ -22,8 +22,8 @@ export const Subtitle = ({
     <div
       style={{ fontSize: `${size}` }}
       className={cls(
-        "relative box-border flex max-h-fit max-w-fit items-center  text-center ",
-        font ? "font-SF_HambakSnow font-bold" : ""
+        "relative box-border flex max-h-fit max-w-fit items-center  text-center font-bold",
+        font ? "font-SF_HambakSnow " : "font-GothicA1Light"
       )}
     >
       <h1 className="z-10 flex items-center pl-3 " style={{ color: fontColor }}>
