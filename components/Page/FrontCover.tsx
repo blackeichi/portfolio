@@ -50,7 +50,7 @@ export const FrontCover = () => {
         viewport={{ once: true, amount: 0.3 }}
       >
         <motion.div variants={cardVariants}>
-          <Subtitle text="PORTFOLIO" color={color.greenColor} size="100px" />
+          <Subtitle text="ABOUT ME" color={color.greenColor} size="100px" />
           <Subtitle
             text="FRONT END WEB DEVELOPER"
             color={color.yellowColor}
