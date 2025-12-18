@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function WindowHeader({
+export default function WindowBoxHeader({
   title,
   titleIcon,
   headBtns,

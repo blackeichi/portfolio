@@ -1,4 +1,4 @@
-import WindowHeader from "../atoms/windowsHeader";
+import WindowBoxHeader from "../atoms/windowsBoxHeader";
 
 export default function WindowsBox({
   width = 200,
@@ -22,7 +22,11 @@ export default function WindowsBox({
       className="flex flex-col border-4 border-gray-100 border-r-gray-500 border-b-gray-500"
       style={{ width: `${width}px`, height: `${height}px` }}
     >
-      <WindowHeader title={title} titleIcon={titleIcon} headBtns={headBtns} />
+      <WindowBoxHeader
+        title={title}
+        titleIcon={titleIcon}
+        headBtns={headBtns}
+      />
       <div
         className={`h-full w-full ${
           needScroll ? "overflow-scroll" : "overflow-hidden"
