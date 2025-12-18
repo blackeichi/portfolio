@@ -7,3 +7,8 @@ export const confirmMsgState = atom<{
   message: string;
   confirmEvent: () => void;
 } | null>(null);
+export const loadingState = atom<boolean>(true);
+export const mousePositionState = atom<{ x: number; y: number }>({
+  x: 0,
+  y: 0,
+});

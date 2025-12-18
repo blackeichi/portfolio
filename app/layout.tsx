@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { notoSans } from "@/libs/uitls/fonts";
 import { COLOR_THEME } from "@/libs/uitls/constants";
 import SnackbarProvider from "@/libs/snackbarProvider";
-import "./globals.css";
 import { SnackbarComponent } from "@/components/organisms/snackbarComponent";
+import { WindowTemplate } from "@/components/template/windowTemplate";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,7 +26,7 @@ export default function RootLayout({
       >
         <SnackbarProvider>
           <SnackbarComponent />
-          {children}
+          <WindowTemplate>{children}</WindowTemplate>
         </SnackbarProvider>
       </body>
     </html>

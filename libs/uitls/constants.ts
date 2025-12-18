@@ -8,3 +8,25 @@ export const COLOR_THEME = {
   darkGray: "#6A7282",
   yellow: "#FFFF05",
 };
+
+export const FOOTER_ELEMENT = "windows_footer";
+
+export const MENU_LIST_DATA: {
+  [key: string]: {
+    title: string;
+    icon: string;
+  };
+} = {
+  "/my-computer": {
+    title: "내 컴퓨터",
+    icon: "/images/myComputer.png",
+  },
+};
+
+export const MENU_LIST = Object.entries(MENU_LIST_DATA).map(
+  ([key, { title, icon }]) => ({
+    name: title,
+    href: key,
+    icon,
+  })
+);
