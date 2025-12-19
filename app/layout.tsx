@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${notoSans.className} antialiased] h-screen w-screen text-stone-800`}
+        className={`${notoSans.className} antialiased h-screen w-screen text-stone-800`}
         style={{
           backgroundColor: COLOR_THEME.bgGreen,
         }}
