@@ -2,6 +2,7 @@ export const COLOR_THEME = {
   bgGreen: "#68888A",
   green: "#008080",
   blue: "#1C398E",
+  // blue: "#3C64B1",
   red: "#FB0000",
   lightGray: "#F3F4F6",
   gray: "#D1D5DC",

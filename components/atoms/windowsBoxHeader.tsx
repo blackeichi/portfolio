@@ -1,3 +1,4 @@
+import { COLOR_THEME } from "@/libs/uitls/constants";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -8,6 +9,7 @@ export default function WindowBoxHeader({
   onMouseDown = () => {},
   onDoubleClick = () => {},
   isMax,
+  style,
 }: {
   title?: string;
   titleIcon?: string;
@@ -15,13 +17,14 @@ export default function WindowBoxHeader({
   onMouseDown?: (e: React.MouseEvent) => void;
   onDoubleClick?: () => void;
   isMax?: boolean;
+  style?: React.CSSProperties;
 }) {
   const [position, setPosition] = useState<{ x: number; y: number } | null>(
     null
   );
   return (
     <div
-      className="flex h-7 w-full shrink-0 items-center justify-between bg-blue-900 px-1 select-none"
+      className="flex h-8 w-full shrink-0 items-center justify-between px-1 select-none"
       {...(isMax
         ? {
             onMouseDown: (e) => {
@@ -44,6 +47,10 @@ export default function WindowBoxHeader({
       onDoubleClick={onDoubleClick}
       onMouseUp={() => {
         setPosition(null);
+      }}
+      style={{
+        backgroundColor: COLOR_THEME.blue,
+        ...style,
       }}
     >
       {title ? (

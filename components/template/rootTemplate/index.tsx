@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { useSetAtom } from "jotai";
-import { loadingState } from "@/libs/atom";
+import { isFocusedMainState, loadingState } from "@/libs/atom";
 import WindowTemplateFooter from "./windowTemplateFooter";
 import MouseLoading from "./mouseLoading";
 import HomeIcons from "./homeIcons";
@@ -14,9 +14,11 @@ import { SubWindow } from "./subWindow";
 export const RootTemplate = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname().split("/")[1];
   const setLoading = useSetAtom(loadingState);
+  const setIsFocusedMain = useSetAtom(isFocusedMainState);
   const parentRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     setLoading(false);
+    setIsFocusedMain(true);
   }, [pathname, setLoading]);
   return (
     <main className="relative flex h-full w-full flex-col justify-center overflow-hidden">

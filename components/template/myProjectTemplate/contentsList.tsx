@@ -26,7 +26,7 @@ export const ContentsList = () => {
               isActive ? "font-bold text-white" : ""
             }`}
             style={{
-              backgroundColor: isActive ? COLOR_THEME.blue : "transparent",
+              backgroundColor: isActive ? COLOR_THEME.darkGray : "transparent",
             }}
           >
             {isActive ? (

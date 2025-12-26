@@ -4,7 +4,7 @@ import IconButton from "@/components/molecules/iconButton";
 import { isFocusedMainState, subOpenedState } from "@/libs/atom";
 import { SUB_WINDOW_LIST } from "@/libs/uitls/constants";
 import { useSetAtom } from "jotai";
-import { PiFolderOpenDuotone } from "react-icons/pi";
+import { FcOpenedFolder } from "react-icons/fc";
 
 export const ShowProjectBtn = () => {
   const setSubOpened = useSetAtom(subOpenedState);
@@ -18,7 +18,7 @@ export const ShowProjectBtn = () => {
             setSubOpened(SUB_WINDOW_LIST.embed_project.key);
             setIsFocusedMain(false);
           }}
-          icon={PiFolderOpenDuotone}
+          icon={FcOpenedFolder}
           width={30}
           height={30}
           size={20}

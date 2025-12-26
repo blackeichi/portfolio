@@ -1,3 +1,4 @@
+import { COLOR_THEME } from "@/libs/uitls/constants";
 import WindowBoxHeader from "../atoms/windowsBoxHeader";
 
 export default function WindowsBox({
@@ -28,6 +29,9 @@ export default function WindowsBox({
         title={title}
         titleIcon={titleIcon}
         headBtns={headBtns}
+        style={{
+          backgroundColor: COLOR_THEME.darkGray,
+        }}
       />
       <div
         className={`h-full w-full ${

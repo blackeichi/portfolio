@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { StackComponent } from "./_ui/stackComponent";
 import { FunctionDescription } from "./_ui/functionDescription";
+import { Text } from "@/components/atoms/text";
 
 export const metadata: Metadata = {
   title: "프로젝트 개요",
@@ -21,7 +22,9 @@ export default function MyProjectPage() {
         />
         <Title>Daily Log</Title>
       </div>
-      <SemiTitle>식단, 루틴, 일기, Todo 통합 자기관리 서비스</SemiTitle>
+      <Text>
+        좌측 상단에 폴더버튼을 클릭하여 프로젝트를 확인할 수 있습니다.
+      </Text>
       <FunctionDescription />
       <StackComponent />
     </div>
