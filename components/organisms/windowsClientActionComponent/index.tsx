@@ -1,17 +1,16 @@
 import WindowBoxHeader from "@/components/atoms/windowsBoxHeader";
 import IconButton from "@/components/molecules/iconButton";
-import { MENU_LIST_DATA } from "@/libs/uitls/constants";
-import { WindowsHandler } from "./windowsHandler";
-import { confirmMsgState, loadingState } from "@/libs/atom";
-import { useAtomValue, useSetAtom } from "jotai";
-import { useRouter } from "next/navigation";
+import { confirmMsgState } from "@/libs/atom";
+import { useSetAtom } from "jotai";
 import { useHandleWindowBox } from "@/libs/hooks/useHandleWindowBox";
 import { FaRegWindowMaximize, FaRegWindowRestore } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { Position } from "@/libs/types/state";
+import { WindowsHandler } from "./windowsHandler";
 
-export const ClientActionComponent = ({
-  pathname,
+export const WindowsClientActionComponent = ({
+  title,
+  icon,
   parentRef,
   box,
   setBox,
@@ -19,8 +18,11 @@ export const ClientActionComponent = ({
   setIsMax,
   isSticky,
   setIsSticky,
+  onClose,
+  defaultPosition,
 }: {
-  pathname: string;
+  title: string;
+  icon: string;
   parentRef: React.RefObject<HTMLDivElement | null>;
   box: Position;
   setBox: React.Dispatch<React.SetStateAction<Position>>;
@@ -28,10 +30,10 @@ export const ClientActionComponent = ({
   setIsMax: React.Dispatch<React.SetStateAction<boolean>>;
   isSticky: boolean;
   setIsSticky: React.Dispatch<React.SetStateAction<boolean>>;
+  onClose: () => void;
+  defaultPosition?: Position;
 }) => {
-  const router = useRouter();
   const setConfirmMsg = useSetAtom(confirmMsgState);
-  const loading = useAtomValue(loadingState);
   const { handleDragStart, handleResizeStart, onResizeFunc } =
     useHandleWindowBox({
       parentRef,
@@ -41,12 +43,13 @@ export const ClientActionComponent = ({
       setIsMax,
       isSticky,
       setIsSticky,
+      defaultPosition,
     });
   return (
     <>
       <WindowBoxHeader
-        title={loading ? "로딩중..." : MENU_LIST_DATA[pathname]?.title}
-        titleIcon={loading ? undefined : MENU_LIST_DATA[pathname]?.icon}
+        title={title}
+        titleIcon={icon}
         headBtns={
           <>
             <IconButton
@@ -60,14 +63,17 @@ export const ClientActionComponent = ({
                 setConfirmMsg({
                   title: "닫기",
                   message: "정말 창을 닫으시겠어요?",
-                  confirmEvent: () => router.push("/"),
+                  confirmEvent: () => {
+                    onClose();
+                  },
                 });
               }}
             />
           </>
         }
-        onMouseDown={isMax ? undefined : handleDragStart}
+        onMouseDown={handleDragStart}
         onDoubleClick={onResizeFunc}
+        isMax={isMax}
       />
       {!isMax && <WindowsHandler handleResizeStart={handleResizeStart} />}
     </>

@@ -1,12 +1,20 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { COLOR_THEME } from "@/libs/uitls/constants";
-import Link from "next/link";
 import { projectContents } from "@/app/my-project/utils";
+import { useSetAtom } from "jotai";
+import { loadingState, mousePositionState } from "@/libs/atom";
+import { useEffect } from "react";
 
 export const ContentsList = () => {
   const pathname = usePathname();
+  const router = useRouter();
+  const setLoading = useSetAtom(loadingState);
+  const setMousePosition = useSetAtom(mousePositionState);
+  useEffect(() => {
+    setLoading(false);
+  }, [pathname, setLoading]);
   return (
     <ul className="flex flex-col gap-2 w-full">
       {projectContents.map((content, index) => {
@@ -26,12 +34,18 @@ export const ContentsList = () => {
                 {index + 1}. {content.name}
               </span>
             ) : (
-              <Link
-                href={content.path}
-                className="hover:underline underline-offset-2"
+              <div
+                className="hover:underline underline-offset-2 cursor-pointer"
+                onClick={(event: React.MouseEvent<HTMLDivElement>) => {
+                  if (window.location.pathname !== content.path) {
+                    setMousePosition({ x: event.clientX, y: event.clientY });
+                    setLoading(true);
+                    router.push(content.path);
+                  }
+                }}
               >
                 {index + 1}. {content.name}
-              </Link>
+              </div>
             )}
           </li>
         );

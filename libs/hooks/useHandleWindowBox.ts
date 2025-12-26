@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Dir, Position, RefType } from "../types/state";
+import { DEFAULT_WINDOW_BOX } from "../uitls/constants";
 
 const MIN_W = 150;
 const MIN_H = 150;
@@ -9,10 +10,10 @@ function clamp(n: number, min: number, max: number) {
 }
 
 const getDefaultBoxPosition = {
-  x: typeof window === "undefined" ? 0 : window.innerWidth / 2 - 200,
-  y: typeof window === "undefined" ? 0 : window.innerHeight / 2 - 150,
-  width: 400,
-  height: 300,
+  x: DEFAULT_WINDOW_BOX.windowX,
+  y: DEFAULT_WINDOW_BOX.windowY,
+  width: DEFAULT_WINDOW_BOX.windowWidth,
+  height: DEFAULT_WINDOW_BOX.windowHeight,
 };
 
 export const useHandleWindowBox = ({
@@ -23,6 +24,7 @@ export const useHandleWindowBox = ({
   setIsMax,
   isSticky,
   setIsSticky,
+  defaultPosition = getDefaultBoxPosition,
 }: {
   parentRef: React.RefObject<HTMLDivElement | null>;
   box: Position;
@@ -31,6 +33,7 @@ export const useHandleWindowBox = ({
   setIsMax: React.Dispatch<React.SetStateAction<boolean>>;
   isSticky: boolean;
   setIsSticky: React.Dispatch<React.SetStateAction<boolean>>;
+  defaultPosition?: Position;
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [resizeDir, setResizeDir] = useState<Dir | null>(null);
@@ -38,7 +41,7 @@ export const useHandleWindowBox = ({
   const startPos = useRef<RefType>({
     mouseX: 0,
     mouseY: 0,
-    ...getDefaultBoxPosition,
+    ...defaultPosition,
   });
   const moveBox = useCallback(
     (clientX: number, clientY: number) => {
@@ -50,10 +53,10 @@ export const useHandleWindowBox = ({
 
       const newX = clamp(startPos.current.x + dx, 0, r.width - box.width);
       const newY = clamp(startPos.current.y + dy, 0, r.height - box.height);
-      console.log(clientX, clientY, window.innerWidth);
       if (
-        (newX === 0 || newX === r.width - box.width) &&
-        (clientX <= 200 || clientX >= window.innerWidth - 200)
+        ((newX === 0 || newX === r.width - box.width) &&
+          (clientX <= 200 || clientX >= window.innerWidth - 200)) ||
+        (newY === 0 && clientY <= 100)
       ) {
         setIsSticky(true);
       } else {
@@ -64,8 +67,8 @@ export const useHandleWindowBox = ({
       if (isStickyed) {
         setBox((prev) => ({
           ...prev,
-          height: getDefaultBoxPosition.height,
-          width: getDefaultBoxPosition.width,
+          height: defaultPosition.height,
+          width: defaultPosition.width,
           x: newX,
           y: newY,
         }));
@@ -82,6 +85,7 @@ export const useHandleWindowBox = ({
       isSticky,
       setIsSticky,
       isStickyed,
+      defaultPosition,
     ]
   );
 
@@ -149,15 +153,27 @@ export const useHandleWindowBox = ({
 
     const onUp = () => {
       if (isSticky) {
-        const isAtLeft = box.x === 0;
+        const isFull = box.y === 0;
         setIsStickyed(true);
-        setBox((prev) => ({
-          ...prev,
-          height: window.innerHeight - 42,
-          width: window.innerWidth / 2,
-          x: isAtLeft ? 0 : window.innerWidth / 2,
-          y: 0,
-        }));
+        if (isFull) {
+          setIsMax(true);
+          setBox((prev) => ({
+            ...prev,
+            height: window.innerHeight - 42,
+            width: window.innerWidth,
+            x: 0,
+            y: 0,
+          }));
+        } else {
+          const isAtLeft = box.x === 0;
+          setBox((prev) => ({
+            ...prev,
+            height: window.innerHeight - 42,
+            width: window.innerWidth / 2,
+            x: isAtLeft ? 0 : window.innerWidth / 2,
+            y: 0,
+          }));
+        }
         setIsSticky(false);
       }
       setIsDragging(false);
@@ -179,7 +195,18 @@ export const useHandleWindowBox = ({
       document.body.style.cursor = "";
       document.body.style.userSelect = "";
     };
-  }, [isDragging, resizeDir, moveBox, resizeBox, box, isSticky]);
+  }, [
+    isDragging,
+    resizeDir,
+    moveBox,
+    resizeBox,
+    box,
+    isSticky,
+    setBox,
+    setIsSticky,
+    setIsMax,
+  ]);
+
   const beginInteraction = useCallback(
     (e: React.MouseEvent) => {
       startPos.current = {
@@ -195,10 +222,28 @@ export const useHandleWindowBox = ({
   );
   const handleDragStart = useCallback(
     (e: React.MouseEvent) => {
-      beginInteraction(e);
+      if (isMax) {
+        setIsMax(false);
+        setBox({
+          width: defaultPosition.width,
+          height: defaultPosition.height,
+          x: e.clientX / 2,
+          y: e.clientY / 2,
+        });
+        startPos.current = {
+          mouseX: e.clientX,
+          mouseY: e.clientY,
+          x: e.clientX / 2,
+          y: e.clientY / 2,
+          width: defaultPosition.width,
+          height: defaultPosition.height,
+        };
+      } else {
+        beginInteraction(e);
+      }
       setIsDragging(true);
     },
-    [beginInteraction, isStickyed]
+    [beginInteraction, setIsDragging, isMax, setIsMax, setBox, defaultPosition]
   );
 
   const handleResizeStart = useCallback(
@@ -238,10 +283,10 @@ export const useHandleWindowBox = ({
   }, [isMax, box, setBox, setIsMax]);
   useEffect(() => {
     return () => {
-      setBox(getDefaultBoxPosition);
+      setBox(defaultPosition);
       setIsMax(true);
     };
-  }, [setBox, setIsMax]);
+  }, [setBox, setIsMax, defaultPosition]);
   return {
     handleDragStart,
     handleResizeStart,

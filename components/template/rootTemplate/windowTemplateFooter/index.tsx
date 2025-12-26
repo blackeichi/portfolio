@@ -8,6 +8,7 @@ import Partition from "@/components/atoms/partition";
 
 function WindowTemplateFooter() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
   useEffect(() => {
     if (isOpen) {
       const target = document.getElementById(FOOTER_ELEMENT);

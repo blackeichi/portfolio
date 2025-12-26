@@ -1,4 +1,6 @@
 import { atom } from "jotai";
+import { DEFAULT_SUB_WINDOW_BOX, SUB_WINDOW_LIST } from "./uitls/constants";
+import { Position } from "./types/state";
 
 export const errorMsgState = atom<string | null>(null);
 export const alertMsgState = atom<string | null>(null);
@@ -14,6 +16,7 @@ export const mousePositionState = atom<{ x: number; y: number }>({
 });
 
 // footer에 열려있는 창에서 서브 창이 있는지
-export const subOpendState = atom<{ icon: string; title: string } | null>(null);
+export const subOpenedState = atom<keyof typeof SUB_WINDOW_LIST | null>(null);
+export const subOpenedBoxInfo = atom<Position>(DEFAULT_SUB_WINDOW_BOX);
 // footer 열려잇는 창에서 메인에 포커스되어 잇는지
-export const isFocusedMain = atom<string | null>(null);
+export const isFocusedMainState = atom<boolean>(true);

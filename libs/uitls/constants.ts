@@ -34,3 +34,25 @@ export const MENU_LIST = Object.entries(MENU_LIST_DATA).map(
     icon,
   })
 );
+
+export const SUB_WINDOW_LIST = {
+  embed_project: {
+    key: "embed_project",
+    title: "프로젝트 미리보기",
+    icon: "/images/daily-log-icon.png",
+  },
+} as const;
+
+export const DEFAULT_WINDOW_BOX = {
+  windowX: typeof window === "undefined" ? 0 : window.innerWidth / 2 - 200,
+  windowY: typeof window === "undefined" ? 0 : window.innerHeight / 2 - 150,
+  windowWidth: 400,
+  windowHeight: 300,
+};
+
+export const DEFAULT_SUB_WINDOW_BOX = {
+  x: DEFAULT_WINDOW_BOX.windowX + 50,
+  y: DEFAULT_WINDOW_BOX.windowY + 50,
+  width: DEFAULT_WINDOW_BOX.windowWidth,
+  height: DEFAULT_WINDOW_BOX.windowHeight,
+};

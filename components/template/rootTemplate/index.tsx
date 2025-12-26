@@ -9,6 +9,7 @@ import MouseLoading from "./mouseLoading";
 import HomeIcons from "./homeIcons";
 import { MENU_LIST_DATA } from "@/libs/uitls/constants";
 import WindowTemplateMain from "./windowTemplateMain";
+import { SubWindow } from "./subWindow";
 
 export const RootTemplate = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname().split("/")[1];
@@ -17,7 +18,6 @@ export const RootTemplate = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     setLoading(false);
   }, [pathname, setLoading]);
-  console.log(pathname);
   return (
     <main className="relative flex h-full w-full flex-col justify-center overflow-hidden">
       <div className="relative h-full w-full overflow-hidden" ref={parentRef}>
@@ -27,6 +27,7 @@ export const RootTemplate = ({ children }: { children: React.ReactNode }) => {
           </WindowTemplateMain>
         )}
         <HomeIcons />
+        <SubWindow parentRef={parentRef} />
       </div>
       {/* 윈도우즈 바닥 메뉴바 */}
       <WindowTemplateFooter />

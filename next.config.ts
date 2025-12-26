@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // reactStrictMode: false,
   images: {
     // 외부 이미지 호스트 허용 설정
     remotePatterns: [
