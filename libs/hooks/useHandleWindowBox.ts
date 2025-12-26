@@ -34,24 +34,27 @@ export const useHandleWindowBox = ({
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [resizeDir, setResizeDir] = useState<Dir | null>(null);
-  const [isStickyed, setIsStickyed] = useState<{
-    width: number;
-    height: number;
-  } | null>(null);
+  const [isStickyed, setIsStickyed] = useState<boolean>(false);
   const startPos = useRef<RefType>({
     mouseX: 0,
     mouseY: 0,
     ...getDefaultBoxPosition,
   });
   const moveBox = useCallback(
-    (dx: number, dy: number) => {
+    (clientX: number, clientY: number) => {
+      const dx = clientX - startPos.current.mouseX;
+      const dy = clientY - startPos.current.mouseY;
       const parent = parentRef.current;
       if (!parent) return;
       const r = parent.getBoundingClientRect();
 
       const newX = clamp(startPos.current.x + dx, 0, r.width - box.width);
       const newY = clamp(startPos.current.y + dy, 0, r.height - box.height);
-      if (newX === 0 || newX === r.width - box.width) {
+      console.log(clientX, clientY, window.innerWidth);
+      if (
+        (newX === 0 || newX === r.width - box.width) &&
+        (clientX <= 200 || clientX >= window.innerWidth - 200)
+      ) {
         setIsSticky(true);
       } else {
         if (isSticky) {
@@ -61,12 +64,12 @@ export const useHandleWindowBox = ({
       if (isStickyed) {
         setBox((prev) => ({
           ...prev,
-          height: isStickyed.height,
-          width: isStickyed.width,
+          height: getDefaultBoxPosition.height,
+          width: getDefaultBoxPosition.width,
           x: newX,
           y: newY,
         }));
-        setIsStickyed(null);
+        setIsStickyed(false);
       } else {
         setBox((prev) => ({ ...prev, x: newX, y: newY }));
       }
@@ -138,9 +141,7 @@ export const useHandleWindowBox = ({
     const onMove = (e: MouseEvent) => {
       e.preventDefault();
       if (isDragging) {
-        const dx = e.clientX - startPos.current.mouseX;
-        const dy = e.clientY - startPos.current.mouseY;
-        moveBox(dx, dy);
+        moveBox(e.clientX, e.clientY);
       } else if (resizeDir) {
         resizeBox(e.clientX, e.clientY);
       }
@@ -149,7 +150,7 @@ export const useHandleWindowBox = ({
     const onUp = () => {
       if (isSticky) {
         const isAtLeft = box.x === 0;
-        setIsStickyed({ width: box.width, height: box.height });
+        setIsStickyed(true);
         setBox((prev) => ({
           ...prev,
           height: window.innerHeight - 42,

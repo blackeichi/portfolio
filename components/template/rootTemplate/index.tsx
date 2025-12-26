@@ -10,7 +10,7 @@ import HomeIcons from "./homeIcons";
 import { MENU_LIST_DATA } from "@/libs/uitls/constants";
 import WindowTemplateMain from "./windowTemplateMain";
 
-export const WindowTemplate = ({ children }: { children: React.ReactNode }) => {
+export const RootTemplate = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname().split("/")[1];
   const setLoading = useSetAtom(loadingState);
   const parentRef = useRef<HTMLDivElement>(null);

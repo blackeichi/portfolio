@@ -35,7 +35,9 @@ export default function IconButton({
             : "cursor-pointer text-gray-800"
         } ${className} ${isTab ? "border-gray-500 p-0.5" : ""}`}
         onClick={disabled ? () => {} : onClick}
-        onMouseDown={() => setIsTab(true)}
+        onMouseDown={() => {
+          if (!disabled) setIsTab(true);
+        }}
         onMouseUp={() => setIsTab(false)}
         onMouseLeave={() => setIsTab(false)}
         style={{

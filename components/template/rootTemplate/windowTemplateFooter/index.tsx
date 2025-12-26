@@ -1,10 +1,10 @@
 import { FOOTER_ELEMENT } from "@/libs/uitls/constants";
 import { useEffect, useState } from "react";
 import FooterButton from "./footerButton";
-import FooterPartition from "./footerPartition";
 import FooterOpened from "./footerOpened";
 import FooterMenus from "./footerMenus";
 import FooterDates from "./footerDates";
+import Partition from "@/components/atoms/partition";
 
 function WindowTemplateFooter() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -27,12 +27,12 @@ function WindowTemplateFooter() {
         }}
       >
         <FooterButton isOpen={isOpen} setIsOpen={setIsOpen} />
-        <FooterPartition />
+        <Partition />
         <FooterOpened />
         {isOpen && <FooterMenus setIsOpen={setIsOpen} />}
       </div>
       <div className="box-content flex h-full items-center gap-0.75">
-        <FooterPartition />
+        <Partition />
         <FooterDates />
       </div>
     </div>

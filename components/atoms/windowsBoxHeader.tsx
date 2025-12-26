@@ -4,7 +4,7 @@ export default function WindowBoxHeader({
   title,
   titleIcon,
   headBtns,
-  onMouseDown = (e) => {},
+  onMouseDown = () => {},
   onDoubleClick = () => {},
 }: {
   title?: string;
@@ -27,14 +27,16 @@ export default function WindowBoxHeader({
           <div className="text-xs font-bold text-white">{title}</div>
         </div>
       ) : null}
-      <div
-        onMouseDown={(e) => {
-          e.stopPropagation();
-        }}
-        className="flex gap-1"
-      >
-        {headBtns}
-      </div>
+      {headBtns && (
+        <div
+          onMouseDown={(e) => {
+            e.stopPropagation();
+          }}
+          className="flex gap-1"
+        >
+          {headBtns}
+        </div>
+      )}
     </div>
   );
 }

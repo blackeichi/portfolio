@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { memo } from "react";
 
 function FooterOpened() {
-  const pathname = usePathname();
+  const pathname = usePathname().split("/")[1];
   return (
     pathname &&
     MENU_LIST_DATA[pathname] && (

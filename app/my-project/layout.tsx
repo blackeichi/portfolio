@@ -1,20 +1,9 @@
-import { ContentBox } from "@/components/atoms/contentBox";
+import MyProjectTemplate from "@/components/template/myProjectTemplate";
 
-export default function ProjectLayout({
+export default function MyProjectLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <main className="w-full h-full flex gap-4">
-      <ContentBox
-        style={{
-          maxWidth: "200px",
-        }}
-      >
-        here is listbar
-      </ContentBox>
-      <ContentBox>{children}</ContentBox>
-    </main>
-  );
+  return <MyProjectTemplate>{children}</MyProjectTemplate>;
 }

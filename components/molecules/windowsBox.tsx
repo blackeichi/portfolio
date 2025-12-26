@@ -8,6 +8,7 @@ export default function WindowsBox({
   titleIcon,
   headBtns,
   needScroll = false,
+  style,
 }: {
   width?: number;
   height?: number;
@@ -16,11 +17,12 @@ export default function WindowsBox({
   titleIcon?: string;
   headBtns?: React.ReactNode;
   needScroll?: boolean;
+  style?: React.CSSProperties;
 }) {
   return (
     <div
       className="flex flex-col border-4 border-gray-100 border-r-gray-500 border-b-gray-500"
-      style={{ width: `${width}px`, height: `${height}px` }}
+      style={{ width: `${width}px`, height: `${height}px`, ...style }}
     >
       <WindowBoxHeader
         title={title}

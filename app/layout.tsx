@@ -3,7 +3,7 @@ import { notoSans } from "@/libs/uitls/fonts";
 import { COLOR_THEME } from "@/libs/uitls/constants";
 import SnackbarProvider from "@/libs/snackbarProvider";
 import { SnackbarComponent } from "@/components/organisms/snackbarComponent";
-import { WindowTemplate } from "@/components/template/windowTemplate";
+import { RootTemplate } from "@/components/template/rootTemplate";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -26,7 +26,7 @@ export default function RootLayout({
       >
         <SnackbarProvider>
           <SnackbarComponent />
-          <WindowTemplate>{children}</WindowTemplate>
+          <RootTemplate>{children}</RootTemplate>
         </SnackbarProvider>
       </body>
     </html>
