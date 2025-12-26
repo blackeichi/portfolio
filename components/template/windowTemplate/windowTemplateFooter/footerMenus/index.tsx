@@ -3,8 +3,9 @@ import { EachMenu } from "./EachMenu";
 import { useRouter } from "next/navigation";
 import { MENU_LIST } from "@/libs/uitls/constants";
 import { loadingState, mousePositionState } from "@/libs/atom";
+import { memo } from "react";
 
-export default function FooterMenus({
+function FooterMenus({
   setIsOpen,
 }: {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -33,3 +34,5 @@ export default function FooterMenus({
     </div>
   );
 }
+
+export default memo(FooterMenus);

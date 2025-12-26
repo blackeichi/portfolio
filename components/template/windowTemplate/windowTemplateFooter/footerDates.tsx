@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 function padTwoDigits(num: number) {
   return num.toString().padStart(2, "0");
@@ -17,7 +17,7 @@ function getFormattedDate(date: Date) {
   );
 }
 
-export default function FooterDates() {
+function FooterDates() {
   const [time, setTime] = useState<Date>(new Date());
   useEffect(() => {
     const id = setInterval(() => {
@@ -42,3 +42,5 @@ export default function FooterDates() {
     </div>
   );
 }
+
+export default memo(FooterDates);

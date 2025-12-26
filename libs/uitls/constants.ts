@@ -21,6 +21,10 @@ export const MENU_LIST_DATA: {
     title: "내 컴퓨터",
     icon: "/images/myComputer.png",
   },
+  "/my-project": {
+    title: "Project",
+    icon: "/images/shell_window.png",
+  },
 };
 
 export const MENU_LIST = Object.entries(MENU_LIST_DATA).map(

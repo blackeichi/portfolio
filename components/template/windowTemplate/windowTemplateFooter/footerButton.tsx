@@ -1,7 +1,8 @@
 import { pressStart } from "@/libs/uitls/fonts";
 import Image from "next/image";
+import { memo } from "react";
 
-export default function FooterButton({
+function FooterButton({
   isOpen,
   setIsOpen,
 }: {
@@ -31,3 +32,4 @@ export default function FooterButton({
     </div>
   );
 }
+export default memo(FooterButton);
