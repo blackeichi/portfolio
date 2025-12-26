@@ -17,11 +17,11 @@ export const MENU_LIST_DATA: {
     icon: string;
   };
 } = {
-  "/my-computer": {
+  "my-computer": {
     title: "내 컴퓨터",
     icon: "/images/myComputer.png",
   },
-  "/my-project": {
+  "my-project": {
     title: "Project",
     icon: "/images/shell_window.png",
   },
@@ -30,7 +30,7 @@ export const MENU_LIST_DATA: {
 export const MENU_LIST = Object.entries(MENU_LIST_DATA).map(
   ([key, { title, icon }]) => ({
     name: title,
-    href: key,
+    href: `/${key}`,
     icon,
   })
 );

@@ -11,12 +11,13 @@ import { MENU_LIST_DATA } from "@/libs/uitls/constants";
 import WindowTemplateMain from "./windowTemplateMain";
 
 export const WindowTemplate = ({ children }: { children: React.ReactNode }) => {
-  const pathname = usePathname();
+  const pathname = usePathname().split("/")[1];
   const setLoading = useSetAtom(loadingState);
   const parentRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     setLoading(false);
   }, [pathname, setLoading]);
+  console.log(pathname);
   return (
     <main className="relative flex h-full w-full flex-col justify-center overflow-hidden">
       <div className="relative h-full w-full overflow-hidden" ref={parentRef}>
