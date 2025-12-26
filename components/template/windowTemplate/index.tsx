@@ -1,41 +1,36 @@
-import { FOOTER_ELEMENT } from "@/libs/uitls/constants";
-import { memo, useEffect, useState } from "react";
-import FooterButton from "./footerButton";
-import FooterPartition from "./footerPartition";
-import FooterOpened from "./footerOpened";
-import FooterMenus from "./footerMenus";
-import FooterDates from "./footerDates";
+"use client";
 
-function WindowTemplateFooter() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+import { useSetAtom } from "jotai";
+import { loadingState } from "@/libs/atom";
+import WindowTemplateFooter from "./windowTemplateFooter";
+import MouseLoading from "./mouseLoading";
+import HomeIcons from "./homeIcons";
+import { MENU_LIST_DATA } from "@/libs/uitls/constants";
+import WindowTemplateMain from "./windowTemplateMain";
+
+export const WindowTemplate = ({ children }: { children: React.ReactNode }) => {
+  const pathname = usePathname();
+  const setLoading = useSetAtom(loadingState);
+  const parentRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (isOpen) {
-      const target = document.getElementById(FOOTER_ELEMENT);
-      if (target) {
-        target.focus();
-      }
-    }
-  }, [isOpen]);
+    setLoading(false);
+  }, [pathname, setLoading]);
   return (
-    <div className="relative z-20 box-content flex h-8.75 w-full shrink-0 items-center justify-between border-t-[3px] border-t-gray-100 bg-gray-300 px-1 py-0.5 text-xs select-none">
-      <div
-        id={FOOTER_ELEMENT}
-        className="box-content flex h-full items-center gap-0.75"
-        tabIndex={-1}
-        onBlur={() => {
-          setIsOpen(false);
-        }}
-      >
-        <FooterButton isOpen={isOpen} setIsOpen={setIsOpen} />
-        <FooterPartition />
-        <FooterOpened />
-        {isOpen && <FooterMenus setIsOpen={setIsOpen} />}
+    <main className="relative flex h-full w-full flex-col justify-center overflow-hidden">
+      <div className="relative h-full w-full overflow-hidden" ref={parentRef}>
+        {MENU_LIST_DATA?.[pathname] && (
+          <WindowTemplateMain parentRef={parentRef} pathname={pathname}>
+            {children}
+          </WindowTemplateMain>
+        )}
+        <HomeIcons />
       </div>
-      <div className="box-content flex h-full items-center gap-0.75">
-        <FooterPartition />
-        <FooterDates />
-      </div>
-    </div>
+      {/* 윈도우즈 바닥 메뉴바 */}
+      <WindowTemplateFooter />
+      {/* 마우스 위치의 로딩 아이콘 - 라우팅하는 동안 보여짐 */}
+      <MouseLoading />
+    </main>
   );
-}
-export default memo(WindowTemplateFooter);
+};
