@@ -1,4 +1,3 @@
-import { SemiTitle } from "@/components/atoms/semi-title";
 import { Title } from "@/components/atoms/title";
 import { Metadata } from "next";
 import Image from "next/image";

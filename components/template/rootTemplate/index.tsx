@@ -15,7 +15,7 @@ export const RootTemplate = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname().split("/")[1];
   const setLoading = useSetAtom(loadingState);
   const setIsFocusedMain = useSetAtom(isFocusedMainState);
-  const parentRef = useRef<HTMLDivElement>(null);
+  const parentRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     setLoading(false);
     setIsFocusedMain(true);

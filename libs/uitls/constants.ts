@@ -26,6 +26,10 @@ export const MENU_LIST_DATA: {
     title: "Project",
     icon: "/images/shell_window.png",
   },
+  "play-game": {
+    title: "Game",
+    icon: "/images/joystick.png",
+  },
 };
 
 export const MENU_LIST = Object.entries(MENU_LIST_DATA).map(
