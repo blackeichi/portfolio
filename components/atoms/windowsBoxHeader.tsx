@@ -24,6 +24,7 @@ export default function WindowBoxHeader({
   );
   return (
     <div
+      id="window-header"
       className="flex h-8 w-full shrink-0 items-center justify-between px-1 select-none"
       {...(isMax
         ? {
@@ -61,16 +62,7 @@ export default function WindowBoxHeader({
           <div className="text-xs font-bold text-white">{title}</div>
         </div>
       ) : null}
-      {headBtns && (
-        <div
-          onMouseDown={(e) => {
-            e.stopPropagation();
-          }}
-          className="flex gap-1"
-        >
-          {headBtns}
-        </div>
-      )}
+      {headBtns && <div className="flex gap-1">{headBtns}</div>}
     </div>
   );
 }

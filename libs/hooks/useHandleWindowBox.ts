@@ -17,6 +17,7 @@ const getDefaultBoxPosition = {
 };
 
 export const useHandleWindowBox = ({
+  windowBox,
   parentRef,
   box,
   setBox,
@@ -26,6 +27,7 @@ export const useHandleWindowBox = ({
   setIsSticky,
   defaultPosition = getDefaultBoxPosition,
 }: {
+  windowBox: React.RefObject<HTMLDivElement | null>;
   parentRef: React.RefObject<HTMLDivElement | null>;
   box: Position;
   setBox: React.Dispatch<React.SetStateAction<Position>>;
@@ -43,6 +45,20 @@ export const useHandleWindowBox = ({
     mouseY: 0,
     ...defaultPosition,
   });
+  // isMax가 변경될 때만 애니메이션 클래스를 추가/제거하는 훅.
+  // resize, drag 등의 이벤트마다 애니메이션이 작동하면 부자연스러움
+  useEffect(() => {
+    if (windowBox.current && !isDragging) {
+      windowBox.current.classList.add("transition-all");
+      const timeout = setTimeout(() => {
+        if (windowBox.current) {
+          windowBox.current.classList.remove("transition-all");
+        }
+      }, 300);
+      return () => clearTimeout(timeout);
+    }
+  }, [isMax, windowBox, isDragging]);
+
   const moveBox = useCallback(
     (clientX: number, clientY: number) => {
       const dx = clientX - startPos.current.mouseX;
@@ -185,10 +201,8 @@ export const useHandleWindowBox = ({
     // 드래그 중 커서와 텍스트 선택 방지
     document.body.style.cursor = resizeDir || "move";
     document.body.style.userSelect = "none";
-
     document.addEventListener("mousemove", onMove);
     document.addEventListener("mouseup", onUp);
-
     return () => {
       document.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseup", onUp);
@@ -227,14 +241,14 @@ export const useHandleWindowBox = ({
         setBox({
           width: defaultPosition.width,
           height: defaultPosition.height,
-          x: e.clientX / 2,
-          y: e.clientY / 2,
+          x: e.clientX - defaultPosition.width / 2,
+          y: e.clientY,
         });
         startPos.current = {
           mouseX: e.clientX,
           mouseY: e.clientY,
-          x: e.clientX / 2,
-          y: e.clientY / 2,
+          x: e.clientX - defaultPosition.width / 2,
+          y: e.clientY,
           width: defaultPosition.width,
           height: defaultPosition.height,
         };

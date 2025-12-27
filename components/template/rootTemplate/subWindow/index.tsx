@@ -9,8 +9,7 @@ import {
   SUB_WINDOW_LIST,
 } from "@/libs/uitls/constants";
 import { useAtom } from "jotai";
-import { useEffect, useState } from "react";
-import { useGetMaxAnimation } from "../useGetMaxAnimation";
+import { useEffect, useRef, useState } from "react";
 
 type T_SUB_WINDOW_LIST = keyof typeof SUB_WINDOW_LIST;
 
@@ -40,6 +39,7 @@ const SubWindowUI = ({
   setSubOpened: React.Dispatch<React.SetStateAction<T_SUB_WINDOW_LIST | null>>;
   parentRef: React.RefObject<HTMLDivElement | null>;
 }) => {
+  const windowBox = useRef<HTMLDivElement | null>(null);
   const [isFocusedMain, setIsFocusedMain] = useAtom(isFocusedMainState);
   const [subBox, setSubBox] = useAtom(subOpenedBoxInfo);
   const [isMax, setIsMax] = useState(false);
@@ -52,7 +52,6 @@ const SubWindowUI = ({
       setIsFocusedMain(true);
     };
   }, []);
-  const windowBox = useGetMaxAnimation(isMax);
   return (
     <>
       <div
@@ -83,6 +82,7 @@ const SubWindowUI = ({
         <WindowsClientActionComponent
           title={SUB_WINDOW_LIST[subOpened].title}
           icon={SUB_WINDOW_LIST[subOpened].icon}
+          windowBox={windowBox}
           parentRef={parentRef}
           box={subBox}
           setBox={setSubBox}
@@ -102,11 +102,20 @@ const SubWindowUI = ({
       {/* 창의 변경될 사이즈 미리보기 */}
       {isSticky && (
         <div
-          className="absolute z-31 w-1/2 h-full bg-white/80"
-          style={{
-            left: subBox.x === 0 ? 0 : "50%",
-            top: 0,
-          }}
+          className="absolute z-20 h-full bg-white/80"
+          style={
+            subBox.y === 0
+              ? {
+                  left: 0,
+                  top: 0,
+                  width: "100%",
+                }
+              : {
+                  left: subBox.x === 0 ? 0 : "50%",
+                  top: 0,
+                  width: "50%",
+                }
+          }
         ></div>
       )}
     </>

@@ -11,6 +11,7 @@ import { WindowsHandler } from "./windowsHandler";
 export const WindowsClientActionComponent = ({
   title,
   icon,
+  windowBox,
   parentRef,
   box,
   setBox,
@@ -23,6 +24,7 @@ export const WindowsClientActionComponent = ({
 }: {
   title: string;
   icon: string;
+  windowBox: React.RefObject<HTMLDivElement | null>;
   parentRef: React.RefObject<HTMLDivElement | null>;
   box: Position;
   setBox: React.Dispatch<React.SetStateAction<Position>>;
@@ -36,6 +38,7 @@ export const WindowsClientActionComponent = ({
   const setConfirmMsg = useSetAtom(confirmMsgState);
   const { handleDragStart, handleResizeStart, onResizeFunc } =
     useHandleWindowBox({
+      windowBox,
       parentRef,
       box,
       setBox,
