@@ -10,6 +10,7 @@ import {
 } from "@/libs/uitls/constants";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
+import { useGetMaxAnimation } from "../useGetMaxAnimation";
 
 type T_SUB_WINDOW_LIST = keyof typeof SUB_WINDOW_LIST;
 
@@ -44,15 +45,18 @@ const SubWindowUI = ({
   const [isMax, setIsMax] = useState(false);
   // 컨텐츠 창을 왼쪽 혹은 오른쪽으로 붙였을 때
   const [isSticky, setIsSticky] = useState(false);
+
   useEffect(() => {
     return () => {
       setSubBox(DEFAULT_SUB_WINDOW_BOX);
       setIsFocusedMain(true);
     };
   }, []);
+  const windowBox = useGetMaxAnimation(isMax);
   return (
     <>
       <div
+        ref={windowBox}
         className={`absolute flex flex-col border-gray-100 border-r-gray-500 border-b-gray-500 bg-gray-300 ${
           isMax ? "border" : "border-4"
         } ${isFocusedMain ? "z-10" : "z-32"}`}

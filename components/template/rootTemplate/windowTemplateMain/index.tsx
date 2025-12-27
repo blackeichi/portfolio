@@ -5,6 +5,7 @@ import { WindowsClientActionComponent } from "@/components/organisms/windowsClie
 import { useRouter } from "next/navigation";
 import { useSetAtom } from "jotai";
 import { isFocusedMainState } from "@/libs/atom";
+import { useGetMaxAnimation } from "../useGetMaxAnimation";
 
 export default function WindowTemplateMain({
   parentRef,
@@ -26,9 +27,11 @@ export default function WindowTemplateMain({
   const [isMax, setIsMax] = useState(true);
   // 컨텐츠 창을 왼쪽 혹은 오른쪽으로 붙였을 때
   const [isSticky, setIsSticky] = useState(false);
+  const windowBox = useGetMaxAnimation(isMax);
   return (
     <>
       <div
+        ref={windowBox}
         className={`absolute z-30 flex flex-col border-gray-100 border-r-gray-500 border-b-gray-500 bg-gray-300 ${
           isMax ? "border" : "border-4"
         }`}
