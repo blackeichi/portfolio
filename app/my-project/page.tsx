@@ -4,6 +4,7 @@ import Image from "next/image";
 import { StackComponent } from "./_ui/stackComponent";
 import { FunctionDescription } from "./_ui/functionDescription";
 import { Text } from "@/components/atoms/text";
+import { OpenProjectBtn } from "@/components/template/myProjectTemplate/openProjectBtn";
 
 export const metadata: Metadata = {
   title: "프로젝트 개요",
@@ -22,7 +23,9 @@ export default function MyProjectPage() {
         <Title>Daily Log</Title>
       </div>
       <Text>
-        좌측 상단에 폴더버튼을 클릭하여 프로젝트를 확인할 수 있습니다.
+        <div className="flex items-center gap-2">
+          폴더버튼을 클릭하여 프로젝트를 확인할 수 있습니다. <OpenProjectBtn />
+        </div>
       </Text>
       <FunctionDescription />
       <StackComponent />
