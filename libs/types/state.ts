@@ -9,3 +9,11 @@ export type Dir =
   | "bottom-left"
   | "bottom-right";
 export type RefType = Position & { mouseX: number; mouseY: number };
+
+export type IconMenu = {
+  name: string;
+  icon: string;
+  href: string;
+  function?: () => void;
+  confirmMsg?: string;
+};

@@ -1,20 +1,18 @@
+import { IconMenu } from "@/libs/types/state";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 export const EachHomeIcon = ({
-  menu,
   index,
+  menu,
+  handleRunIcon,
   selectedMenu,
   setSelectedMenu,
-  router,
-  setLoading,
 }: {
-  menu: { name: string; icon: string; href: string };
+  menu: IconMenu;
   index: number;
+  handleRunIcon: (menu: IconMenu) => void;
   selectedMenu: number | null;
   setSelectedMenu: React.Dispatch<React.SetStateAction<number | null>>;
-  router: ReturnType<typeof useRouter>;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const isSelected = selectedMenu === index;
   return (
@@ -27,12 +25,7 @@ export const EachHomeIcon = ({
         setSelectedMenu(null);
       }}
       onDoubleClick={() => {
-        if (window.location.pathname !== menu.href) {
-          setLoading(true);
-          router.push(menu.href);
-        } else {
-          setSelectedMenu(null);
-        }
+        handleRunIcon(menu);
       }}
     >
       <div className="relative flex h-10 w-10 items-center justify-center">
@@ -43,7 +36,7 @@ export const EachHomeIcon = ({
           height={30}
         />
         <div
-          className={`absolute top-0 left-0 h-full w-full rounded-[2px] ${
+          className={`absolute top-0 left-0 h-full w-full rounded-xs ${
             isSelected ? "bg-[rgba(0,0,0,0.3)]" : ""
           }`}
         />
@@ -51,9 +44,9 @@ export const EachHomeIcon = ({
       <div className="relative px-1 text-center">
         <span>{menu.name}</span>
         <div
-          className={`absolute top-0 left-0 h-full w-full rounded-[2px] ${
+          className={`absolute top-0 left-0 h-full w-full rounded-xs ${
             isSelected
-              ? "border-1 border-dotted border-gray-200 bg-[rgba(0,0,0,0.3)]"
+              ? "border border-dotted border-gray-200 bg-[rgba(0,0,0,0.3)]"
               : ""
           }`}
         />

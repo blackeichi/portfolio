@@ -16,6 +16,8 @@ export const MENU_LIST_DATA: {
   [key: string]: {
     title: string;
     icon: string;
+    function?: () => void;
+    confirmMsg?: string;
   };
 } = {
   "my-computer": {
@@ -30,13 +32,26 @@ export const MENU_LIST_DATA: {
     title: "Game",
     icon: "/images/joystick.png",
   },
+  "full-screen": {
+    title: "전체 화면",
+    icon: "/images/shell_window_monitor.png",
+    function:
+      typeof document !== "undefined"
+        ? document.fullscreenElement
+          ? () => document.exitFullscreen()
+          : () => document.documentElement.requestFullscreen()
+        : () => console.error("no document"),
+    confirmMsg: "전체 화면 모드를 실행하시겠습니까?",
+  },
 };
 
 export const MENU_LIST = Object.entries(MENU_LIST_DATA).map(
-  ([key, { title, icon }]) => ({
+  ([key, { title, icon, function: fn, confirmMsg }]) => ({
     name: title,
-    href: `/${key}`,
     icon,
+    href: `/${key}`,
+    function: fn,
+    confirmMsg,
   })
 );
 
