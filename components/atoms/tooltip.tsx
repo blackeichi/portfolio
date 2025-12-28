@@ -14,7 +14,7 @@ export default function Tooltip({
       {children}
       {isHovered && tooltip && (
         <div
-          className={`absolute z-30 max-w-60 bg-[rgba(0,0,0,0.85)] p-2.5 text-xs break-words whitespace-nowrap text-white ${isHovered}`}
+          className={`absolute z-30 max-w-60 bg-[rgba(0,0,0,0.85)] p-2.5 text-[11px] wrap-break-word whitespace-nowrap mt-1 text-white ${isHovered}`}
         >
           {tooltip}
         </div>

@@ -2,8 +2,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Dir, Position, RefType } from "../types/state";
 import { DEFAULT_WINDOW_BOX } from "../uitls/constants";
 
-const MIN_W = 150;
-const MIN_H = 150;
+const MIN_W = 350;
+const MIN_H = 250;
 
 function clamp(n: number, min: number, max: number) {
   return Math.min(Math.max(n, min), max);
