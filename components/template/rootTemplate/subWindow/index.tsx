@@ -96,13 +96,21 @@ const SubWindowUI = ({
           defaultPosition={DEFAULT_SUB_WINDOW_BOX}
         />
         <div className="relative h-full w-full flex-1 overflow-hidden p-4 select-none">
-          {/* {children} */}
+          <div className="w-full h-full border-3 border-gray-500 border-r-gray-100 border-b-gray-100 bg-white">
+            {/* {children} */}
+            {subOpened === "embed_project" && (
+              <iframe
+                src="https://daily-log-frontend.vercel.app/"
+                className="w-full h-full border-0"
+              />
+            )}
+          </div>
         </div>
       </div>
       {/* 창의 변경될 사이즈 미리보기 */}
       {isSticky && (
         <div
-          className="absolute z-20 h-full bg-white/80"
+          className="absolute z-31 h-full bg-white/80"
           style={
             subBox.y === 0
               ? {

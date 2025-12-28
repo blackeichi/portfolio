@@ -64,10 +64,10 @@ export const SUB_WINDOW_LIST = {
 } as const;
 
 export const DEFAULT_WINDOW_BOX = {
-  windowX: typeof window === "undefined" ? 0 : window.innerWidth / 2 - 200,
-  windowY: typeof window === "undefined" ? 0 : window.innerHeight / 2 - 150,
-  windowWidth: 400,
-  windowHeight: 300,
+  windowX: typeof window === "undefined" ? 0 : window.innerWidth / 2 - 250,
+  windowY: typeof window === "undefined" ? 0 : window.innerHeight / 2 - 200,
+  windowWidth: 500,
+  windowHeight: 400,
 };
 
 export const DEFAULT_SUB_WINDOW_BOX = {
