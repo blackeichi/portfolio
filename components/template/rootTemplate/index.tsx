@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { useSetAtom } from "jotai";
-import { isFocusedMainState, loadingState } from "@/libs/atom";
+import { confirmMsgState, isFocusedMainState, loadingState } from "@/libs/atom";
 import WindowTemplateFooter from "./windowTemplateFooter";
 import MouseLoading from "./mouseLoading";
 import HomeIcons from "./homeIcons";
@@ -13,6 +13,7 @@ import { SubWindow } from "./subWindow";
 
 export const RootTemplate = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname().split("/")[1];
+  const setConfirmMsg = useSetAtom(confirmMsgState);
   const setLoading = useSetAtom(loadingState);
   const setIsFocusedMain = useSetAtom(isFocusedMainState);
   const parentRef = useRef<HTMLDivElement | null>(null);
@@ -20,6 +21,22 @@ export const RootTemplate = ({ children }: { children: React.ReactNode }) => {
     setLoading(false);
     setIsFocusedMain(true);
   }, [pathname, setLoading]);
+  useEffect(() => {
+    const alreadyAsked = localStorage.getItem("hideFullscreenPrompt");
+    if (!alreadyAsked) {
+      setConfirmMsg({
+        title: "전체 화면",
+        message: "전체 화면 모드를 실행하시겠습니까?",
+        confirmEvent: () => {
+          document.documentElement.requestFullscreen();
+          localStorage.setItem("hideFullscreenPrompt", "true");
+        },
+        cancelEvent: () => {
+          localStorage.setItem("hideFullscreenPrompt", "true");
+        },
+      });
+    }
+  }, []);
   return (
     <main className="relative flex h-full w-full flex-col justify-center overflow-hidden">
       <div className="relative h-full w-full overflow-hidden" ref={parentRef}>

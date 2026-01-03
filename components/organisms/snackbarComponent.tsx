@@ -90,6 +90,7 @@ export const SnackbarComponent = () => {
             <Button
               text="취소"
               onClick={() => {
+                confirmMsg?.cancelEvent?.();
                 setConfirmMsg(null);
               }}
               width={80}
