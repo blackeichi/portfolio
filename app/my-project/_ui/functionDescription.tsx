@@ -17,6 +17,10 @@ export const FunctionDescription = () => {
               칼로리 추적, 반복되는 루틴 설정, 일기 작성과 감정 상태 기록, Todo
               리스트 관리 등의 기능을 제공합니다.
             </p>
+            <p>
+              데이터 최적화와 보안, 사용자 친화적 인터페이스에 중점을 둔 AI 기능
+              결합 웹/모바일 서비스입니다.
+            </p>
           </ContentBox>
         </div>
       </WindowsBox>

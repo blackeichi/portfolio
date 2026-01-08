@@ -33,6 +33,14 @@ const techStacks = {
       { name: "Prettier", icon: "https://cdn.simpleicons.org/prettier" },
     ],
   },
+  deploy: {
+    title: "Deploy",
+    items: [
+      { name: "Vercel(FE)", icon: "https://cdn.simpleicons.org/vercel" },
+      { name: "Render(BE)", icon: "https://cdn.simpleicons.org/render" },
+      { name: "Neon(DB)", icon: "/images/icons/neon.png" },
+    ],
+  },
 };
 
 export const StackComponent = () => {
