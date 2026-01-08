@@ -20,8 +20,8 @@ export const MENU_LIST_DATA: {
     confirmMsg?: string;
   };
 } = {
-  "my-computer": {
-    title: "내 컴퓨터",
+  me: {
+    title: "My Info",
     icon: "/images/myComputer.png",
   },
   "my-project": {

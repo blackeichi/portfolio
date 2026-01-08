@@ -12,23 +12,26 @@ export const metadata: Metadata = {
 
 export default function MyProjectPage() {
   return (
-    <div className="flex flex-col gap-4 p-4 sm:p-6 items-center w-full h-fit">
-      <div className="flex gap-2 items-center">
-        <Image
-          src="/images/daily-log-icon.png"
-          alt="project icon"
-          width={50}
-          height={50}
-        />
-        <Title>Daily Log</Title>
-      </div>
-      <Text>
-        <div className="flex items-center gap-2">
-          폴더버튼을 클릭하여 프로젝트를 확인할 수 있습니다. <OpenProjectBtn />
+    <div className="flex p-6 w-full h-fit justify-center">
+      <div className="max-w-200 w-full flex flex-col gap-4">
+        <div className="flex gap-2 items-center">
+          <Image
+            src="/images/daily-log-icon.png"
+            alt="project icon"
+            width={50}
+            height={50}
+          />
+          <Title>Daily Log</Title>
         </div>
-      </Text>
-      <FunctionDescription />
-      <StackComponent />
+        <Text>
+          <div className="flex items-center gap-2">
+            폴더버튼을 클릭하여 프로젝트를 확인할 수 있습니다.{" "}
+            <OpenProjectBtn />
+          </div>
+        </Text>
+        <FunctionDescription />
+        <StackComponent />
+      </div>
     </div>
   );
 }

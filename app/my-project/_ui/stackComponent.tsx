@@ -47,13 +47,13 @@ export const StackComponent = () => {
   return (
     <WindowsBox
       title={`🛠️ 사용된 기술 스택`}
-      style={{ width: "fit-content", height: "fit-content" }}
+      style={{ width: "100%", maxWidth: "700px", height: "fit-content" }}
     >
       <div className="flex flex-col gap-4 w-full px-4 pb-4">
         {Object.entries(techStacks).map(([key, category]) => (
           <div key={key} className="p-4 flex flex-col gap-4">
             <SemiTitle>{category.title}</SemiTitle>
-            <div className="flex items-center gap-8 flex-wrap">
+            <div className="flex items-center gap-10 flex-wrap">
               {category.items.map((stack) => (
                 <div
                   key={stack.name}
