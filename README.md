@@ -122,7 +122,7 @@ app/
 │   ├── auth-strategy/      # 인증 전략
 │   ├── handle-api/         # API 처리
 │   ├── performance-optimization/  # 성능 최적화
-│   └── business-policy/    # 비즈니스 정책
+│   └── service-policy/    # 비즈니스 정책
 └── play-game/              # 미니 게임 (개발 예정)
 ```
 

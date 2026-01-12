@@ -86,11 +86,11 @@ export const MarkdownRenderer = ({ markdownPath }: MarkdownRendererProps) => {
         code: ({ className, children }) => {
           const isInline = !className;
           return isInline ? (
-            <code className="bg-gray-100 px-1.5 py-0.5 rounded text-xs sm:text-sm font-mono">
+            <code className="bg-gray-100 px-1.5 py-0.5 rounded text-[11px] sm:text-xs ">
               {children}
             </code>
           ) : (
-            <code className="block bg-gray-100 p-3 rounded text-xs sm:text-sm font-mono overflow-x-auto mb-2">
+            <code className="block bg-gray-100 p-3 rounded text-[11px] sm:text-xs  overflow-x-auto mb-2">
               {children}
             </code>
           );

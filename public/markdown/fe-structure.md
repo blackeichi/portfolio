@@ -1,4 +1,22 @@
-# 프론트엔드 구조
+# 📁 프로젝트 구조
+
+모노레포 방식으로 **Next.js (Frontend)**와 **NestJS (Backend)**를 하나의 Git 저장소에서 함께 관리합니다.
+
+### 주요 특징
+
+- **독립적 배포 환경**: 서비스 규모 확장을 고려하여 프론트엔드와 백엔드를 각각 독립적으로 배포
+
+  - Frontend: Vercel 배포
+  - Backend: Render 배포
+
+- **통신 프로토콜**: RESTful API 기반
+
+- **데이터베이스**:
+  - Database: Neon (PostgreSQL) 활용
+  - ORM: Prisma를 사용한 데이터베이스 스키마 관리 및 Type-safe 쿼리 구현
+  - Deployment: NestJS 백엔드와 Neon 서버리스 DB를 연동하여 배포
+
+---
 
 ## 컴포넌트 계층 구조
 
@@ -31,17 +49,3 @@ apps/frontend/app/components/
 - `libs/`: 상태관리, 스낵바, 커스텀 훅, 웹 스토리지 유틸리티
 - `types/`: TypeScript 타입 정의
 - `constants/`: 상수 및 설정값
-
----
-
-## 렌더링 성능 최적화
-
-**전역 컴포넌트 배치**: 최상단 레이아웃에 Snackbar, Loading 컴포넌트 배치
-
-**선택적 구독**: Jotai의 Atom 단위 구독으로 상태 변경 시 해당 컴포넌트만 리렌더링
-
-- 하위 트리의 불필요한 전체 리렌더링 차단
-
-**코드 스플리팅**: Dynamic Import를 활용한 초기 번들 사이즈 감소
-
-**메모이제이션**: React.memo, useMemo, useCallback을 적극 활용하여 불필요한 재계산 방지

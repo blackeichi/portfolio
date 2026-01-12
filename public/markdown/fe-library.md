@@ -2,9 +2,9 @@
 
 ## ![OpenAI](/images/icons/openai.jpg) OpenAI
 
-오늘 작성한 일기(로그) 내용을 바탕으로 개선할 점 추천 및 피드백 제공
+**용도**: 오늘 작성한 일기(로그) 내용을 바탕으로 개선할 점 추천 및 피드백 제공
 
-서버 사이드 Action을 통해서 OpenAI API를 호출하여 API key 보호
+**보안**: 서버 사이드 Action을 통해서 OpenAI API를 호출하여 API key 보호
 
 ---
 
@@ -20,11 +20,13 @@
 
 ## ![Capacitor](/images/icons/capacitor.png) Capacitor
 
-웹 → 모바일 앱 변환 (크로스 플랫폼 지원)
+**용도**: 웹 앱을 Android 네이티브 앱으로 변환
 
-웹과 모바일 앱이 동일한 소스를 사용하도록 구성
+**구현 방식**:
 
-**• SSR 제약사항 대응**: Next.js의 SSR 특성상 FE 코드를 직접 빌드하여 사용하지 못하므로, Vercel에 배포된 주소를 WebView로 연결하여 모바일 앱에서 웹 서비스를 그대로 화면에 표시
+- Next.js SSR 특성으로 인해 정적 빌드 사용 불가
+- Vercel 배포 URL을 WebView로 연결하여 앱 내에서 웹 서비스 제공
+- 단일 코드베이스로 웹과 모바일 모두 지원
 
 ---
 
