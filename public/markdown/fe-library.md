@@ -1,5 +1,23 @@
 # 📚 주요 라이브러리 및 활용
 
+## ![OpenAI](/images/icons/openai.jpg) OpenAI
+
+오늘 작성한 일기(로그) 내용을 바탕으로 개선할 점 추천 및 피드백 제공
+
+서버 사이드 Action을 통해서 OpenAI API를 호출하여 API key 보호
+
+---
+
+## ![Jotai](/images/icons/jotai.jpg) Jotai
+
+전역 상태 관리 라이브러리
+
+**• 선택적 리렌더링**: 전역 로딩바, 스낵바, 알림창 등 특정 atom을 구독한 컴포넌트만 리렌더링
+
+**• prop drilling**가 없어 코드 간결화
+
+---
+
 ## ![Capacitor](/images/icons/capacitor.png) Capacitor
 
 웹 → 모바일 앱 변환 (크로스 플랫폼 지원)
@@ -26,27 +44,9 @@
 
 ---
 
-## ![Jotai](/images/icons/jotai.jpg) Jotai
-
-전역 상태 관리 라이브러리
-
-**• 선택적 리렌더링**: 전역 로딩바, 스낵바, 알림창 등 특정 atom을 구독한 컴포넌트만 리렌더링
-
-**• prop drilling**가 없어 코드 간결화
-
----
-
 ## ![Moment](/images/icons/moment.png) Moment
 
 날짜 및 시간 처리 라이브러리. 손쉽게 날짜 및 시간 변환, 계산 가능
-
----
-
-## ![OpenAI](/images/icons/openai.jpg) OpenAI
-
-오늘 작성한 일기(로그) 내용을 바탕으로 개선할 점 추천 및 피드백 제공
-
-서버 사이드 Action을 통해서 OpenAI API를 호출하여 API key 보호
 
 ---
 
