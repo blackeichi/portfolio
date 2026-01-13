@@ -5,7 +5,7 @@ import { MarkdownRenderer } from "@/components/organisms/markdownRenderer";
 export const FunctionDescription = () => {
   return (
     <div className="my-5">
-      <MarkdownRenderer markdownPath="/markdown/function-description.md" />
+      <MarkdownRenderer markdownPath="/markdown/project/function-description.md" />
     </div>
   );
 };

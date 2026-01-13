@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Image from "next/image";
-import { SemiTitle } from "@/components/atoms/semi-title";
 import { Text } from "@/components/atoms/text";
 import { ClipLoader } from "react-spinners";
 
@@ -46,9 +45,7 @@ export const MarkdownRenderer = ({ markdownPath }: MarkdownRendererProps) => {
           <h1 className="text-xl sm:text-2xl font-bold mb-6">{children}</h1>
         ),
         h2: ({ children }) => (
-          <SemiTitle>
-            <span className="flex items-center gap-2 mb-3">{children}</span>
-          </SemiTitle>
+          <h2 className="text-base font-bold mb-3">{children}</h2>
         ),
         h3: ({ children }) => (
           <h3 className="text-xs sm:text-sm font-bold mb-1">{children}</h3>

@@ -21,16 +21,20 @@ export const MENU_LIST_DATA: {
   };
 } = {
   me: {
-    title: "My Info",
+    title: "내 정보",
     icon: "/images/myComputer.png",
   },
   "my-project": {
-    title: "Project",
+    title: "프로젝트",
     icon: "/images/shell_window.png",
   },
   "play-game": {
     title: "Game",
     icon: "/images/joystick.png",
+  },
+  drive: {
+    title: "정우의 드라이브 (B:)",
+    icon: "/images/drive.png",
   },
   "full-screen": {
     title: "전체 화면",
