@@ -4,7 +4,8 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import Character from "./character";
 import "./game.css";
 import { arrowKeys } from "./utils";
-import { GameHome } from "./maps/home";
+import { GameHome } from "./maps/home/home";
+import { HomeAction } from "./maps/home/homeAction";
 
 export const GameUi = () => {
   const [pressedKeys, setPressedKeys] = useState<string[]>([]);
@@ -129,7 +130,10 @@ export const GameUi = () => {
   return (
     <>
       {currentMap === "home" && (
-        <GameHome ref={mapRef} setImagesLoaded={setImagesLoaded} />
+        <>
+          <GameHome ref={mapRef} setImagesLoaded={setImagesLoaded} />
+          <HomeAction mapPositionRef={mapPositionRef} />
+        </>
       )}
       <Character
         pressedKeys={pressedKeys}

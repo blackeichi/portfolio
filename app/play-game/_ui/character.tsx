@@ -1,19 +1,16 @@
 "use client";
 
 import { useEffect, useState, useRef, useCallback, memo } from "react";
+import { homeObstacles } from "./utils";
 
 interface CharacterProps {
   pressedKeys: string[];
   onPositionChange: (position: { movex: number; movey: number }) => void;
 }
-const end = 100;
-const movementSpeed = 0.4;
+// collision 처리를 위해 0.5 단위로 끊기.
+const movementSpeed = 0.5;
 const maxMoveMap = 75;
 const minMove = 0;
-const obstacles = [
-  { x: [-end, 2], y: [72.5, end] },
-  { x: [69.5, end], y: [72.5, end] },
-];
 
 const Character = ({ pressedKeys, onPositionChange }: CharacterProps) => {
   const [direction, setDirection] = useState("down");
@@ -33,18 +30,6 @@ const Character = ({ pressedKeys, onPositionChange }: CharacterProps) => {
   useEffect(() => {
     isRunningRef.current = isRunning;
   }, [isRunning]);
-
-  function checkCollision(newX: number, newY: number) {
-    return obstacles.some((obstacle) => {
-      return (
-        newX >= obstacle.x[0] &&
-        newX <= obstacle.x[1] &&
-        -newY >= obstacle.y[0] &&
-        -newY <= obstacle.y[1]
-      );
-    });
-  }
-
   // 키 입력 처리 함수 (최적화)
   const updateCharacter = useCallback(() => {
     const current = positionRef.current;
@@ -91,7 +76,7 @@ const Character = ({ pressedKeys, onPositionChange }: CharacterProps) => {
       newMovex !== current.movex || newMovey !== current.movey;
     const directionChanged = newDirection !== directionRef.current;
     const runningChanged = running !== isRunningRef.current;
-    if (positionChanged && !checkCollision(newMovex, newMovey)) {
+    if (positionChanged && !homeObstacles[`${newMovex}${newMovey}`]) {
       positionRef.current = { movex: newMovex, movey: newMovey };
       onPositionChange(positionRef.current);
     }
