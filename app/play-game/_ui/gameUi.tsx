@@ -1,90 +1,43 @@
 "use client";
 
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
 import Character from "./character";
-import "./game.css";
-import { arrowKeys } from "./utils";
 import { GameHome } from "./maps/home/home";
 import { HomeAction } from "./maps/home/homeAction";
-import { useImagePreload } from "@/libs/hooks/useImagePreload";
 import { House } from "./maps/house";
+import "./game.css";
+import { homeObstacles, MAP_LIST } from "./utils";
 
 export const GameUi = () => {
-  const [pressedKeys, setPressedKeys] = useState<string[]>([]);
-
-  const [currentMap, setCurrentMap] = useState("home");
-  const mapPositionRef = useRef({ movex: 37.5, movey: 0 });
+  const [currentMap, setCurrentMap] = useState(MAP_LIST.house);
+  const mapPositionRef = useRef({ movex: 37.5, movey: -37.5 });
   const mapRef = useRef<HTMLDivElement>(null);
 
-  const updateMapPosition = useCallback((movex: number, movey: number) => {
-    const x = -movex;
-    const y = -movey;
-
-    if (
-      mapPositionRef.current.movex !== x ||
-      mapPositionRef.current.movey !== y
-    ) {
-      mapPositionRef.current = { movex: x, movey: y };
-
+  const updateMapPosition = useCallback(
+    ({ movex, movey }: { movex: number; movey: number }) => {
+      const current = mapPositionRef.current;
+      // 변경사항이 있을 때만 업데이트
+      const positionChanged =
+        movex !== current.movex || movey !== current.movey;
+      /* 
+      맵 추가후엔 currentMap 상태에 따라 다른 장애물 체크 필요
+    */
+      if (!positionChanged /* || homeObstacles[`${movex}${movey}`] */) {
+        return;
+      }
+      mapPositionRef.current = { movex, movey };
       if (mapRef.current) {
-        mapRef.current.style.transform = `translate(${x}%, ${y}%)`;
+        mapRef.current.style.transform = `translate(${-movex}%, ${-movey}%)`;
       }
-    }
-  }, []);
-
-  // 캐릭터 위치 변경 핸들러 (메모이제이션)
-  const handlePositionChange = useCallback(
-    (position: { movex: number; movey: number }) => {
-      updateMapPosition(position.movex, position.movey);
     },
-    [updateMapPosition]
+    [],
   );
-
-  // 키 입력 처리
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (arrowKeys.includes(e.key)) {
-        e.preventDefault();
-        setPressedKeys((prev) => {
-          if (prev.includes(e.key)) return prev;
-          return [...prev, e.key];
-        });
-      }
-    };
-
-    const handleKeyUp = (e: KeyboardEvent) => {
-      if (arrowKeys.includes(e.key)) {
-        e.preventDefault();
-        setPressedKeys((prev) => {
-          if (!prev.includes(e.key)) return prev;
-          return prev.filter((key) => key !== e.key);
-        });
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("keyup", handleKeyUp);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("keyup", handleKeyUp);
-    };
-  }, []);
-  const imagePaths = [
-    "/images/game/character_front.png",
-    "/images/game/character_front_run.png",
-    "/images/game/character_back.png",
-    "/images/game/character_back_run.png",
-    "/images/game/character_right.png",
-    "/images/game/character_right_run.png",
-  ];
-  useImagePreload({ imagePaths });
 
   return (
     <>
       {currentMap === "house" && (
         <>
-          <House />
+          <House ref={mapRef} />
         </>
       )}
       {currentMap === "home" && (
@@ -94,8 +47,9 @@ export const GameUi = () => {
         </>
       )}
       <Character
-        pressedKeys={pressedKeys}
-        onPositionChange={handlePositionChange}
+        updateMapPosition={updateMapPosition}
+        mapPositionRef={mapPositionRef}
+        currentMap={currentMap}
       />
     </>
   );

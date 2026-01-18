@@ -1,5 +1,16 @@
 export const arrowKeys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
-// `xy`
+
+export const MAP_LIST = {
+  home: "home",
+  house: "house",
+};
+
+export const MAP_LIMIT: Record<
+  string,
+  { minX: number; maxX: number; minY: number; maxY: number }
+> = {
+  house: { minX: 27, maxX: 48, minY: -33.5, maxY: -40 },
+};
 
 export const ACTION_TYPE = {
   "green-home-sign": "green-home-sign",
