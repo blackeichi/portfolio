@@ -6,13 +6,13 @@ import "./game.css";
 import { arrowKeys } from "./utils";
 import { GameHome } from "./maps/home/home";
 import { HomeAction } from "./maps/home/homeAction";
+import { useImagePreload } from "@/libs/hooks/useImagePreload";
+import { House } from "./maps/house";
 
 export const GameUi = () => {
   const [pressedKeys, setPressedKeys] = useState<string[]>([]);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-  const [currentMap, setCurrentMap] = useState("home");
 
-  const animationFrameRef = useRef<number | undefined>(undefined);
+  const [currentMap, setCurrentMap] = useState("home");
   const mapPositionRef = useRef({ movex: 37.5, movey: 0 });
   const mapRef = useRef<HTMLDivElement>(null);
 
@@ -70,68 +70,26 @@ export const GameUi = () => {
       window.removeEventListener("keyup", handleKeyUp);
     };
   }, []);
-
-  // 이미지 프리로드 (완료 대기)
-  useEffect(() => {
-    const imagePaths = [
-      "/images/game/character_front.png",
-      "/images/game/character_front_run.png",
-      "/images/game/character_back.png",
-      "/images/game/character_back_run.png",
-      "/images/game/character_right.png",
-      "/images/game/character_right_run.png",
-    ];
-
-    const promises = imagePaths.map((src) => {
-      return new Promise<void>((resolve, reject) => {
-        const img = new Image();
-        img.onload = () => {
-          resolve();
-        };
-        img.onerror = () => {
-          reject(new Error(`Failed to load ${src}`));
-        };
-        img.src = src;
-      });
-    });
-
-    Promise.all(promises)
-      .then(() => {
-        setImagesLoaded(true);
-      })
-      .catch((error) => {
-        console.error("Image loading failed:", error);
-        // 실패해도 게임은 보여줌 (선택적)
-        setImagesLoaded(true);
-      });
-  }, []);
-
-  // 컴포넌트 언마운트 시 정리
-  useEffect(() => {
-    return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-    };
-  }, []);
-
-  // 이미지 로딩 중일 때 로딩 화면 표시
-  if (!imagesLoaded) {
-    return (
-      <div className="w-full h-full flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-gray-900 mx-auto mb-4"></div>
-          <p className="text-lg">Loading game assets...</p>
-        </div>
-      </div>
-    );
-  }
+  const imagePaths = [
+    "/images/game/character_front.png",
+    "/images/game/character_front_run.png",
+    "/images/game/character_back.png",
+    "/images/game/character_back_run.png",
+    "/images/game/character_right.png",
+    "/images/game/character_right_run.png",
+  ];
+  useImagePreload({ imagePaths });
 
   return (
     <>
+      {currentMap === "house" && (
+        <>
+          <House />
+        </>
+      )}
       {currentMap === "home" && (
         <>
-          <GameHome ref={mapRef} setImagesLoaded={setImagesLoaded} />
+          <GameHome ref={mapRef} />
           <HomeAction mapPositionRef={mapPositionRef} />
         </>
       )}
