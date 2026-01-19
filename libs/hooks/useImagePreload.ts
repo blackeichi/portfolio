@@ -6,6 +6,7 @@ export const useImagePreload = ({ imagePaths }: { imagePaths: string[] }) => {
   const setLoadingContent = useSetAtom(loadingContentState);
   // 이미지 프리로드 (완료 대기)
   useEffect(() => {
+    console.log("test!!");
     const promises = imagePaths.map((src) => {
       return new Promise<void>((resolve, reject) => {
         const img = new Image();
@@ -18,9 +19,9 @@ export const useImagePreload = ({ imagePaths }: { imagePaths: string[] }) => {
         img.src = src;
       });
     });
-
     Promise.all(promises)
       .then(() => {
+        console.log("All images loaded");
         setLoadingContent(false);
       })
       .catch((error) => {

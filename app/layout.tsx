@@ -23,6 +23,7 @@ export default function RootLayout({
         style={{
           backgroundColor: COLOR_THEME.bgGreen,
         }}
+        suppressHydrationWarning
       >
         <SnackbarProvider>
           <SnackbarComponent />

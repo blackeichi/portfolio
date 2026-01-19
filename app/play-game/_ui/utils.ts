@@ -1,7 +1,14 @@
 import { homeInteractions, homeObstacles } from "./maps/home/utils";
 import { houseInteractions, houseObstacles } from "./maps/house/utils";
 
-export const arrowKeys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
+export const CHARACTER_ID = "character_ui";
+
+export const ARROW_KEYS = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
+export const CHARACTER_KEYS: Record<string, string> = {
+  character: "character",
+  fat: "fat",
+  old: "old",
+};
 
 export const MAP_LIST = {
   home: "home",

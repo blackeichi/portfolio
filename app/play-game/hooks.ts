@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { arrowKeys } from "./_ui/utils";
+import { ARROW_KEYS, CHARACTER_ID, interactables } from "./_ui/utils";
 
 export const useHandleMoveEvent = () => {
   const [pressedKeys, setPressedKeys] = useState<string[]>([]);
   // 키 입력 처리
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (arrowKeys.includes(e.key)) {
+      if (ARROW_KEYS.includes(e.key)) {
         e.preventDefault();
         setPressedKeys((prev) => {
           if (prev.includes(e.key)) return prev;
@@ -16,7 +16,7 @@ export const useHandleMoveEvent = () => {
     };
 
     const handleKeyUp = (e: KeyboardEvent) => {
-      if (arrowKeys.includes(e.key)) {
+      if (ARROW_KEYS.includes(e.key)) {
         e.preventDefault();
         setPressedKeys((prev) => {
           if (!prev.includes(e.key)) return prev;
@@ -36,18 +36,45 @@ export const useHandleMoveEvent = () => {
   return { pressedKeys };
 };
 
-export const useHandleActionEvent = (actionFunc: () => void) => {
+export const useHandleActionEvent = ({
+  mapPositionRef,
+  currentMap,
+  setActionType,
+}: {
+  mapPositionRef: React.MutableRefObject<{ movex: number; movey: number }>;
+  currentMap: string;
+  setActionType: React.Dispatch<React.SetStateAction<string | null>>;
+}) => {
   useEffect(() => {
-    if (!actionFunc) return;
-    const handleSpaceKey = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.code === "Space") {
         e.preventDefault();
-        actionFunc();
+        const { movex, movey } = mapPositionRef.current;
+        const characterClass = document
+          .getElementById(CHARACTER_ID)
+          ?.className.split(" ")
+          .slice(1)
+          .join("");
+        if (characterClass) {
+          console.log(
+            movex,
+            movey,
+            characterClass,
+            interactables[currentMap][`${movex}${movey}${characterClass}`],
+          );
+        }
+        /* if (interactables[currentMap][`${movex}${movey}${lastKey}`]) {
+          setActionType(
+            interactables[currentMap][`${movex}${movey}${lastKey}`],
+          );
+        } */
       }
     };
-    window.addEventListener("keydown", handleSpaceKey);
+
+    window.addEventListener("keydown", handleKeyDown);
+
     return () => {
-      window.removeEventListener("keydown", handleSpaceKey);
+      window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [actionFunc]);
+  }, [currentMap, mapPositionRef, setActionType]);
 };

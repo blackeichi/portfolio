@@ -1,8 +1,19 @@
-export const HOUSE_ACTION_TYPE = {
+export const HOUSE_ACTION_TYPE: Record<string, string> = {
+  start: "start",
   outdoor: "outdoor",
+  yesAnswer: "yesAnswer",
+  noAnswer: "noAnswer",
+  badEvent: "badEvent",
+  tableEvent: "tableEvent",
+  computerEvent: "computerEvent",
+  radioEvent: "radioEvent",
+  tvEvent: "tvEvent",
+  bookEvent: "bookEvent",
+  bookEvent_right: "bookEvent_right",
 };
 
 export const houseInteractions: Record<string, string> = {
+  "44.5-33": HOUSE_ACTION_TYPE["outdoor"],
   "45-33": HOUSE_ACTION_TYPE["outdoor"],
   "45.5-33": HOUSE_ACTION_TYPE["outdoor"],
   "46-33": HOUSE_ACTION_TYPE["outdoor"],
@@ -10,6 +21,9 @@ export const houseInteractions: Record<string, string> = {
   "47-33": HOUSE_ACTION_TYPE["outdoor"],
   "47.5-33": HOUSE_ACTION_TYPE["outdoor"],
   "48-33": HOUSE_ACTION_TYPE["outdoor"],
+  "45-39rightflip": HOUSE_ACTION_TYPE["bookEvent_right"],
+  "45-39.5rightflip": HOUSE_ACTION_TYPE["bookEvent_right"],
+  "45-40rightflip": HOUSE_ACTION_TYPE["bookEvent_right"],
 };
 
 export const houseObstacles: Record<string, boolean> = {
@@ -89,4 +103,35 @@ export const houseObstacles: Record<string, boolean> = {
   "34.5-34": true,
   "35-34": true,
   "35.5-34": true,
+  // bottom
+  "29.5-33": true,
+  "30-33": true,
+  "30.5-33": true,
+  "31-33": true,
+  "31.5-33": true,
+  "32-33": true,
+  "32.5-33": true,
+  "33-33": true,
+  "33.5-33": true,
+  "34-33": true,
+  "34.5-33": true,
+  "35-33": true,
+  "35.5-33": true,
+  "36-33": true,
+  "36.5-33": true,
+  "37-33": true,
+  "37.5-33": true,
+  "38-33": true,
+  "38.5-33": true,
+  "39-33": true,
+  "39.5-33": true,
+  "40-33": true,
+  "40.5-33": true,
+  "41-33": true,
+  "41.5-33": true,
+  "42-33": true,
+  "42.5-33": true,
+  "43-33": true,
+  "43.5-33": true,
+  "44-33": true,
 };

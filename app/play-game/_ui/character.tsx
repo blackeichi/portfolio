@@ -2,8 +2,8 @@
 
 import { useEffect, useState, useRef, useCallback, memo, useMemo } from "react";
 import { useImagePreload } from "@/libs/hooks/useImagePreload";
-import { useHandleMoveEvent } from "../hooks";
-import { MAP_LIMIT } from "./utils";
+import { useHandleActionEvent, useHandleMoveEvent } from "../hooks";
+import { CHARACTER_ID, MAP_LIMIT } from "./utils";
 
 interface CharacterProps {
   updateMapPosition: ({
@@ -15,20 +15,52 @@ interface CharacterProps {
   }) => void;
   mapPositionRef: React.MutableRefObject<{ movex: number; movey: number }>;
   currentMap: string;
+  actionType: string | null;
+  characterKey: string;
+  setActionType: React.Dispatch<React.SetStateAction<string | null>>;
 }
 // collision 처리를 위해 0.5 단위로 끊기.
 const movementSpeed = 0.5;
+
+const imagePaths = [
+  "/images/game/character_front.png",
+  "/images/game/character_front_run.png",
+  "/images/game/character_back.png",
+  "/images/game/character_back_run.png",
+  "/images/game/character_right.png",
+  "/images/game/character_right_run.png",
+  "/images/game/fat_front.png",
+  "/images/game/fat_front_run.png",
+  "/images/game/fat_back.png",
+  "/images/game/fat_back_run.png",
+  "/images/game/fat_right.png",
+  "/images/game/fat_right_run.png",
+  "/images/game/old_front.png",
+  "/images/game/old_front_run.png",
+  "/images/game/old_back.png",
+  "/images/game/old_back_run.png",
+  "/images/game/old_right.png",
+  "/images/game/old_right_run.png",
+];
 
 const Character = ({
   updateMapPosition,
   mapPositionRef,
   currentMap,
+  actionType,
+  characterKey,
+  setActionType,
 }: CharacterProps) => {
   const { minX, maxX, minY, maxY } = useMemo(
     () => MAP_LIMIT[currentMap],
     [currentMap],
   );
   const { pressedKeys } = useHandleMoveEvent();
+  useHandleActionEvent({
+    mapPositionRef,
+    currentMap,
+    setActionType,
+  });
 
   const [direction, setDirection] = useState("down");
   const [isRunning, setIsRunning] = useState(false);
@@ -48,6 +80,15 @@ const Character = ({
   }, [isRunning]);
   // 키 입력 처리 함수 (최적화)
   const updateCharacter = useCallback(() => {
+    // actionType이 있으면 캐릭터 움직임 중단
+    if (actionType) {
+      if (isRunningRef.current) {
+        setIsRunning(false);
+      }
+      animationFrameRef.current = requestAnimationFrame(updateCharacter);
+      return;
+    }
+
     let newMovex = mapPositionRef.current.movex;
     let newMovey = mapPositionRef.current.movey;
     let newDirection = directionRef.current;
@@ -102,23 +143,35 @@ const Character = ({
     // 다음 프레임 요청
     // eslint-disable-next-line react-hooks/exhaustive-deps
     animationFrameRef.current = requestAnimationFrame(updateCharacter);
-  }, [pressedKeys, updateMapPosition, mapPositionRef, maxX, maxY, minX, minY]);
+  }, [
+    actionType,
+    pressedKeys,
+    updateMapPosition,
+    mapPositionRef,
+    maxX,
+    maxY,
+    minX,
+    minY,
+  ]);
 
   // 애니메이션 루프 시작
   useEffect(() => {
-    animationFrameRef.current = requestAnimationFrame(updateCharacter);
+    // actionType이 없을 때만 애니메이션 시작
+    if (!actionType) {
+      animationFrameRef.current = requestAnimationFrame(updateCharacter);
+    }
 
     return () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [updateCharacter]);
+  }, [updateCharacter, actionType]);
 
   // 캐릭터 CSS 클래스 결정 (메모이제이션)
   const characterClasses = useCallback(() => {
-    const classes = ["character"];
-
+    const classes = [characterKey];
+    if (actionType) return classes.join(" ");
     if (isRunning) {
       classes.push("run");
     }
@@ -138,21 +191,17 @@ const Character = ({
     }
 
     return classes.join(" ");
-  }, [direction, isRunning]);
+  }, [direction, isRunning, actionType, characterKey]);
 
-  const imagePaths = [
-    "/images/game/character_front.png",
-    "/images/game/character_front_run.png",
-    "/images/game/character_back.png",
-    "/images/game/character_back_run.png",
-    "/images/game/character_right.png",
-    "/images/game/character_right_run.png",
-  ];
   useImagePreload({ imagePaths });
 
   return (
     <div className="character_box">
-      <div ref={characterRef} className={characterClasses()} />
+      <div
+        ref={characterRef}
+        id={CHARACTER_ID}
+        className={characterClasses()}
+      />
     </div>
   );
 };

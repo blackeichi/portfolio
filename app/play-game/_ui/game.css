@@ -4,7 +4,7 @@
   position: absolute;
   left: 45%;
   top: 45%;
-  z-index: 100;
+  z-index: 10;
   will-change: transform;
   will-change: left;
 }
@@ -57,5 +57,89 @@
   animation: character_run 0.3s infinite steps(2);
 }
 .character_box .character.flip {
+  transform: rotateY(180deg);
+}
+
+.character_box .fat {
+  height: 100%;
+  background-image: url("/images/game/fat_front.png");
+  background-size: 100%;
+}
+
+.character_box .fat.run {
+  height: 100%;
+  background-image: url("/images/game/fat_front_run.png");
+  background-size: 200% 100%;
+  animation: character_run 0.3s infinite steps(2);
+}
+
+.character_box .fat.back {
+  height: 100%;
+  background-image: url("/images/game/fat_back.png");
+  background-size: 100%;
+}
+
+.character_box .fat.back.run {
+  height: 100%;
+  background-image: url("/images/game/fat_back_run.png");
+  background-size: 200% 100%;
+  animation: character_run 0.3s infinite steps(2);
+}
+
+.character_box .fat.right {
+  height: 100%;
+  background-image: url("/images/game/fat_right.png");
+  background-size: 100%;
+}
+
+.character_box .fat.right.run {
+  height: 100%;
+  background-image: url("/images/game/fat_right_run.png");
+  background-size: 200% 100%;
+  animation: character_run 0.3s infinite steps(2);
+}
+.character_box .fat.flip {
+  transform: rotateY(180deg);
+}
+
+.character_box .old {
+  height: 100%;
+  background-image: url("/images/game/old_front.png");
+  background-size: 100%;
+}
+
+.character_box .old.run {
+  height: 100%;
+  background-image: url("/images/game/old_front_run.png");
+  background-size: 200% 100%;
+  animation: character_run 0.3s infinite steps(2);
+}
+
+.character_box .old.back {
+  height: 100%;
+  background-image: url("/images/game/old_back.png");
+  background-size: 100%;
+}
+
+.character_box .old.back.run {
+  height: 100%;
+  background-image: url("/images/game/old_back_run.png");
+  background-size: 200% 100%;
+  animation: character_run 0.3s infinite steps(2);
+}
+
+.character_box .old.right {
+  height: 100%;
+  background-image: url("/images/game/old_right.png");
+  background-size: 100%;
+}
+
+.character_box .old.right.run {
+  height: 100%;
+  background-image: url("/images/game/old_right_run.png");
+  background-size: 200% 100%;
+  animation: character_run 0.3s infinite steps(2);
+}
+.character_box .old.flip {
   transform: rotateY(180deg);
 }

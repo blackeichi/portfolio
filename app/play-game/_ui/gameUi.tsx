@@ -6,18 +6,21 @@ import { GameHome } from "./maps/home/home";
 import { HomeAction } from "./maps/home/homeAction";
 import { House } from "./maps/house";
 import "./game.css";
-import { interactables, MAP_LIST, obstacles } from "./utils";
+import { CHARACTER_KEYS, interactables, MAP_LIST, obstacles } from "./utils";
 import HouseAction from "./maps/house/houseAction";
-
-/* 
-TODO
-- action시 캐릭터 멈추기
-- 맵의 bottom 경계선을 장애물로 설정
-*/
+import { HOUSE_ACTION_TYPE } from "./maps/house/utils";
+import { useAtomValue } from "jotai";
+import { loadingContentState } from "@/libs/atom";
 
 export const GameUi = () => {
+  const loadingContent = useAtomValue(loadingContentState);
   const [currentMap, setCurrentMap] = useState(MAP_LIST.house);
-  const [actionType, setActionType] = useState<string | null>(null);
+  const [actionType, setActionType] = useState<string | null>(
+    HOUSE_ACTION_TYPE.start,
+  );
+  const [characterKey, setCharacterKey] = useState<keyof typeof CHARACTER_KEYS>(
+    CHARACTER_KEYS.character,
+  );
   const mapPositionRef = useRef({ movex: 37.5, movey: -37.5 });
   const mapRef = useRef<HTMLDivElement>(null);
 
@@ -28,6 +31,7 @@ export const GameUi = () => {
       // 변경사항이 있을 때만 업데이트
       const positionChanged =
         movex !== current.movex || movey !== current.movey;
+      // console.log(movex, movey);
       // 액션 발생
       if (interactables[currentMap][`${movex}${movey}`]) {
         return setActionType(interactables[currentMap][`${movex}${movey}`]);
@@ -44,16 +48,23 @@ export const GameUi = () => {
     },
     [currentMap, actionType],
   );
-
   return (
     <>
-      {currentMap === "house" && (
+      {loadingContent && (
+        <div className="w-full h-full bg-white z-50 absolute left-0 top-0"></div>
+      )}
+      {currentMap === MAP_LIST.house && (
         <>
           <House ref={mapRef} />
-          <HouseAction actionType={actionType} setActionType={setActionType} />
+          <HouseAction
+            actionType={actionType}
+            setActionType={setActionType}
+            setCurrentMap={setCurrentMap}
+            setCharacterKey={setCharacterKey}
+          />
         </>
       )}
-      {currentMap === "home" && (
+      {currentMap === MAP_LIST.home && (
         <>
           <GameHome ref={mapRef} />
           <HomeAction mapPositionRef={mapPositionRef} />
@@ -63,6 +74,9 @@ export const GameUi = () => {
         updateMapPosition={updateMapPosition}
         mapPositionRef={mapPositionRef}
         currentMap={currentMap}
+        actionType={actionType}
+        characterKey={characterKey}
+        setActionType={setActionType}
       />
     </>
   );
