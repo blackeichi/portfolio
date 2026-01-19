@@ -6,23 +6,35 @@ import { GameHome } from "./maps/home/home";
 import { HomeAction } from "./maps/home/homeAction";
 import { House } from "./maps/house";
 import "./game.css";
-import { homeObstacles, MAP_LIST } from "./utils";
+import { interactables, MAP_LIST, obstacles } from "./utils";
+import HouseAction from "./maps/house/houseAction";
+
+/* 
+TODO
+- action시 캐릭터 멈추기
+- 맵의 bottom 경계선을 장애물로 설정
+*/
 
 export const GameUi = () => {
   const [currentMap, setCurrentMap] = useState(MAP_LIST.house);
+  const [actionType, setActionType] = useState<string | null>(null);
   const mapPositionRef = useRef({ movex: 37.5, movey: -37.5 });
   const mapRef = useRef<HTMLDivElement>(null);
 
   const updateMapPosition = useCallback(
     ({ movex, movey }: { movex: number; movey: number }) => {
+      if (actionType) return; // 액션 중일 때는 움직이지 않음
       const current = mapPositionRef.current;
       // 변경사항이 있을 때만 업데이트
       const positionChanged =
         movex !== current.movex || movey !== current.movey;
-      /* 
-      맵 추가후엔 currentMap 상태에 따라 다른 장애물 체크 필요
-    */
-      if (!positionChanged /* || homeObstacles[`${movex}${movey}`] */) {
+      // 액션 발생
+      if (interactables[currentMap][`${movex}${movey}`]) {
+        return setActionType(interactables[currentMap][`${movex}${movey}`]);
+      }
+      // console.log(movex, movey);
+      // 장애물 체크
+      if (!positionChanged || obstacles[currentMap][`${movex}${movey}`]) {
         return;
       }
       mapPositionRef.current = { movex, movey };
@@ -30,7 +42,7 @@ export const GameUi = () => {
         mapRef.current.style.transform = `translate(${-movex}%, ${-movey}%)`;
       }
     },
-    [],
+    [currentMap, actionType],
   );
 
   return (
@@ -38,6 +50,7 @@ export const GameUi = () => {
       {currentMap === "house" && (
         <>
           <House ref={mapRef} />
+          <HouseAction actionType={actionType} setActionType={setActionType} />
         </>
       )}
       {currentMap === "home" && (

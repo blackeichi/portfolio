@@ -24,7 +24,6 @@ export const useHandleMoveEvent = () => {
         });
       }
     };
-
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("keyup", handleKeyUp);
 
@@ -35,4 +34,20 @@ export const useHandleMoveEvent = () => {
   }, []);
 
   return { pressedKeys };
+};
+
+export const useHandleActionEvent = (actionFunc: () => void) => {
+  useEffect(() => {
+    if (!actionFunc) return;
+    const handleSpaceKey = (e: KeyboardEvent) => {
+      if (e.code === "Space") {
+        e.preventDefault();
+        actionFunc();
+      }
+    };
+    window.addEventListener("keydown", handleSpaceKey);
+    return () => {
+      window.removeEventListener("keydown", handleSpaceKey);
+    };
+  }, [actionFunc]);
 };

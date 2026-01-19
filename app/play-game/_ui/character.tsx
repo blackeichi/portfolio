@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef, useCallback, memo } from "react";
+import { useEffect, useState, useRef, useCallback, memo, useMemo } from "react";
 import { useImagePreload } from "@/libs/hooks/useImagePreload";
 import { useHandleMoveEvent } from "../hooks";
 import { MAP_LIMIT } from "./utils";
@@ -24,7 +24,10 @@ const Character = ({
   mapPositionRef,
   currentMap,
 }: CharacterProps) => {
-  const { minX, maxX, minY, maxY } = MAP_LIMIT[currentMap];
+  const { minX, maxX, minY, maxY } = useMemo(
+    () => MAP_LIMIT[currentMap],
+    [currentMap],
+  );
   const { pressedKeys } = useHandleMoveEvent();
 
   const [direction, setDirection] = useState("down");
@@ -49,7 +52,6 @@ const Character = ({
     let newMovey = mapPositionRef.current.movey;
     let newDirection = directionRef.current;
     let running = false;
-    console.log(newMovey, minY, maxY);
     // 배열의 마지막 키(가장 최근 입력)를 우선으로 처리
     const lastKey = pressedKeys[pressedKeys.length - 1];
 
@@ -100,7 +102,7 @@ const Character = ({
     // 다음 프레임 요청
     // eslint-disable-next-line react-hooks/exhaustive-deps
     animationFrameRef.current = requestAnimationFrame(updateCharacter);
-  }, [pressedKeys, updateMapPosition, mapPositionRef]);
+  }, [pressedKeys, updateMapPosition, mapPositionRef, maxX, maxY, minX, minY]);
 
   // 애니메이션 루프 시작
   useEffect(() => {

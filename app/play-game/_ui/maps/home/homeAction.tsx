@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { homeInteractables } from "../../utils";
+import { homeInteractions } from "./utils";
 
 export const HomeAction = ({
   mapPositionRef,
@@ -12,7 +12,7 @@ export const HomeAction = ({
         e.preventDefault();
         const x = -mapPositionRef.current.movex;
         const y = -mapPositionRef.current.movey;
-        const action = homeInteractables[`${x}${y}`];
+        const action = homeInteractions[`${x}${y}`];
         if (action) {
           console.log(`${x}${y}`);
         }
