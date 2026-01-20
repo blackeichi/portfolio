@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState, useRef, useCallback, memo, useMemo } from "react";
-import { useImagePreload } from "@/libs/hooks/useImagePreload";
 import { useHandleActionEvent, useHandleMoveEvent } from "../hooks";
 import { CHARACTER_ID, MAP_LIMIT } from "./utils";
+import { useAtom } from "jotai";
+import { characterDirectionState } from "../atoms";
 
 interface CharacterProps {
   updateMapPosition: ({
@@ -21,27 +22,6 @@ interface CharacterProps {
 }
 // collision 처리를 위해 0.5 단위로 끊기.
 const movementSpeed = 0.5;
-
-const imagePaths = [
-  "/images/game/character_front.png",
-  "/images/game/character_front_run.png",
-  "/images/game/character_back.png",
-  "/images/game/character_back_run.png",
-  "/images/game/character_right.png",
-  "/images/game/character_right_run.png",
-  "/images/game/fat_front.png",
-  "/images/game/fat_front_run.png",
-  "/images/game/fat_back.png",
-  "/images/game/fat_back_run.png",
-  "/images/game/fat_right.png",
-  "/images/game/fat_right_run.png",
-  "/images/game/old_front.png",
-  "/images/game/old_front_run.png",
-  "/images/game/old_back.png",
-  "/images/game/old_back_run.png",
-  "/images/game/old_right.png",
-  "/images/game/old_right_run.png",
-];
 
 const Character = ({
   updateMapPosition,
@@ -62,7 +42,7 @@ const Character = ({
     setActionType,
   });
 
-  const [direction, setDirection] = useState("down");
+  const [direction, setDirection] = useAtom(characterDirectionState);
   const [isRunning, setIsRunning] = useState(false);
 
   const characterRef = useRef<HTMLDivElement>(null);
@@ -133,7 +113,7 @@ const Character = ({
     updateMapPosition({ movex: newMovex, movey: newMovey });
 
     if (directionChanged) {
-      setDirection(newDirection);
+      setDirection(newDirection as "up" | "down" | "left" | "right");
     }
 
     if (runningChanged) {
@@ -171,8 +151,7 @@ const Character = ({
   // 캐릭터 CSS 클래스 결정 (메모이제이션)
   const characterClasses = useCallback(() => {
     const classes = [characterKey];
-    if (actionType) return classes.join(" ");
-    if (isRunning) {
+    if (isRunning && !actionType) {
       classes.push("run");
     }
 
@@ -191,9 +170,7 @@ const Character = ({
     }
 
     return classes.join(" ");
-  }, [direction, isRunning, actionType, characterKey]);
-
-  useImagePreload({ imagePaths });
+  }, [direction, isRunning, characterKey, actionType]);
 
   return (
     <div className="character_box">

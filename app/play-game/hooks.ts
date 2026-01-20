@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { ARROW_KEYS, CHARACTER_ID, interactables } from "./_ui/utils";
+import { useSetAtom } from "jotai";
+import { loadingContentState } from "./atoms";
 
 export const useHandleMoveEvent = () => {
   const [pressedKeys, setPressedKeys] = useState<string[]>([]);
@@ -50,24 +52,22 @@ export const useHandleActionEvent = ({
       if (e.code === "Space") {
         e.preventDefault();
         const { movex, movey } = mapPositionRef.current;
-        const characterClass = document
-          .getElementById(CHARACTER_ID)
-          ?.className.split(" ")
-          .slice(1)
-          .join("");
-        if (characterClass) {
-          console.log(
-            movex,
-            movey,
-            characterClass,
+        const characterClass =
+          document
+            .getElementById(CHARACTER_ID)
+            ?.className.split(" ")
+            .slice(1)
+            .filter((cls) => cls !== "run")
+            .join("") || "front";
+        console.log(
+          interactables[currentMap][`${movex}${movey}${characterClass}`],
+          `${movex}${movey}${characterClass}`,
+        );
+        if (interactables[currentMap][`${movex}${movey}${characterClass}`]) {
+          setActionType(
             interactables[currentMap][`${movex}${movey}${characterClass}`],
           );
         }
-        /* if (interactables[currentMap][`${movex}${movey}${lastKey}`]) {
-          setActionType(
-            interactables[currentMap][`${movex}${movey}${lastKey}`],
-          );
-        } */
       }
     };
 
@@ -77,4 +77,32 @@ export const useHandleActionEvent = ({
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [currentMap, mapPositionRef, setActionType]);
+};
+
+export const useImagePreload = ({ imagePaths }: { imagePaths: string[] }) => {
+  const setLoadingContent = useSetAtom(loadingContentState);
+  // 이미지 프리로드 (완료 대기)
+  useEffect(() => {
+    const promises = imagePaths.map((src) => {
+      return new Promise<void>((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+          resolve();
+        };
+        img.onerror = () => {
+          reject(new Error(`Failed to load ${src}`));
+        };
+        img.src = src;
+      });
+    });
+    Promise.all(promises)
+      .then(() => {
+        setLoadingContent(false);
+      })
+      .catch((error) => {
+        console.error("Image loading failed:", error);
+        // 실패해도 게임은 보여줌 (선택적)
+        setLoadingContent(false);
+      });
+  }, [imagePaths, setLoadingContent]);
 };

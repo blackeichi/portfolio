@@ -9,6 +9,29 @@
   will-change: left;
 }
 
+/* 캐릭터 이미지 preload. useImagePreload 훅으로 처리시 정상적으로 처리가 되지 않아서 대신 CSS로 처리. */
+body::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  z-index: -1;
+  background-image:
+    url("/images/game/character_front.png"),
+    url("/images/game/character_front_run.png"),
+    url("/images/game/character_back.png"),
+    url("/images/game/character_back_run.png"),
+    url("/images/game/character_right.png"),
+    url("/images/game/character_right_run.png"),
+    url("/images/game/fat_front.png"), url("/images/game/fat_front_run.png"),
+    url("/images/game/fat_back.png"), url("/images/game/fat_back_run.png"),
+    url("/images/game/fat_right.png"), url("/images/game/fat_right_run.png"),
+    url("/images/game/old_front.png"), url("/images/game/old_front_run.png"),
+    url("/images/game/old_back.png"), url("/images/game/old_back_run.png"),
+    url("/images/game/old_right.png"), url("/images/game/old_right_run.png");
+}
+
 @keyframes character_run {
   from {
     background-position-x: 0px;

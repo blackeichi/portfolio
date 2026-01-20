@@ -2,21 +2,21 @@
 
 import { useState, useRef, useCallback } from "react";
 import Character from "./character";
-import { GameHome } from "./maps/home/home";
-import { HomeAction } from "./maps/home/homeAction";
 import { House } from "./maps/house";
 import "./game.css";
 import { CHARACTER_KEYS, interactables, MAP_LIST, obstacles } from "./utils";
 import HouseAction from "./maps/house/houseAction";
 import { HOUSE_ACTION_TYPE } from "./maps/house/utils";
 import { useAtomValue } from "jotai";
-import { loadingContentState } from "@/libs/atom";
+import { loadingContentState } from "../atoms";
+import { OutsideMap } from "./maps/outside";
+import { OutsideAction } from "./maps/outside/outsideAction";
 
 export const GameUi = () => {
   const loadingContent = useAtomValue(loadingContentState);
   const [currentMap, setCurrentMap] = useState(MAP_LIST.house);
   const [actionType, setActionType] = useState<string | null>(
-    HOUSE_ACTION_TYPE.start,
+    HOUSE_ACTION_TYPE.manual,
   );
   const [characterKey, setCharacterKey] = useState<keyof typeof CHARACTER_KEYS>(
     CHARACTER_KEYS.character,
@@ -26,7 +26,6 @@ export const GameUi = () => {
 
   const updateMapPosition = useCallback(
     ({ movex, movey }: { movex: number; movey: number }) => {
-      if (actionType) return; // 액션 중일 때는 움직이지 않음
       const current = mapPositionRef.current;
       // 변경사항이 있을 때만 업데이트
       const positionChanged =
@@ -36,7 +35,6 @@ export const GameUi = () => {
       if (interactables[currentMap][`${movex}${movey}`]) {
         return setActionType(interactables[currentMap][`${movex}${movey}`]);
       }
-      // console.log(movex, movey);
       // 장애물 체크
       if (!positionChanged || obstacles[currentMap][`${movex}${movey}`]) {
         return;
@@ -46,7 +44,7 @@ export const GameUi = () => {
         mapRef.current.style.transform = `translate(${-movex}%, ${-movey}%)`;
       }
     },
-    [currentMap, actionType],
+    [currentMap],
   );
   return (
     <>
@@ -55,19 +53,27 @@ export const GameUi = () => {
       )}
       {currentMap === MAP_LIST.house && (
         <>
-          <House ref={mapRef} />
+          <House ref={mapRef} mapPositionRef={mapPositionRef} />
           <HouseAction
             actionType={actionType}
             setActionType={setActionType}
             setCurrentMap={setCurrentMap}
             setCharacterKey={setCharacterKey}
+            mapPositionRef={mapPositionRef}
+            updateMapPosition={updateMapPosition}
           />
         </>
       )}
-      {currentMap === MAP_LIST.home && (
+      {currentMap === MAP_LIST.outside && (
         <>
-          <GameHome ref={mapRef} />
-          <HomeAction mapPositionRef={mapPositionRef} />
+          <OutsideMap ref={mapRef} mapPositionRef={mapPositionRef} />
+          <OutsideAction
+            actionType={actionType}
+            setActionType={setActionType}
+            setCurrentMap={setCurrentMap}
+            updateMapPosition={updateMapPosition}
+            mapPositionRef={mapPositionRef}
+          />
         </>
       )}
       <Character

@@ -1,9 +1,9 @@
 import { useImagePreload } from "@/app/play-game/hooks";
 import { forwardRef, memo, useLayoutEffect } from "react";
 
-const imagePaths = ["/images/game/houseMap.png"];
+const imagePaths = ["/images/game/map.png"];
 
-export const House = memo(
+export const OutsideMap = memo(
   forwardRef<
     HTMLDivElement,
     { mapPositionRef: React.MutableRefObject<{ movex: number; movey: number }> }
@@ -22,7 +22,8 @@ export const House = memo(
         style={{
           width: "400%",
           height: "400%",
-          backgroundImage: "url('/images/game/houseMap.png')",
+          // 6435 x 6435 px
+          backgroundImage: "url('/images/game/map.png')",
           backgroundSize: "auto 100%",
         }}
       />
@@ -30,4 +31,4 @@ export const House = memo(
   }),
 );
 
-House.displayName = "House";
+OutsideMap.displayName = "OutsideMap";
