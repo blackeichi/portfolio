@@ -35,7 +35,7 @@ export const OutsideAction = ({
     return (
       <DialogBox
         key={target}
-        dialogs={["정우의 집"]}
+        dialogs={[`"정우의 집"`]}
         onClose={() => setActionType(null)}
       />
     );

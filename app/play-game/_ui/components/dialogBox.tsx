@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { FaCaretDown, FaCaretRight } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { pressStart } from "@/libs/uitls/fonts";
 
 export const DialogBox = ({
   dialogs,
@@ -58,14 +59,18 @@ export const DialogBox = ({
   }, [page, maxPage, answer, isLastPage, yesEvent, noEvent, onClose]);
 
   return (
-    <div className="bg-white w-full h-2/6 absolute left-0 bottom-0 z-30 p-[1.5vh] text-[3vh]">
+    <div
+      className={`bg-white w-full h-2/6 absolute left-0 bottom-0 z-30 p-[1.5vh] text-[3vh] ${
+        pressStart.className
+      }`}
+    >
       {yesEvent && isLastPage && (
         <div
           key={page}
           className="absolute right-0 top-0 -translate-y-full bg-white h-full aspect-square z-30 p-[1vh] pb-0"
         >
-          <div className="w-full h-full border-2 rounded-lg p-[0.5vh]">
-            <div className="relative w-full h-full border-3 rounded-lg p-[0.5vh] pl-[2vh] whitespace-nowrap overflow-hidden flex flex-col gap-0.5 justify-center font-bold">
+          <div className="w-full h-full border-[0.5vh] rounded-lg p-[0.5vh]">
+            <div className="relative w-full h-full border-[1vh] rounded-lg p-[0.5vh] pl-[2vh] whitespace-nowrap overflow-hidden flex flex-col gap-0.5 justify-center font-black">
               {["예", "아니요"].map((text, idx) => (
                 <div key={idx} className="flex items-center gap-0.5">
                   <div className="w-[5vh] h-[5vh] text-[5vh]">
@@ -78,8 +83,8 @@ export const DialogBox = ({
           </div>
         </div>
       )}
-      <div className="w-full h-full border-2 rounded-lg p-[0.5vh]">
-        <div className="relative w-full h-full border-3 rounded-lg p-[0.5vh] pl-[2vh] pb-[3vh] whitespace-nowrap overflow-hidden flex flex-col gap-0.5 justify-center font-bold">
+      <div className="w-full h-full border-[0.5vh] rounded-lg p-[0.5vh]">
+        <div className="relative w-full h-full border-[1vh] rounded-lg p-[0.5vh] pl-[2vh] pb-[3vh] whitespace-nowrap overflow-hidden flex flex-col gap-0.5 justify-center font-black">
           {messages.map((msg, idx) => (
             <span key={idx}>{msg}</span>
           ))}
