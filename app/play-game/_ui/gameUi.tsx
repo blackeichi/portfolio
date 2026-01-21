@@ -32,21 +32,16 @@ export const GameUi = () => {
         movex !== current.movex || movey !== current.movey;
       // console.log(movex, movey);
       // 액션 발생
-      const roundedMovex = Math.round(movex * 2) / 2;
-      const roundedMovey = Math.round(movey * 2) / 2;
-      if (interactables[currentMap][`${roundedMovex}${roundedMovey}`]) {
-        return setActionType(
-          interactables[currentMap][`${roundedMovex}${roundedMovey}`],
-        );
+      // const roundedMovex = Math.round(movex * 2) / 2;
+      // const roundedMovey = Math.round(movey * 2) / 2;
+      if (interactables[currentMap][`${movex}${movey}`]) {
+        return setActionType(interactables[currentMap][`${movex}${movey}`]);
       }
       // 장애물 체크
-      if (
-        !positionChanged ||
-        obstacles[currentMap][`${roundedMovex}${roundedMovey}`]
-      ) {
+      if (!positionChanged || obstacles[currentMap][`${movex}${movey}`]) {
         return;
       }
-      mapPositionRef.current = { movex, movey };
+      mapPositionRef.current = { movex: movex, movey: movey };
       if (mapRef.current) {
         mapRef.current.style.transform = `translate(${-movex}%, ${-movey}%)`;
       }
