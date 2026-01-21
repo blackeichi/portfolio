@@ -91,9 +91,13 @@ export const DialogBox = ({
           {page < maxPage && (
             <motion.div
               key={page}
-              className="absolute right-0 bottom-0 opacity-0 text-[5vh] animate-bounce"
+              className="absolute right-0 bottom-0 opacity-0 text-[5vh] "
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.05 }}
+              transition={{
+                duration: 0.2,
+                repeatDelay: 0.5,
+                repeat: Infinity,
+              }}
             >
               <FaCaretDown />
             </motion.div>

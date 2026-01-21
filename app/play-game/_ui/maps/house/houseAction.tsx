@@ -41,10 +41,10 @@ export default function HouseAction({
         <DialogBox
           key={target}
           dialogs={[
-            "정우의 일상에 오신 것을 환영합니다!",
+            "정우의 일상에 오신 것을 환영합니다 !",
             "화살표 키로 이동할 수 있으며,",
             `"스페이스바" 키를 눌러`,
-            "상호작용 및 대화 넘기기를 하실 수 있습니다.",
+            "상호작용 및 대화 넘기기를 할 수 있습니다.",
           ]}
           onClose={() => setActionType(HOUSE_ACTION_TYPE.start)}
         />
@@ -128,7 +128,7 @@ export default function HouseAction({
         key={target}
         dialogs={["오늘은 그냥 쉬어야겠다!", "내일은 꼭 가야지!"]}
         onClose={() => {
-          mapPositionRef.current = { movex: 36, movey: -36 };
+          mapPositionRef.current = { movex: 36, movey: -36.5 };
           setActionType(null);
           setLoadingContent(true);
           setCurrentMap(MAP_LIST.outside);
@@ -181,6 +181,16 @@ export default function HouseAction({
       <DialogBox
         key={target}
         dialogs={["아직 따뜻해..", "30분만 더 자고 싶다.."]}
+        onClose={() => {
+          setActionType(null);
+        }}
+      />
+    );
+  } else if (target === HOUSE_ACTION_TYPE.pictureEvent) {
+    return (
+      <DialogBox
+        key={target}
+        dialogs={["피자가 먹고 싶다."]}
         onClose={() => {
           setActionType(null);
         }}

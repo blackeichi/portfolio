@@ -1,4 +1,5 @@
 import { useImagePreload } from "@/app/play-game/hooks";
+import Image from "next/image";
 import { forwardRef, memo, useLayoutEffect } from "react";
 
 const imagePaths = ["/images/game/map.png"];

@@ -61,6 +61,46 @@ export const OutsideAction = ({
         onClose={() => setActionType(null)}
       />
     );
+  if (target === OUT_SIDE_ACTION_TYPE.goToGym)
+    return (
+      <DialogBox
+        key={target}
+        dialogs={[
+          "....",
+          "....",
+          "이곳은 헬스장이야..!",
+          "나는 회사로 가야해!",
+        ]}
+        onClose={() => {
+          setActionType(null);
+          updateMapPosition({
+            movex: mapPositionRef.current.movex,
+            movey: -21.5,
+          });
+          setDirection("down");
+        }}
+      />
+    );
+  if (target === OUT_SIDE_ACTION_TYPE.goToPC)
+    return (
+      <DialogBox
+        key={target}
+        dialogs={[
+          "....",
+          "피씨방이야..!",
+          "들어가고 싶지만..",
+          "나는 회사로 가야해?!",
+        ]}
+        onClose={() => {
+          setActionType(null);
+          updateMapPosition({
+            movex: mapPositionRef.current.movex,
+            movey: -48.5,
+          });
+          setDirection("down");
+        }}
+      />
+    );
   return (
     <CancelActionComponent
       actionType={actionType}
