@@ -20,8 +20,8 @@ interface CharacterProps {
   characterKey: string;
   setActionType: React.Dispatch<React.SetStateAction<string | null>>;
 }
-// collision 처리를 위해 0.5 단위로 끊기.
-const movementSpeed = 0.5;
+// 초당 이동 속도 (픽셀/초)
+const movementSpeed = 30;
 
 const Character = ({
   updateMapPosition,
@@ -49,6 +49,7 @@ const Character = ({
   const animationFrameRef = useRef<number | undefined>(undefined);
   const directionRef = useRef("down");
   const isRunningRef = useRef(false);
+  const lastTimeRef = useRef<number>(performance.now());
 
   // ref 값 동기화
   useEffect(() => {
@@ -59,85 +60,94 @@ const Character = ({
     isRunningRef.current = isRunning;
   }, [isRunning]);
   // 키 입력 처리 함수 (최적화)
-  const updateCharacter = useCallback(() => {
-    // actionType이 있으면 캐릭터 움직임 중단
-    if (actionType) {
-      if (isRunningRef.current) {
-        setIsRunning(false);
+  const updateCharacter = useCallback(
+    (currentTime: number) => {
+      // deltaTime 계산 (초 단위)
+      const deltaTime = (currentTime - lastTimeRef.current) / 1000;
+      lastTimeRef.current = currentTime;
+
+      // actionType이 있으면 캐릭터 움직임 중단
+      if (actionType) {
+        if (isRunningRef.current) {
+          setIsRunning(false);
+        }
+        animationFrameRef.current = requestAnimationFrame(updateCharacter);
+        return;
       }
+
+      let newMovex = mapPositionRef.current.movex;
+      let newMovey = mapPositionRef.current.movey;
+      let newDirection = directionRef.current;
+      let running = false;
+      // 배열의 마지막 키(가장 최근 입력)를 우선으로 처리
+      const lastKey = pressedKeys[pressedKeys.length - 1];
+
+      if (lastKey) {
+        running = true;
+        // 프레임율에 독립적인 이동량 계산
+        const moveAmount = movementSpeed * deltaTime;
+        // 가장 최근 입력된 키에 따라 방향 결정
+        if (lastKey === "ArrowUp") {
+          newDirection = "up";
+          if (newMovey > maxY) {
+            newMovey -= moveAmount;
+          }
+        } else if (lastKey === "ArrowDown") {
+          newDirection = "down";
+          if (newMovey < minY) {
+            newMovey += moveAmount;
+          }
+        } else if (lastKey === "ArrowRight") {
+          newDirection = "right";
+          if (newMovex < maxX) {
+            newMovex += moveAmount;
+          }
+        } else if (lastKey === "ArrowLeft") {
+          newDirection = "left";
+          if (newMovex > minX) {
+            newMovex -= moveAmount;
+          }
+        }
+      }
+
+      if (pressedKeys.length === 0) {
+        running = false;
+      }
+      const directionChanged = newDirection !== directionRef.current;
+      const runningChanged = running !== isRunningRef.current;
+
+      updateMapPosition({ movex: newMovex, movey: newMovey });
+
+      if (directionChanged) {
+        setDirection(newDirection as "up" | "down" | "left" | "right");
+      }
+
+      if (runningChanged) {
+        setIsRunning(running);
+      }
+
+      // 다음 프레임 요청
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       animationFrameRef.current = requestAnimationFrame(updateCharacter);
-      return;
-    }
-
-    let newMovex = mapPositionRef.current.movex;
-    let newMovey = mapPositionRef.current.movey;
-    let newDirection = directionRef.current;
-    let running = false;
-    // 배열의 마지막 키(가장 최근 입력)를 우선으로 처리
-    const lastKey = pressedKeys[pressedKeys.length - 1];
-
-    if (lastKey) {
-      running = true;
-
-      // 가장 최근 입력된 키에 따라 방향 결정
-      if (lastKey === "ArrowUp") {
-        newDirection = "up";
-        if (newMovey > maxY) {
-          newMovey -= movementSpeed;
-        }
-      } else if (lastKey === "ArrowDown") {
-        newDirection = "down";
-        if (newMovey < minY) {
-          newMovey += movementSpeed;
-        }
-      } else if (lastKey === "ArrowRight") {
-        newDirection = "right";
-        if (newMovex < maxX) {
-          newMovex += movementSpeed;
-        }
-      } else if (lastKey === "ArrowLeft") {
-        newDirection = "left";
-        if (newMovex > minX) {
-          newMovex -= movementSpeed;
-        }
-      }
-    }
-
-    if (pressedKeys.length === 0) {
-      running = false;
-    }
-
-    const directionChanged = newDirection !== directionRef.current;
-    const runningChanged = running !== isRunningRef.current;
-
-    updateMapPosition({ movex: newMovex, movey: newMovey });
-
-    if (directionChanged) {
-      setDirection(newDirection as "up" | "down" | "left" | "right");
-    }
-
-    if (runningChanged) {
-      setIsRunning(running);
-    }
-
-    // 다음 프레임 요청
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    animationFrameRef.current = requestAnimationFrame(updateCharacter);
-  }, [
-    actionType,
-    pressedKeys,
-    updateMapPosition,
-    mapPositionRef,
-    maxX,
-    maxY,
-    minX,
-    minY,
-  ]);
+    },
+    [
+      actionType,
+      pressedKeys,
+      updateMapPosition,
+      mapPositionRef,
+      maxX,
+      maxY,
+      minX,
+      minY,
+      setDirection,
+    ],
+  );
 
   // 애니메이션 루프 시작
   useEffect(() => {
     // actionType이 없을 때만 애니메이션 시작
     if (!actionType) {
+      lastTimeRef.current = performance.now();
       animationFrameRef.current = requestAnimationFrame(updateCharacter);
     }
 

@@ -60,7 +60,7 @@ export const DialogBox = ({
 
   return (
     <div
-      className={`bg-white w-full h-2/6 absolute left-0 bottom-0 z-30 p-[1.5vh] text-[3vh] ${
+      className={`bg-white w-full h-2/6 absolute left-0 bottom-0 z-30 p-[1.5vh] text-[3.3vh] ${
         pressStart.className
       }`}
     >
@@ -70,9 +70,9 @@ export const DialogBox = ({
           className="absolute right-0 top-0 -translate-y-full bg-white h-full aspect-square z-30 p-[1vh] pb-0"
         >
           <div className="w-full h-full border-[0.5vh] rounded-lg p-[0.5vh]">
-            <div className="relative w-full h-full border-[1vh] rounded-lg p-[0.5vh] pl-[2vh] whitespace-nowrap overflow-hidden flex flex-col gap-0.5 justify-center font-black">
+            <div className="relative w-full h-full border-[1vh] rounded-lg p-[0.5vh] pl-[2vh] whitespace-nowrap overflow-hidden flex flex-col gap-[1.5vh] justify-center font-black">
               {["예", "아니요"].map((text, idx) => (
-                <div key={idx} className="flex items-center gap-0.5">
+                <div key={idx} className="flex items-center gap-[0.5vh]">
                   <div className="w-[5vh] h-[5vh] text-[5vh]">
                     {text === answer && <FaCaretRight />}
                   </div>
@@ -84,7 +84,7 @@ export const DialogBox = ({
         </div>
       )}
       <div className="w-full h-full border-[0.5vh] rounded-lg p-[0.5vh]">
-        <div className="relative w-full h-full border-[1vh] rounded-lg p-[0.5vh] pl-[2vh] pb-[3vh] whitespace-nowrap overflow-hidden flex flex-col gap-0.5 justify-center font-black">
+        <div className="relative w-full h-full border-[1vh] rounded-lg p-[0.5vh] pl-[2vh] pb-[3vh] whitespace-nowrap overflow-hidden flex flex-col gap-[1.5vh] justify-center font-black">
           {messages.map((msg, idx) => (
             <span key={idx}>{msg}</span>
           ))}

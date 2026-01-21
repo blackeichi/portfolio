@@ -52,6 +52,8 @@ export const useHandleActionEvent = ({
       if (e.code === "Space") {
         e.preventDefault();
         const { movex, movey } = mapPositionRef.current;
+        const roundedMovex = Math.round(movex * 2) / 2;
+        const roundedMovey = Math.round(movey * 2) / 2;
         const characterClass =
           document
             .getElementById(CHARACTER_ID)
@@ -60,12 +62,20 @@ export const useHandleActionEvent = ({
             .filter((cls) => cls !== "run")
             .join("") || "front";
         console.log(
-          interactables[currentMap][`${movex}${movey}${characterClass}`],
-          `${movex}${movey}${characterClass}`,
+          interactables[currentMap][
+            `${roundedMovex}${roundedMovey}${characterClass}`
+          ],
+          `${roundedMovex}${roundedMovey}${characterClass}`,
         );
-        if (interactables[currentMap][`${movex}${movey}${characterClass}`]) {
+        if (
+          interactables[currentMap][
+            `${roundedMovex}${roundedMovey}${characterClass}`
+          ]
+        ) {
           setActionType(
-            interactables[currentMap][`${movex}${movey}${characterClass}`],
+            interactables[currentMap][
+              `${roundedMovex}${roundedMovey}${characterClass}`
+            ],
           );
         }
       }
