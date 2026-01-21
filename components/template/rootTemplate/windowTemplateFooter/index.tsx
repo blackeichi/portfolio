@@ -32,7 +32,7 @@ function WindowTemplateFooter() {
         <FooterOpened />
         {isOpen && <FooterMenus setIsOpen={setIsOpen} />}
       </div>
-      <div className="box-content flex h-full items-center gap-0.75">
+      <div className="box-content flex h-full items-center gap-0.75 flex-shrink-0">
         <Partition />
         <FooterDates />
       </div>
