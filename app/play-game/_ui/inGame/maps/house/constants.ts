@@ -10,6 +10,8 @@ export const HOUSE_ACTION_TYPE: Record<string, string> = {
   tvEvent: "tvEvent",
   bookEvent: "bookEvent",
   pictureEvent: "pictureEvent",
+  needToBed: "needToBed",
+  sleep: "sleep",
 };
 
 export const houseInteractions: Record<string, string> = {

@@ -9,8 +9,11 @@ import { OutsideAction } from "./maps/outside/outsideAction";
 import "./game.css";
 import { loadingContentState } from "../../atoms";
 import { HOUSE_ACTION_TYPE } from "./maps/house/constants";
+import { CompanyMap } from "./maps/company";
+import CompanyAction from "./maps/company/companyAction";
 
 export const InGame = () => {
+  const [number, setNumber] = useState(1);
   const loadingContent = useAtomValue(loadingContentState);
   const [currentMap, setCurrentMap] = useState(MAP_LIST.house);
   const [actionType, setActionType] = useState<string | null>(
@@ -19,6 +22,7 @@ export const InGame = () => {
   const [characterKey, setCharacterKey] = useState<keyof typeof CHARACTER_KEYS>(
     CHARACTER_KEYS.character,
   );
+  const [isNight, setIsNight] = useState(false);
   const mapPositionRef = useRef({ movex: 37.5, movey: -37.5 });
   const mapRef = useRef<HTMLDivElement>(null);
 
@@ -52,7 +56,11 @@ export const InGame = () => {
       )}
       {currentMap === MAP_LIST.house && (
         <>
-          <House ref={mapRef} mapPositionRef={mapPositionRef} />
+          <House
+            key={String(number)}
+            ref={mapRef}
+            mapPositionRef={mapPositionRef}
+          />
           <HouseAction
             actionType={actionType}
             setActionType={setActionType}
@@ -60,11 +68,22 @@ export const InGame = () => {
             setCharacterKey={setCharacterKey}
             mapPositionRef={mapPositionRef}
             updateMapPosition={updateMapPosition}
+            isNight={isNight}
+            setIsNight={setIsNight}
+            setNumber={setNumber}
           />
         </>
       )}
       {currentMap === MAP_LIST.outside && (
         <>
+          {isNight && (
+            <div
+              className="w-full h-full z-30 absolute left-0 top-0"
+              style={{
+                backgroundColor: "rgba(20, 30, 60, 0.45)",
+              }}
+            />
+          )}
           <OutsideMap ref={mapRef} mapPositionRef={mapPositionRef} />
           <OutsideAction
             actionType={actionType}
@@ -72,6 +91,22 @@ export const InGame = () => {
             setCurrentMap={setCurrentMap}
             updateMapPosition={updateMapPosition}
             mapPositionRef={mapPositionRef}
+            isNight={isNight}
+          />
+        </>
+      )}
+      {currentMap === MAP_LIST.company && (
+        <>
+          <CompanyMap ref={mapRef} mapPositionRef={mapPositionRef} />
+          <CompanyAction
+            actionType={actionType}
+            setActionType={setActionType}
+            setCurrentMap={setCurrentMap}
+            setCharacterKey={setCharacterKey}
+            mapPositionRef={mapPositionRef}
+            updateMapPosition={updateMapPosition}
+            isNight={isNight}
+            setIsNight={setIsNight}
           />
         </>
       )}

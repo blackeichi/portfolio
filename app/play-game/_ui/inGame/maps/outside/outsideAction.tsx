@@ -7,6 +7,7 @@ import { DialogBox } from "../../../components/dialogBox";
 import { OUT_SIDE_ACTION_TYPE } from "./constants";
 import { useSetAtom } from "jotai";
 import { MAP_LIST } from "../../../utils";
+import { HOUSE_ACTION_TYPE } from "../house/constants";
 
 export const OutsideAction = ({
   actionType,
@@ -14,6 +15,7 @@ export const OutsideAction = ({
   setCurrentMap,
   updateMapPosition,
   mapPositionRef,
+  isNight,
 }: {
   actionType: string | null;
   setActionType: React.Dispatch<React.SetStateAction<string | null>>;
@@ -26,6 +28,7 @@ export const OutsideAction = ({
     movey: number;
   }) => void;
   mapPositionRef: React.MutableRefObject<{ movex: number; movey: number }>;
+  isNight: boolean;
 }) => {
   const target = actionType ? OUT_SIDE_ACTION_TYPE[actionType] : null;
   const setLoadingContent = useSetAtom(loadingContentState);
@@ -47,8 +50,12 @@ export const OutsideAction = ({
         yesEvent={() => {
           mapPositionRef.current = { movex: 46, movey: -33.5 };
           setLoadingContent(true);
-          setActionType(null);
           setCurrentMap(MAP_LIST.house);
+          if (isNight) {
+            setActionType(HOUSE_ACTION_TYPE.needToBed);
+          } else {
+            setActionType(null);
+          }
         }}
         noEvent={() => {
           setActionType(null);
@@ -65,12 +72,11 @@ export const OutsideAction = ({
     return (
       <DialogBox
         key={target}
-        dialogs={[
-          "....",
-          "....",
-          "이곳은 헬스장이야..!",
-          "나는 회사로 가야해!",
-        ]}
+        dialogs={
+          isNight
+            ? ["?"]
+            : ["....", "....", "이곳은 헬스장이야..!", "나는 회사로 가야해!"]
+        }
         onClose={() => {
           setActionType(null);
           updateMapPosition({
@@ -85,12 +91,11 @@ export const OutsideAction = ({
     return (
       <DialogBox
         key={target}
-        dialogs={[
-          "....",
-          "피씨방이야..!",
-          "들어가고 싶지만..",
-          "나는 회사로 가야해?!",
-        ]}
+        dialogs={
+          isNight
+            ? ["....", "....", "게임할 여력이 없다..."]
+            : ["....", "여기는 피씨방이야..!", "나는 회사로 가야해 ?!"]
+        }
         onClose={() => {
           setActionType(null);
           updateMapPosition({
@@ -99,6 +104,36 @@ export const OutsideAction = ({
           });
           setDirection("down");
         }}
+      />
+    );
+  if (target === OUT_SIDE_ACTION_TYPE.goToCompany && !isNight)
+    return (
+      <DialogBox
+        key={target}
+        dialogs={["출근하시겠습니까?"]}
+        yesEvent={() => {
+          mapPositionRef.current = { movex: 52.5, movey: -29 };
+          setLoadingContent(true);
+          setActionType(null);
+          setCurrentMap(MAP_LIST.company);
+        }}
+        noEvent={() => {
+          setActionType(null);
+          updateMapPosition({
+            movex: mapPositionRef.current.movex,
+            movey: -48.5,
+          });
+          setDirection("down");
+        }}
+        onClose={() => setActionType(null)}
+      />
+    );
+  if (target === OUT_SIDE_ACTION_TYPE.ItsTimeToGoHome)
+    return (
+      <DialogBox
+        key={target}
+        dialogs={["너무 힘들다..", "어서 집에 가자.."]}
+        onClose={() => setActionType(null)}
       />
     );
   return (

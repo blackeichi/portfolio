@@ -3,6 +3,8 @@ export const OUT_SIDE_ACTION_TYPE: Record<string, string> = {
   goToHouse: "goToHouse",
   goToGym: "goToGym",
   goToPC: "goToPC",
+  goToCompany: "goToCompany",
+  ItsTimeToGoHome: "ItsTimeToGoHome",
 };
 
 export const outInteractions: Record<string, string> = {
@@ -49,6 +51,28 @@ export const outInteractions: Record<string, string> = {
   "59-49": OUT_SIDE_ACTION_TYPE["goToPC"],
   "59.25-49": OUT_SIDE_ACTION_TYPE["goToPC"],
   "59.5-49": OUT_SIDE_ACTION_TYPE["goToPC"],
+  // 회사
+  "15-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
+  "15.25-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
+  "15.5-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
+  "15.75-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
+  "16-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
+  "16.25-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
+  "16.5-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
+  "16.75-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
+  "17-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
+  "17.25-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
+  "17.5-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
+  "17.75-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
+  "18-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
+  "18.25-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
+  "18.5-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
+  "18.75-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
+  "19-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
+  "19.25-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
+  "19.5-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
+  "19.75-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
+  "20-49": OUT_SIDE_ACTION_TYPE["goToCompany"],
 };
 export const outObstacles: Record<string, boolean> = {
   // # right top corner

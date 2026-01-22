@@ -16,6 +16,9 @@ export default function HouseAction({
   setCharacterKey,
   mapPositionRef,
   updateMapPosition,
+  isNight,
+  setIsNight,
+  setNumber,
 }: {
   actionType: string | null;
   setActionType: React.Dispatch<React.SetStateAction<string | null>>;
@@ -31,6 +34,9 @@ export default function HouseAction({
     movex: number;
     movey: number;
   }) => void;
+  isNight: boolean;
+  setIsNight: React.Dispatch<React.SetStateAction<boolean>>;
+  setNumber: React.Dispatch<React.SetStateAction<number>>;
 }) {
   const target = actionType ? HOUSE_ACTION_TYPE[actionType] : null;
   const setLoadingContent = useSetAtom(loadingContentState);
@@ -58,6 +64,14 @@ export default function HouseAction({
       </>
     );
   else if (target === HOUSE_ACTION_TYPE.accessDoor) {
+    if (isNight)
+      return (
+        <DialogBox
+          key={target}
+          dialogs={["어서 침대로 가자!"]}
+          onClose={() => setActionType(null)}
+        />
+      );
     return (
       <DialogBox
         key={target}
@@ -157,7 +171,11 @@ export default function HouseAction({
     return (
       <DialogBox
         key={target}
-        dialogs={["게임을 하고 싶지만..", "지금은 시간이 없다."]}
+        dialogs={
+          isNight
+            ? ["게임을 하고 싶지만..", "지금은 잠이 필요해."]
+            : ["게임을 하고 싶지만..", "지금은 시간이 없다."]
+        }
         onClose={() => {
           setActionType(null);
         }}
@@ -167,9 +185,19 @@ export default function HouseAction({
     return (
       <DialogBox
         key={target}
-        dialogs={["아직 따뜻해..", "30분만 더 자고 싶다.."]}
+        dialogs={
+          isNight
+            ? ["오늘도 너무 힘들었다..", "....", "....zzz"]
+            : ["아직 따뜻해..."]
+        }
         onClose={() => {
-          setActionType(null);
+          setLoadingContent(true);
+          mapPositionRef.current = { movex: 37.5, movey: -37.5 };
+          setIsNight(false);
+          setActionType(HOUSE_ACTION_TYPE.start);
+          setCharacterKey(CHARACTER_KEYS.character);
+          setDirection("down");
+          setNumber((prev) => prev + 1);
         }}
       />
     );
@@ -178,6 +206,16 @@ export default function HouseAction({
       <DialogBox
         key={target}
         dialogs={["피자가 먹고 싶다."]}
+        onClose={() => {
+          setActionType(null);
+        }}
+      />
+    );
+  } else if (target === HOUSE_ACTION_TYPE.needToBed) {
+    return (
+      <DialogBox
+        key={target}
+        dialogs={["집이다!!", "이제 침대로 가서 잠을 자자"]}
         onClose={() => {
           setActionType(null);
         }}
