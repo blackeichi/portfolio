@@ -3,8 +3,8 @@
 import { useEffect, useState, useRef, useCallback, memo, useMemo } from "react";
 import { useHandleActionEvent, useHandleMoveEvent } from "../../hooks";
 import { CHARACTER_ID, MAP_LIMIT } from "../utils";
-import { useAtom } from "jotai";
-import { characterDirectionState } from "../../atoms";
+import { useAtom, useAtomValue } from "jotai";
+import { characterDirectionState, movementSpeedState } from "../../atoms";
 
 interface CharacterProps {
   updateMapPosition: ({
@@ -20,9 +20,6 @@ interface CharacterProps {
   characterKey: string;
   setActionType: React.Dispatch<React.SetStateAction<string | null>>;
 }
-// 초당 이동 속도
-const movementSpeed = 0.25;
-
 const Character = ({
   updateMapPosition,
   mapPositionRef,
@@ -41,7 +38,7 @@ const Character = ({
     currentMap,
     setActionType,
   });
-
+  const movementSpeed = useAtomValue(movementSpeedState);
   const [direction, setDirection] = useAtom(characterDirectionState);
   const [isRunning, setIsRunning] = useState(false);
 

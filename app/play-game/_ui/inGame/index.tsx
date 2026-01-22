@@ -28,7 +28,6 @@ export const InGame = () => {
       // 변경사항이 있을 때만 업데이트
       const positionChanged =
         movex !== current.movex || movey !== current.movey;
-      // console.log(movex, movey);
       // 액션 발생
       // const roundedMovex = Math.round(movex * 2) / 2;
       // const roundedMovey = Math.round(movey * 2) / 2;

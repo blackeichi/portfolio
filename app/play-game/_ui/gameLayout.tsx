@@ -3,9 +3,11 @@
 import { COLOR_THEME } from "@/libs/uitls/constants";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { InGame } from "./inGame";
+import { StartScreen } from "./startScreen";
 
 export const GameLayout = () => {
   const [size, setSize] = useState<string | null>(null);
+  const [isStarted, setIsStarted] = useState(false);
   const layoutRef = useRef<HTMLDivElement | null>(null);
 
   const updateSize = useCallback(() => {
@@ -48,7 +50,7 @@ export const GameLayout = () => {
             height: size,
           }}
         >
-          <InGame />
+          {isStarted ? <InGame /> : <StartScreen setIsStarted={setIsStarted} />}
         </div>
       )}
     </div>

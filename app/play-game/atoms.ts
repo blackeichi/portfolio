@@ -7,3 +7,4 @@ export const loadingContentState = atom<boolean>(true);
 export const characterDirectionState = atom<"up" | "down" | "left" | "right">(
   "down",
 );
+export const movementSpeedState = atom<0.25 | 0.5>(0.5);

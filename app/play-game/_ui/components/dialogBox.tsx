@@ -6,16 +6,20 @@ import { pressStart } from "@/libs/uitls/fonts";
 export const DialogBox = ({
   dialogs,
   onClose,
+  options = ["예", "아니요"],
   yesEvent,
   noEvent = onClose,
+  needFont = true,
 }: {
   dialogs: string[];
   onClose: () => void;
+  options?: [string, string];
   yesEvent?: () => void;
   noEvent?: () => void;
+  needFont?: boolean;
 }) => {
   const [page, setPage] = useState(1);
-  const [answer, setAnswer] = useState<"예" | "아니요">("예");
+  const [answer, setAnswer] = useState<(typeof options)[number]>(options[0]);
   const maxPage = useMemo(
     () => (dialogs.length === 1 ? 1 : dialogs.length - 1),
     [dialogs],
@@ -30,12 +34,12 @@ export const DialogBox = ({
       if (yesEvent && isLastPage) {
         if (e.code === "ArrowUp") {
           e.preventDefault();
-          setAnswer("예");
+          setAnswer(options[0]);
         } else if (e.code === "ArrowDown") {
-          setAnswer("아니요");
+          setAnswer(options[1]);
         } else if (e.code === "Space") {
           e.preventDefault();
-          if (answer === "예") {
+          if (answer === options[0]) {
             yesEvent();
           } else {
             noEvent();
@@ -56,12 +60,12 @@ export const DialogBox = ({
     return () => {
       window.removeEventListener("keydown", handleKeyEvent);
     };
-  }, [page, maxPage, answer, isLastPage, yesEvent, noEvent, onClose]);
+  }, [page, maxPage, answer, isLastPage, yesEvent, noEvent, onClose, options]);
 
   return (
     <div
       className={`bg-white w-full h-2/6 absolute left-0 bottom-0 z-30 p-[1.5vh] text-[3.3vh] ${
-        pressStart.className
+        needFont ? pressStart.className : ""
       }`}
     >
       {yesEvent && isLastPage && (
@@ -71,7 +75,7 @@ export const DialogBox = ({
         >
           <div className="w-full h-full border-[0.5vh] rounded-lg p-[0.5vh]">
             <div className="relative w-full h-full border-[1vh] rounded-lg p-[0.5vh] pl-[2vh] whitespace-nowrap overflow-hidden flex flex-col gap-[1.5vh] justify-center font-black">
-              {["예", "아니요"].map((text, idx) => (
+              {options.map((text, idx) => (
                 <div key={idx} className="flex items-center gap-[0.5vh]">
                   <div className="w-[5vh] h-[5vh] text-[5vh]">
                     {text === answer && <FaCaretRight />}
