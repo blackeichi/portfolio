@@ -2,11 +2,11 @@ import {
   characterDirectionState,
   loadingContentState,
 } from "@/app/play-game/atoms";
-import { CancelActionComponent } from "../../components/cancelActionComponent";
-import { DialogBox } from "../../components/dialogBox";
-import { OUT_SIDE_ACTION_TYPE } from "./utils";
+import { CancelActionComponent } from "../../../components/cancelActionComponent";
+import { DialogBox } from "../../../components/dialogBox";
+import { OUT_SIDE_ACTION_TYPE } from "./constants";
 import { useSetAtom } from "jotai";
-import { MAP_LIST } from "../../utils";
+import { MAP_LIST } from "../../../utils";
 
 export const OutsideAction = ({
   actionType,

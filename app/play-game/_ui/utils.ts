@@ -1,5 +1,8 @@
-import { outInteractions, outObstacles } from "./maps/outside/utils";
-import { houseInteractions, houseObstacles } from "./maps/house/utils";
+import {
+  houseInteractions,
+  houseObstacles,
+} from "./inGame/maps/house/constants";
+import { outInteractions, outObstacles } from "./inGame/maps/outside/constants";
 
 export const CHARACTER_ID = "character_ui";
 

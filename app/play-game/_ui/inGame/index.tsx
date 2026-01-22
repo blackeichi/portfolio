@@ -1,22 +1,20 @@
-"use client";
-
 import { useState, useRef, useCallback } from "react";
 import Character from "./character";
 import { House } from "./maps/house";
-import "./game.css";
-import { CHARACTER_KEYS, interactables, MAP_LIST, obstacles } from "./utils";
+import { CHARACTER_KEYS, interactables, MAP_LIST, obstacles } from "../utils";
 import HouseAction from "./maps/house/houseAction";
-import { HOUSE_ACTION_TYPE } from "./maps/house/utils";
 import { useAtomValue } from "jotai";
-import { loadingContentState } from "../atoms";
 import { OutsideMap } from "./maps/outside";
 import { OutsideAction } from "./maps/outside/outsideAction";
+import "./game.css";
+import { loadingContentState } from "../../atoms";
+import { HOUSE_ACTION_TYPE } from "./maps/house/constants";
 
-export const GameUi = () => {
+export const InGame = () => {
   const loadingContent = useAtomValue(loadingContentState);
   const [currentMap, setCurrentMap] = useState(MAP_LIST.house);
   const [actionType, setActionType] = useState<string | null>(
-    HOUSE_ACTION_TYPE.manual,
+    HOUSE_ACTION_TYPE.start,
   );
   const [characterKey, setCharacterKey] = useState<keyof typeof CHARACTER_KEYS>(
     CHARACTER_KEYS.character,

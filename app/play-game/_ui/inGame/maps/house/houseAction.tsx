@@ -1,10 +1,13 @@
 import { useSetAtom } from "jotai";
 import { motion } from "framer-motion";
-import { DialogBox } from "../../components/dialogBox";
-import { CHARACTER_KEYS, MAP_LIST } from "../../utils";
-import { HOUSE_ACTION_TYPE } from "./utils";
-import { characterDirectionState, loadingContentState } from "../../../atoms";
-import { CancelActionComponent } from "../../components/cancelActionComponent";
+import { DialogBox } from "../../../components/dialogBox";
+import { CHARACTER_KEYS, MAP_LIST } from "../../../utils";
+import { HOUSE_ACTION_TYPE } from "./constants";
+import {
+  characterDirectionState,
+  loadingContentState,
+} from "../../../../atoms";
+import { CancelActionComponent } from "../../../components/cancelActionComponent";
 
 export default function HouseAction({
   actionType,
@@ -34,22 +37,6 @@ export default function HouseAction({
   const setDirection = useSetAtom(characterDirectionState);
   // move or answer event
   if (!target) return null;
-  if (target === HOUSE_ACTION_TYPE.manual)
-    return (
-      <>
-        <div className="absolute left-0 top-0 w-full h-full bg-white z-20"></div>
-        <DialogBox
-          key={target}
-          dialogs={[
-            "정우의 일상에 오신 것을 환영합니다 !",
-            "화살표 키로 이동할 수 있으며,",
-            `"스페이스바" 키를 눌러`,
-            "상호작용 및 대화 넘기기를 할 수 있습니다.",
-          ]}
-          onClose={() => setActionType(HOUSE_ACTION_TYPE.start)}
-        />
-      </>
-    );
   if (target === HOUSE_ACTION_TYPE.start)
     return (
       <>

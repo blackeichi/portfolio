@@ -1,5 +1,4 @@
 export const HOUSE_ACTION_TYPE: Record<string, string> = {
-  manual: "manual",
   start: "start",
   accessDoor: "accessDoor",
   outdoor: "outdoor",

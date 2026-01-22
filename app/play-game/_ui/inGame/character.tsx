@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState, useRef, useCallback, memo, useMemo } from "react";
-import { useHandleActionEvent, useHandleMoveEvent } from "../hooks";
-import { CHARACTER_ID, MAP_LIMIT } from "./utils";
+import { useHandleActionEvent, useHandleMoveEvent } from "../../hooks";
+import { CHARACTER_ID, MAP_LIMIT } from "../utils";
 import { useAtom } from "jotai";
-import { characterDirectionState } from "../atoms";
+import { characterDirectionState } from "../../atoms";
 
 interface CharacterProps {
   updateMapPosition: ({

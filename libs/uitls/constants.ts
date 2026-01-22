@@ -30,7 +30,7 @@ export const MENU_LIST_DATA: {
   },
   "play-game": {
     title: "Game",
-    icon: "/images/joystick.png",
+    icon: "/images/game_icon.png",
   },
   drive: {
     title: "정우의 드라이브 (B:)",
@@ -56,7 +56,7 @@ export const MENU_LIST = Object.entries(MENU_LIST_DATA).map(
     href: `/${key}`,
     function: fn,
     confirmMsg,
-  })
+  }),
 );
 
 export const SUB_WINDOW_LIST = {

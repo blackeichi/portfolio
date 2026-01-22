@@ -1,6 +1,6 @@
 import { COLOR_THEME } from "@/libs/uitls/constants";
 import { Metadata } from "next";
-import { GameUi } from "./_ui/gameUi";
+import { GameLayout } from "./_ui/gameLayout";
 
 export const metadata: Metadata = {
   title: "PLAY GAME",
@@ -14,14 +14,7 @@ export default function PlayGamePage() {
         backgroundColor: COLOR_THEME.green,
       }}
     >
-      <div
-        className="aspect-square h-full bg-white overflow-hidden relative"
-        style={{
-          backgroundColor: COLOR_THEME.green,
-        }}
-      >
-        <GameUi />
-      </div>
+      <GameLayout />
     </div>
   );
 }
