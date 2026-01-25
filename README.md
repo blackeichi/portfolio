@@ -2,9 +2,9 @@
 
 ## 프로젝트 개요
 
-인터랙티브한 Windows 스타일의 포트폴리오 웹사이트로, 사용자에게 독특한 경험을 제공하는 개인 포트폴리오입니다.
+인터랙티브한 Windows 스타일의 개인 포트폴리오 웹사이트입니다.
 
-[배포된 사이트 보기](https://portfolio-six-jet-37.vercel.app/my-project)
+[🚀 프로젝트 보러가기](https://portfolio-six-jet-37.vercel.app)
 
 ---
 
@@ -25,8 +25,8 @@
 
 ### 1. Windows 스타일 UI/UX
 
-- 드래그 가능한 윈도우 박스 (최소화, 최대화, 닫기 기능)
-- 바탕화면 아이콘 시스템
+- 리사이즈, 드래그 가능한 윈도우 박스 (최소화, 최대화, 닫기 기능)
+- 바탕화면 아이콘 및 하단 메뉴로 navbar 구현
 - 하단 작업 표시줄 (Taskbar) with 열린 창 목록
 - 윈도우 간 Z-index 관리 (포커스 시스템)
 
@@ -58,7 +58,7 @@ components/
 
 - **관심사 분리**: 각 컴포넌트는 단일 책임 원칙을 따름
 - **재사용성**: atoms와 molecules는 프로젝트 전반에서 재사용
-- **지역성(Locality of Behavior)**: 특정 라우트에서만 사용하는 컴포넌트는 `_ui/` 폴더에 배치
+- **지역성(Locality of Behavior)**: 특정 라우트에서만 사용하는 컴포넌트는 `라우트폴더/_ui/` 에 배치
 
 ### 3. 상태 관리 전략 (Jotai)
 
@@ -109,15 +109,14 @@ const closeWindow = (windowId: string) => {
 - 리사이징 (모서리/테두리 드래그)
 - 최소화/최대화/닫기
 - 포커스 관리 (클릭 시 맨 앞으로)
-- LocalStorage에 전체화면 설정 저장
 
 ### 5. 라우팅 구조
 
 ```
 app/
 ├── page.tsx                  # 홈 (바탕화면)
-├── resume/             # 자기소개 섹션 (개발 예정)
-├── my-project/              # Daily Log 프로젝트 소개
+├── resume/             # 이력서 섹션
+├── my-project/             # Daily Log 사이드 프로젝트 소개
 │   ├── page.tsx            # 프로젝트 개요
 │   ├── fe-library/         # 라이브러리 설명
 │   ├── fe-structure/       # 프론트엔드 구조
@@ -125,7 +124,7 @@ app/
 │   ├── handle-api/         # API 처리
 │   ├── performance-optimization/  # 성능 최적화
 │   └── service-policy/    # 비즈니스 정책
-└── play-game/              # 미니 게임 (개발 예정)
+└── play-game/              # 미니 게임
 ```
 
 **프로젝트 네비게이션** ([app/my-project/utils.ts](app/my-project/utils.ts)):
@@ -162,17 +161,12 @@ app/
   - [x] 기술 스택 (Main/Sub)
   - [x] 경력 사항
   - [x] 자기소개서
-
-### 🚧 개발 예정
-
-- [ ] 미니 게임 (Play Game)
+- [x] 미니 게임 (Play Game)
   - [x] 캐릭터 이동 시스템
-  - [ ] 건물, 표지판 구현
-  - [ ] 건물 진입 시 미니게임
-- [ ] 서브 윈도우 고급 기능
-  - [ ] Sticky 윈도우 (분할 화면)
-  - [ ] 중앙 리사이저
-- [ ] README.md 파일 수정하기
+  - [x] 건물, 표지판 구현
+  - [x] 사용자 interation 구현
+### 🚧 개발 예정
+- [ ] 윈도우 고급 기능
 
 ### 관심사의 분리 (Separation of Concerns)
 
