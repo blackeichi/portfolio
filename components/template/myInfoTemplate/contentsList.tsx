@@ -4,7 +4,7 @@ import { sectors } from "@/app/resume/utils";
 
 export const ContentsList = () => {
   return (
-    <ul className="flex flex-col gap-2 w-32">
+    <ul className="flex flex-col gap-2">
       {sectors.map((sector) => {
         return (
           <li key={sector.id} className="w-full p-1 py-1.5 text-sm">
