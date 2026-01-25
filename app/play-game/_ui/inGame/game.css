@@ -29,7 +29,10 @@ body::after {
     url("/images/game/fat_right.png"), url("/images/game/fat_right_run.png"),
     url("/images/game/old_front.png"), url("/images/game/old_front_run.png"),
     url("/images/game/old_back.png"), url("/images/game/old_back_run.png"),
-    url("/images/game/old_right.png"), url("/images/game/old_right_run.png");
+    url("/images/game/old_right.png"), url("/images/game/old_right_run.png"),
+    url("/images/game/person_front.png"), url("/images/game/person_left.png"),
+    url("/images/game/person_back.png"), url("/images/game/person2_front.png"),
+    url("/images/game/person2_left.png"), url("/images/game/person2_right.png");
 }
 
 @keyframes character_run {

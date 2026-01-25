@@ -1,10 +1,12 @@
 export const COMPANY_ACTION_TYPE: Record<string, string> = {
+  company_start: "company_start",
   weStillHaveWork: "weStillHaveWork",
   goToOutside: "goToOutside",
   handleWork: "handleWork",
   handleWork_2: "handleWork_2",
   handleBug: "handleBug",
   handleBug_2: "handleBug_2",
+  done: "done",
 };
 
 export const companyInteractions: Record<string, string> = {

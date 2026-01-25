@@ -48,7 +48,7 @@ export const DialogBox = ({
       } else {
         if (e.code === "Space") {
           e.preventDefault();
-          if (page < maxPage) {
+          if (!isLastPage) {
             setPage((prev) => prev + 1);
           } else {
             onClose();
@@ -60,7 +60,7 @@ export const DialogBox = ({
     return () => {
       window.removeEventListener("keydown", handleKeyEvent);
     };
-  }, [page, maxPage, answer, isLastPage, yesEvent, noEvent, onClose, options]);
+  }, [answer, isLastPage, yesEvent, noEvent, onClose, options]);
 
   return (
     <div

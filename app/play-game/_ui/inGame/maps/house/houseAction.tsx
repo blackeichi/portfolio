@@ -59,7 +59,10 @@ export default function HouseAction({
             "이런, 벌써 일어날 시간이네..",
             "오늘도 출근을 해야해!",
           ]}
-          onClose={() => setActionType(null)}
+          onClose={() => {
+            console.log("actionType이 null이 되야하는데?");
+            setActionType(null);
+          }}
         />
       </>
     );
@@ -69,7 +72,14 @@ export default function HouseAction({
         <DialogBox
           key={target}
           dialogs={["어서 침대로 가자!"]}
-          onClose={() => setActionType(null)}
+          onClose={() => {
+            updateMapPosition({
+              movex: mapPositionRef.current.movex,
+              movey: -33.5,
+            });
+            setDirection("up");
+            setActionType(null);
+          }}
         />
       );
     return (
@@ -127,7 +137,7 @@ export default function HouseAction({
     return (
       <DialogBox
         key={target}
-        dialogs={["오늘은 그냥 쉬어야겠다!", "내일은 꼭 가야지!"]}
+        dialogs={["오늘은 그냥 쉬어야겠다.", "내일은 꼭 가야지!"]}
         onClose={() => {
           mapPositionRef.current = { movex: 36, movey: -36.5 };
           setActionType(null);
@@ -141,7 +151,11 @@ export default function HouseAction({
     return (
       <DialogBox
         key={target}
-        dialogs={["여러 가지 책이 꽂혀있다.", "특히 인문학 책이 많다."]}
+        dialogs={
+          isNight
+            ? ["눈이 침침하다.."]
+            : ["여러 가지 책이 꽂혀있다.", "특히 인문학 책이 많다."]
+        }
         onClose={() => {
           setActionType(null);
         }}
@@ -151,7 +165,7 @@ export default function HouseAction({
     return (
       <DialogBox
         key={target}
-        dialogs={["무한~도전!"]}
+        dialogs={isNight ? ["1박~2일!"] : ["무한~도전!"]}
         onClose={() => {
           setActionType(null);
         }}
@@ -161,7 +175,11 @@ export default function HouseAction({
     return (
       <DialogBox
         key={target}
-        dialogs={["치지지직...", ".......", "라디오가 고장난 것 같다."]}
+        dialogs={
+          isNight
+            ? ["치지지직...", "하늘소..."]
+            : ["치지지직...", "......", "라디오가 고장난 것 같다."]
+        }
         onClose={() => {
           setActionType(null);
         }}
@@ -173,8 +191,8 @@ export default function HouseAction({
         key={target}
         dialogs={
           isNight
-            ? ["게임을 하고 싶지만..", "지금은 잠이 필요해."]
-            : ["게임을 하고 싶지만..", "지금은 시간이 없다."]
+            ? ["게임을 하고 싶지만..", "지금은 잠이 필요해"]
+            : ["게임을 하고 싶지만..", "지금은 시간이 없다"]
         }
         onClose={() => {
           setActionType(null);
@@ -187,10 +205,14 @@ export default function HouseAction({
         key={target}
         dialogs={
           isNight
-            ? ["오늘도 너무 힘들었다..", "....", "....zzz"]
+            ? ["쇼츠를 조금만 볼까..", "....", "....", "zzz.."]
             : ["아직 따뜻해..."]
         }
         onClose={() => {
+          if (!isNight) {
+            setActionType(null);
+            return;
+          }
           setLoadingContent(true);
           mapPositionRef.current = { movex: 37.5, movey: -37.5 };
           setIsNight(false);
@@ -205,7 +227,7 @@ export default function HouseAction({
     return (
       <DialogBox
         key={target}
-        dialogs={["피자가 먹고 싶다."]}
+        dialogs={isNight ? ["치킨이 먹고 싶다..."] : ["피자가 먹고 싶다..."]}
         onClose={() => {
           setActionType(null);
         }}
@@ -215,7 +237,7 @@ export default function HouseAction({
     return (
       <DialogBox
         key={target}
-        dialogs={["집이다!!", "이제 침대로 가서 잠을 자자"]}
+        dialogs={["집이다!", "오늘 하루 너무 피곤했어..", "침대로 가서 눕자"]}
         onClose={() => {
           setActionType(null);
         }}

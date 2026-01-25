@@ -48,11 +48,19 @@ export default function CompanyAction({
   const setDirection = useSetAtom(characterDirectionState);
   // move or answer event
   if (!target) return null;
+  if (target === COMPANY_ACTION_TYPE.company_start)
+    return (
+      <DialogBox
+        key={target}
+        dialogs={["오늘도 출근 완료!", "남은 업무와 버그를 처리하자..!"]}
+        onClose={() => setActionType(null)}
+      />
+    );
   if (target === COMPANY_ACTION_TYPE.weStillHaveWork)
     return (
       <DialogBox
         key={target}
-        dialogs={["아직 처리해야할", "업무가 남아있습니다!!"]}
+        dialogs={["아직 처리해야할", "업무가 남아있다..!"]}
         onClose={() => setActionType(null)}
       />
     );
@@ -107,7 +115,7 @@ export default function CompanyAction({
         dialogs={
           alreadyHandled
             ? ["이미 처리한 버그입니다."]
-            : ["....", "버그가 발생했다..!", "버그를 처리하시겠습니까?"]
+            : ["버그를 발견했다", "디버깅 하시겠습니까?"]
         }
         yesEvent={
           alreadyHandled
@@ -118,7 +126,7 @@ export default function CompanyAction({
                 } else {
                   setWorkLists({ ...workLists, bug2: true });
                 }
-                setActionType(null);
+                setActionType(COMPANY_ACTION_TYPE.done);
               }
         }
         noEvent={
@@ -144,7 +152,7 @@ export default function CompanyAction({
         dialogs={
           alreadyHandled
             ? ["이미 처리한 업무입니다."]
-            : ["....", "처리해야할 업무가 있다.", "업무를 처리하시겠습니까?"]
+            : ["처리해야할 업무가 있다.", "업무를 처리하시겠습니까?"]
         }
         yesEvent={
           alreadyHandled
@@ -155,7 +163,7 @@ export default function CompanyAction({
                 } else {
                   setWorkLists({ ...workLists, work2: true });
                 }
-                setActionType(null);
+                setActionType(COMPANY_ACTION_TYPE.done);
               }
         }
         noEvent={
@@ -165,6 +173,15 @@ export default function CompanyAction({
                 setActionType(null);
               }
         }
+        onClose={() => setActionType(null)}
+      />
+    );
+  }
+  if (target === COMPANY_ACTION_TYPE.done) {
+    return (
+      <DialogBox
+        key={target}
+        dialogs={["", "....", "처리가 완료되었습니다."]}
         onClose={() => setActionType(null)}
       />
     );

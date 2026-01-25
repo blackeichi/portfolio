@@ -36,6 +36,7 @@ const Character = ({
   useHandleActionEvent({
     mapPositionRef,
     currentMap,
+    actionType,
     setActionType,
   });
   const movementSpeed = useAtomValue(movementSpeedState);
@@ -131,6 +132,7 @@ const Character = ({
     minX,
     minY,
     setDirection,
+    movementSpeed,
   ]);
 
   // 애니메이션 루프 시작

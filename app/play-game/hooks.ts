@@ -41,16 +41,19 @@ export const useHandleMoveEvent = () => {
 export const useHandleActionEvent = ({
   mapPositionRef,
   currentMap,
+  actionType,
   setActionType,
 }: {
   mapPositionRef: React.MutableRefObject<{ movex: number; movey: number }>;
   currentMap: string;
+  actionType: string | null;
   setActionType: React.Dispatch<React.SetStateAction<string | null>>;
 }) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.code === "Space") {
         e.preventDefault();
+        if (actionType) return;
         const { movex, movey } = mapPositionRef.current;
         const roundedMovex = Math.round(movex * 2) / 2;
         const roundedMovey = Math.round(movey * 2) / 2;
@@ -61,6 +64,12 @@ export const useHandleActionEvent = ({
             .slice(1)
             .filter((cls) => cls !== "run")
             .join("") || "front";
+        console.log(
+          interactables[currentMap][
+            `${roundedMovex}${roundedMovey}${characterClass}`
+          ],
+          `${roundedMovex}${roundedMovey}${characterClass}`,
+        );
         if (
           interactables[currentMap][
             `${roundedMovex}${roundedMovey}${characterClass}`
@@ -80,7 +89,7 @@ export const useHandleActionEvent = ({
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [currentMap, mapPositionRef, setActionType]);
+  }, [currentMap, mapPositionRef, actionType, setActionType]);
 };
 
 export const useImagePreload = ({ imagePaths }: { imagePaths: string[] }) => {

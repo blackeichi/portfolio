@@ -1,6 +1,8 @@
 import {
   characterDirectionState,
   loadingContentState,
+  personDirectionState,
+  personTwoDirectionState,
 } from "@/app/play-game/atoms";
 import { CancelActionComponent } from "../../../components/cancelActionComponent";
 import { DialogBox } from "../../../components/dialogBox";
@@ -8,6 +10,8 @@ import { OUT_SIDE_ACTION_TYPE } from "./constants";
 import { useSetAtom } from "jotai";
 import { MAP_LIST } from "../../../utils";
 import { HOUSE_ACTION_TYPE } from "../house/constants";
+import { COMPANY_ACTION_TYPE } from "../company/constants";
+import { useEffect } from "react";
 
 export const OutsideAction = ({
   actionType,
@@ -33,6 +37,20 @@ export const OutsideAction = ({
   const target = actionType ? OUT_SIDE_ACTION_TYPE[actionType] : null;
   const setLoadingContent = useSetAtom(loadingContentState);
   const setDirection = useSetAtom(characterDirectionState);
+  const setPersonDirection = useSetAtom(personDirectionState);
+  const setPersonTwoDirection = useSetAtom(personTwoDirectionState);
+  useEffect(() => {
+    if (target === OUT_SIDE_ACTION_TYPE.talkWithPersonLeft) {
+      setPersonDirection("left");
+    } else if (target === OUT_SIDE_ACTION_TYPE.talkWithPersonTop) {
+      setPersonDirection("back");
+    }
+    if (target === OUT_SIDE_ACTION_TYPE.talkWithPersonTwoLeft) {
+      setPersonTwoDirection("left");
+    } else if (target === OUT_SIDE_ACTION_TYPE.talkWithPersonTwoBottom) {
+      setPersonTwoDirection("front");
+    }
+  }, [target, setPersonDirection, setPersonTwoDirection]);
   if (!target) return null;
   if (target === OUT_SIDE_ACTION_TYPE.houseSign)
     return (
@@ -75,7 +93,7 @@ export const OutsideAction = ({
         dialogs={
           isNight
             ? ["?"]
-            : ["....", "....", "이곳은 헬스장이야..!", "나는 회사로 가야해!"]
+            : ["....", "....", "이곳은 헬스장이야", "나는 회사로 가야해..!"]
         }
         onClose={() => {
           setActionType(null);
@@ -93,8 +111,8 @@ export const OutsideAction = ({
         key={target}
         dialogs={
           isNight
-            ? ["....", "....", "게임할 여력이 없다..."]
-            : ["....", "여기는 피씨방이야..!", "나는 회사로 가야해 ?!"]
+            ? ["....", "....", "게임을 할 여력이 없다..."]
+            : ["....", "여기는 피씨방이야", "나는 회사로 가야해..?!"]
         }
         onClose={() => {
           setActionType(null);
@@ -114,7 +132,7 @@ export const OutsideAction = ({
         yesEvent={() => {
           mapPositionRef.current = { movex: 52.5, movey: -29 };
           setLoadingContent(true);
-          setActionType(null);
+          setActionType(COMPANY_ACTION_TYPE.company_start);
           setCurrentMap(MAP_LIST.company);
         }}
         noEvent={() => {
@@ -136,6 +154,42 @@ export const OutsideAction = ({
         onClose={() => setActionType(null)}
       />
     );
+  if (
+    target === OUT_SIDE_ACTION_TYPE.talkWithPersonLeft ||
+    target === OUT_SIDE_ACTION_TYPE.talkWithPersonTop
+  ) {
+    return (
+      <DialogBox
+        key={target}
+        dialogs={[
+          "안녕하세요!",
+          "저는 척추 요정입니다.",
+          "지금 당장 목과 허리를 쭉 펴고",
+          "스트레칭을 해보세요!",
+        ]}
+        onClose={() => setActionType(null)}
+      />
+    );
+  }
+  if (
+    target === OUT_SIDE_ACTION_TYPE.talkWithPersonTwoLeft ||
+    target === OUT_SIDE_ACTION_TYPE.talkWithPersonTwoBottom
+  ) {
+    return (
+      <DialogBox
+        key={target}
+        dialogs={[
+          "MBTI를 믿으시나요?",
+          "저는 검사할 때마다 결과가 달라요!",
+          "한 번은 INTJ였다가,",
+          "다음엔 ENFJ였답니다.",
+          "하하!",
+        ]}
+        needFont={false}
+        onClose={() => setActionType(null)}
+      />
+    );
+  }
   return (
     <CancelActionComponent
       actionType={actionType}

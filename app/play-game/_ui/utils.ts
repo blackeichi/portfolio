@@ -28,7 +28,7 @@ export const MAP_LIMIT: Record<
   { minX: number; maxX: number; minY: number; maxY: number }
 > = {
   house: { minX: 27, maxX: 48, minY: -32, maxY: -40 },
-  outside: { minX: 0, maxX: 75, minY: 0, maxY: -75 },
+  outside: { minX: 0, maxX: 75, minY: -0.5, maxY: -75 },
   company: { minX: 20, maxX: 53, minY: -28, maxY: -43.5 },
 };
 
