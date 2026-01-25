@@ -20,7 +20,6 @@ const techStacks = {
     items: [
       { name: "NestJS", icon: "https://cdn.simpleicons.org/nestjs/E0234E" },
       { name: "Prisma", icon: "https://cdn.simpleicons.org/prisma" },
-      { name: "PostgreSQL", icon: "https://cdn.simpleicons.org/postgresql" },
       { name: "JWT", icon: "https://cdn.simpleicons.org/jsonwebtokens" },
     ],
   },
