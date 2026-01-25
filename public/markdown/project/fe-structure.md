@@ -5,7 +5,6 @@
 ### 주요 특징
 
 - **독립적 배포 환경**: 서비스 규모 확장을 고려하여 프론트엔드와 백엔드를 각각 독립적으로 배포
-
   - Frontend: Vercel 배포
   - Backend: Render 배포
 
@@ -38,7 +37,7 @@ apps/frontend/app/components/
 
 ---
 
-## 관심사 분리 (Locality of Behavior)
+## 관심사 분리
 
 **특정 라우트에서만 사용하는 훅과 유틸**: 해당 라우트 폴더 내에 위치시켜 코드 응집도를 높임
 
