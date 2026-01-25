@@ -42,13 +42,18 @@ export const MarkdownRenderer = ({ markdownPath }: MarkdownRendererProps) => {
       components={{
         // 제목 스타일
         h1: ({ children }) => (
-          <h1 className="text-xl sm:text-2xl font-bold mb-6">{children}</h1>
+          <h1 className="text-lg sm:text-xl font-bold mb-6">{children}</h1>
         ),
         h2: ({ children }) => (
-          <h2 className="text-base font-bold mb-3">{children}</h2>
+          <h2 className="text-base sm:text-lg font-bold mb-2">{children}</h2>
         ),
         h3: ({ children }) => (
-          <h3 className="text-xs sm:text-sm font-bold mb-1">{children}</h3>
+          <h3 className="text-sm sm:text-base font-bold mb-2 mt-3">
+            {children}
+          </h3>
+        ),
+        h4: ({ children }) => (
+          <h4 className="text-xs sm:text-sm font-bold mb-1 mt-3">{children}</h4>
         ),
         // 이미지 스타일
         img: ({ src, alt }) => (
@@ -76,7 +81,9 @@ export const MarkdownRenderer = ({ markdownPath }: MarkdownRendererProps) => {
         ),
         // 강조 스타일
         strong: ({ children }) => (
-          <strong className="font-bold text-gray-900">{children}</strong>
+          <strong className="font-bold text-stone-600 text-xs sm:text-sm">
+            {children}
+          </strong>
         ),
         em: ({ children }) => <em className="italic">{children}</em>,
         // 코드 블록
