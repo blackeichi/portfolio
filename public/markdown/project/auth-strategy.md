@@ -12,8 +12,6 @@
 
 **용도**: API 요청 시 Authorization 헤더에 포함
 
-**보안 이점**: XSS 공격으로부터 보호 (LocalStorage/SessionStorage 미사용)
-
 **특징**:
 
 - 페이지 새로고침 시 초기화됨
@@ -29,16 +27,10 @@
 
 **용도**: AccessToken 재발급
 
-**보안 이점**:
-
-- HttpOnly 속성으로 JavaScript에서 접근 불가 (XSS 방어)
-- Secure 속성으로 HTTPS에서만 전송
-- SameSite 속성으로 CSRF 공격 방어
-
 **특징**:
 
 - 자동으로 쿠키에 포함되어 토큰 갱신 API 호출 시 전송
-- 백엔드에서 DB 또는 Redis에 저장하여 유효성 검증
+- 백엔드에서 DB에 저장하여 유효성 검증
 
 ---
 
@@ -47,10 +39,8 @@
 **쿠키 설정의 딜레마**
 
 - 로그인과 회원가입은 비밀번호를 다루기 때문에 **서버 사이드에서 처리하는 것이 이상적**
-- 하지만 Next.js 서버 사이드에서 쿠키를 설정하려면 Backend로부터 RefreshToken을 응답으로 받아야 함
-- 이는 RefreshToken이 Frontend 측 코드를 거치게 되어 **보안상 바람직하지 않다고 판단**
-- 따라서 **회원가입은 Server Action**(서버 사이드)으로, **로그인은 클라이언트 사이드**에서 처리하되
-- **RefreshToken 쿠키 설정은 Backend에서 직접** 수행하는 방식으로 절충
+- 하지만 로그인 시 쿠키를 설정하는 것은 Nextjs의 서버 사이드보다는 백엔드에서 하는 것이 **보안상 바람직하지 않다고 판단**
+- 따라서 **회원가입은 백엔드의 Server Action**으로, **로그인은 클라이언트 사이드**에서 처리하는 방식으로 절충
 
 ```backend/auth/auth.controller.ts
   @Post('login')
