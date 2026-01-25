@@ -4,6 +4,8 @@
 
 인터랙티브한 Windows 스타일의 포트폴리오 웹사이트로, 사용자에게 독특한 경험을 제공하는 개인 포트폴리오입니다.
 
+[배포된 사이트 보기](https://portfolio-six-jet-37.vercel.app/my-project)
+
 ---
 
 ## 기술 스택 (Tech Stack)

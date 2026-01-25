@@ -66,6 +66,7 @@ export const StackComponent = () => {
                     width={35}
                     height={35}
                     className="object-contain"
+                    unoptimized
                   />
                   <span className="text-xs text-center font-medium">
                     {stack.name}
