@@ -14,7 +14,7 @@ function FooterMenus({
   const setLoading = useSetAtom(loadingState);
   const setMousePosition = useSetAtom(mousePositionState);
   return (
-    <div className="absolute bottom-10 left-2 flex w-60 flex-col gap-4 border-3 border-gray-100 border-r-gray-500 border-b-gray-500 bg-gray-300 p-3 text-xs">
+    <div className="absolute bottom-10 left-2 flex w-64 flex-col gap-4 border-3 border-gray-100 border-r-gray-500 border-b-gray-500 bg-gray-300 p-3 text-xs">
       {MENU_LIST.map((menu) => {
         if (menu.function) return null;
         return (

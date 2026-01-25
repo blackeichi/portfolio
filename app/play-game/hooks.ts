@@ -61,12 +61,6 @@ export const useHandleActionEvent = ({
             .slice(1)
             .filter((cls) => cls !== "run")
             .join("") || "front";
-        console.log(
-          interactables[currentMap][
-            `${roundedMovex}${roundedMovey}${characterClass}`
-          ],
-          `${roundedMovex}${roundedMovey}${characterClass}`,
-        );
         if (
           interactables[currentMap][
             `${roundedMovex}${roundedMovey}${characterClass}`

@@ -19,7 +19,7 @@
 - **Redux**
 - **Recoil**
 - **Jotai**
-- **React Query**
+- **Tanstack Query(React Query)**
 
 ### 🎨 스타일링
 

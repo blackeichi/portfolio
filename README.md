@@ -114,7 +114,7 @@ const closeWindow = (windowId: string) => {
 ```
 app/
 ├── page.tsx                  # 홈 (바탕화면)
-├── me/             # 자기소개 섹션 (개발 예정)
+├── resume/             # 자기소개 섹션 (개발 예정)
 ├── my-project/              # Daily Log 프로젝트 소개
 │   ├── page.tsx            # 프로젝트 개요
 │   ├── fe-library/         # 라이브러리 설명

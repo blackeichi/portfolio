@@ -3,7 +3,7 @@ import { sectors } from "./utils";
 import { Sector } from "./_ui/sector";
 
 export const metadata: Metadata = {
-  title: "My Info",
+  title: "내 이력서",
 };
 
 export default function MyInfoPage() {

@@ -1,14 +1,11 @@
 import { Title } from "@/components/atoms/title";
-import { Metadata } from "next";
 import Image from "next/image";
 import { StackComponent } from "./_ui/stackComponent";
 import { FunctionDescription } from "./_ui/functionDescription";
 import { Text } from "@/components/atoms/text";
 import { OpenProjectBtn } from "@/components/template/myProjectTemplate/openProjectBtn";
 
-export const metadata: Metadata = {
-  title: "프로젝트 개요",
-};
+
 
 export default function MyProjectPage() {
   return (

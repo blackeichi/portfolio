@@ -20,7 +20,7 @@ export const Sector = ({
       />
       {isOpen && (
         <div className="pl-4">
-          <MarkdownRenderer markdownPath={`/markdown/me/${sector.id}.md`} />
+          <MarkdownRenderer markdownPath={`/markdown/resume/${sector.id}.md`} />
         </div>
       )}
     </div>

@@ -1,5 +1,3 @@
-"use client";
-
 import { MarkdownRenderer } from "@/components/organisms/markdownRenderer";
 
 export default function FeLibraryPage() {

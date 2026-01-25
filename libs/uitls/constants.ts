@@ -20,12 +20,12 @@ export const MENU_LIST_DATA: {
     confirmMsg?: string;
   };
 } = {
-  me: {
-    title: "내 정보",
+  resume: {
+    title: "내 이력서",
     icon: "/images/myComputer.png",
   },
   "my-project": {
-    title: "프로젝트",
+    title: "Side Project",
     icon: "/images/shell_window.png",
   },
   "play-game": {

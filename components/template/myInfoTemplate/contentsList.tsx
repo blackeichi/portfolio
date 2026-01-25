@@ -1,6 +1,6 @@
 "use client";
 
-import { sectors } from "@/app/me/utils";
+import { sectors } from "@/app/resume/utils";
 
 export const ContentsList = () => {
   return (

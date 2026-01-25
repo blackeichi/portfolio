@@ -5,5 +5,5 @@ export const projectContents = [
   { name: "⚡ 성능 최적화", path: "/my-project/performance-optimization" },
   { name: "🔐 인증 및 보안 전략", path: "/my-project/auth-strategy" },
   { name: "🔄 API 처리", path: "/my-project/handle-api" },
-  { name: "📜 서비스", path: "/my-project/service-policy" },
+  { name: "📜 서비스 정책", path: "/my-project/service-policy" },
 ];
