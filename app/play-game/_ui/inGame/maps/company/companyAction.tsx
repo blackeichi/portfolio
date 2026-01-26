@@ -182,7 +182,29 @@ export default function CompanyAction({
       <DialogBox
         key={target}
         dialogs={["", "....", "처리가 완료되었습니다."]}
-        onClose={() => setActionType(null)}
+        onClose={() => {
+          if (
+            workLists.bug1 &&
+            workLists.bug2 &&
+            workLists.work1 &&
+            workLists.work2
+          ) {
+            setActionType(COMPANY_ACTION_TYPE.allDone);
+          } else {
+            setActionType(null);
+          }
+        }}
+      />
+    );
+  }
+  if (target === COMPANY_ACTION_TYPE.allDone) {
+    return (
+      <DialogBox
+        key={target}
+        dialogs={["모든 업무를 처리했다!", "이제 집에 가자..!"]}
+        onClose={() => {
+          setActionType(null);
+        }}
       />
     );
   }

@@ -29,7 +29,7 @@ export const MENU_LIST_DATA: {
     icon: "/images/shell_window.png",
   },
   "play-game": {
-    title: "Game",
+    title: "mini-game",
     icon: "/images/game_icon.png",
   },
   drive: {

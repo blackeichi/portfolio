@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { GameLayout } from "./_ui/gameLayout";
 
 export const metadata: Metadata = {
-  title: "PLAY GAME",
+  title: "정우의 하루",
 };
 
 export default function PlayGamePage() {

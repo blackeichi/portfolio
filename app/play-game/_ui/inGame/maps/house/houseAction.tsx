@@ -60,7 +60,6 @@ export default function HouseAction({
             "오늘도 출근을 해야해!",
           ]}
           onClose={() => {
-            console.log("actionType이 null이 되야하는데?");
             setActionType(null);
           }}
         />

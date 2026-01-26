@@ -7,6 +7,7 @@ export const COMPANY_ACTION_TYPE: Record<string, string> = {
   handleBug: "handleBug",
   handleBug_2: "handleBug_2",
   done: "done",
+  allDone: "allDone",
 };
 
 export const companyInteractions: Record<string, string> = {

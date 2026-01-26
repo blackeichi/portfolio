@@ -19,7 +19,7 @@ export const StartScreen = ({
 }) => {
   const router = useRouter();
   const [selected, setSelected] = useState<"START" | "MANUAL" | "EXIT">(
-    "START",
+    "MANUAL",
   );
   const [actionsType, setActionsType] = useState<"EXIT" | "START" | null>(null);
   const setMovementSpeed = useSetAtom(movementSpeedState);
@@ -80,6 +80,7 @@ export const StartScreen = ({
         <DialogBox
           dialogs={[
             "캐릭터의 이동 속도를 선택해주세요.",
+            "...",
             "화면 주사율이 100Hz 이상인 경우",
             "50%를 선택하는 것을 권장합니다.",
           ]}
