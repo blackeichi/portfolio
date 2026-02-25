@@ -1,28 +1,21 @@
-"use client";
-
 import { MarkdownRendererServer } from "@/components/organisms/markdownRendererServer";
-import { SectorTitle } from "./sectorTitle";
-import { useState } from "react";
 
 export const Sector = ({
   sector,
 }: {
   sector: { id: string; name: string; content: string };
 }) => {
-  const [isOpen, setIsOpen] = useState(true);
-
   return (
     <div id={sector.id} className="flex flex-col gap-4 w-full scroll-mt-4">
-      <SectorTitle
-        title={sector.name}
-        isOpen={isOpen}
-        onToggle={() => setIsOpen(!isOpen)}
-      />
-      {isOpen && (
-        <div className="pl-4">
-          <MarkdownRendererServer content={sector.content} />
-        </div>
-      )}
+      <div className="flex items-center gap-2 select-none">
+        <h2 className="font-bold text-blue-800 text-2xl sm:text-3xl">
+          {sector.name}
+        </h2>
+        <div className="flex-1 h-px bg-gray-300" />
+      </div>
+      <div className="pl-4">
+        <MarkdownRendererServer content={sector.content} />
+      </div>
     </div>
   );
 };

@@ -7,7 +7,9 @@ interface MarkdownRendererServerProps {
   content: string;
 }
 
-export const MarkdownRendererServer = ({ content }: MarkdownRendererServerProps) => {
+export const MarkdownRendererServer = ({
+  content,
+}: MarkdownRendererServerProps) => {
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
@@ -35,6 +37,8 @@ export const MarkdownRendererServer = ({ content }: MarkdownRendererServerProps)
             width={24}
             height={24}
             className="inline-block w-5 h-5 sm:w-6 sm:h-6 object-contain mr-1"
+            loading="lazy"
+            quality={85}
           />
         ),
         // 단락 스타일
@@ -84,7 +88,7 @@ export const MarkdownRendererServer = ({ content }: MarkdownRendererServerProps)
         ),
         // 인용구
         blockquote: ({ children }) => (
-          <blockquote className="border-l-4 border-gray-300 pl-4 italic my-2 text-gray-600">
+          <blockquote className="border-l-4 border-gray-300 pl-4 italic my-2 text-gray-600 text-[11px] sm:text-xs">
             {children}
           </blockquote>
         ),

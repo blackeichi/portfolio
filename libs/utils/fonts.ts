@@ -1,9 +1,8 @@
-import { Noto_Sans_KR, Press_Start_2P } from "next/font/google";
+import { Press_Start_2P } from "next/font/google";
 
-export const notoSans = Noto_Sans_KR({
-  subsets: ["latin"],
-});
 export const pressStart = Press_Start_2P({
   subsets: ["latin"],
   weight: "400",
+  display: "swap",
+  preload: false, // 주요 폰트가 아니므로 preload 제외
 });
