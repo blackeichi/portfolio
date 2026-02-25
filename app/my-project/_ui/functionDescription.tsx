@@ -1,11 +1,17 @@
-"use client";
+import { MarkdownRendererServer } from "@/components/organisms/markdownRendererServer";
+import { getMarkdownContent } from "@/libs/utils/markdown";
 
-import { MarkdownRenderer } from "@/components/organisms/markdownRenderer";
+export const FunctionDescription = async () => {
+  const content = await getMarkdownContent([
+    "public",
+    "markdown",
+    "project",
+    "function-description.md",
+  ]);
 
-export const FunctionDescription = () => {
   return (
     <div className="my-5">
-      <MarkdownRenderer markdownPath="/markdown/project/function-description.md" />
+      <MarkdownRendererServer content={content} />
     </div>
   );
 };

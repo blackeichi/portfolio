@@ -1,11 +1,18 @@
-import { MarkdownRenderer } from "@/components/organisms/markdownRenderer";
+import { MarkdownRendererServer } from "@/components/organisms/markdownRendererServer";
+import { getMarkdownContent } from "@/libs/utils/markdown";
 
+export default async function ServicePolicyPage() {
+  const content = await getMarkdownContent([
+    "public",
+    "markdown",
+    "project",
+    "service-policy.md",
+  ]);
 
-export default function ServicePolicyPage() {
   return (
     <div className="text-xs sm:text-sm leading-relaxed w-full h-fit p-6 justify-center flex box-border">
       <div className="w-full max-w-200">
-        <MarkdownRenderer markdownPath="/markdown/project/service-policy.md" />
+        <MarkdownRendererServer content={content} />
       </div>
     </div>
   );
