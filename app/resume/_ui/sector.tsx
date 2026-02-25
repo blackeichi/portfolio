@@ -1,13 +1,13 @@
 "use client";
 
-import { MarkdownRenderer } from "@/components/organisms/markdownRenderer";
+import { MarkdownRendererServer } from "@/components/organisms/markdownRendererServer";
 import { SectorTitle } from "./sectorTitle";
 import { useState } from "react";
 
 export const Sector = ({
   sector,
 }: {
-  sector: { id: string; name: string };
+  sector: { id: string; name: string; content: string };
 }) => {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -20,7 +20,7 @@ export const Sector = ({
       />
       {isOpen && (
         <div className="pl-4">
-          <MarkdownRenderer markdownPath={`/markdown/resume/${sector.id}.md`} />
+          <MarkdownRendererServer content={sector.content} />
         </div>
       )}
     </div>
