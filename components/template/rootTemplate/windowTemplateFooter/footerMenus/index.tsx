@@ -1,7 +1,7 @@
 import { useSetAtom } from "jotai";
 import { EachMenu } from "./EachMenu";
 import { useRouter } from "next/navigation";
-import { MENU_LIST } from "@/libs/uitls/constants";
+import { MENU_LIST } from "@/libs/utils/constants";
 import { loadingState, mousePositionState } from "@/libs/atom";
 import { memo } from "react";
 

@@ -1,4 +1,4 @@
-import { COLOR_THEME } from "@/libs/uitls/constants";
+import { COLOR_THEME } from "@/libs/utils/constants";
 import { Metadata } from "next";
 import { GameLayout } from "./_ui/gameLayout";
 

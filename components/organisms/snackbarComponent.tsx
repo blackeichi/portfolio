@@ -1,7 +1,7 @@
 "use client";
 
 import { alertMsgState, confirmMsgState, errorMsgState } from "@/libs/atom";
-import { COLOR_THEME } from "@/libs/uitls/constants";
+import { COLOR_THEME } from "@/libs/utils/constants";
 import { useAtom } from "jotai";
 import { SnackbarKey, useSnackbar } from "notistack";
 import { useEffect } from "react";

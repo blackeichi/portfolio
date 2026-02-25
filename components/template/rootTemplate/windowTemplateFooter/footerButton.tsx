@@ -1,4 +1,4 @@
-import { pressStart } from "@/libs/uitls/fonts";
+import { pressStart } from "@/libs/utils/fonts";
 import Image from "next/image";
 import { memo } from "react";
 

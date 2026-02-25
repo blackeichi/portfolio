@@ -2,7 +2,7 @@
 
 import IconButton from "@/components/molecules/iconButton";
 import { isFocusedMainState, subOpenedState } from "@/libs/atom";
-import { SUB_WINDOW_LIST } from "@/libs/uitls/constants";
+import { SUB_WINDOW_LIST } from "@/libs/utils/constants";
 import { useSetAtom } from "jotai";
 import { FcOpenedFolder } from "react-icons/fc";
 

@@ -3,7 +3,7 @@ import { memo, useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSetAtom } from "jotai";
 import { confirmMsgState, loadingState, mousePositionState } from "@/libs/atom";
-import { MENU_LIST } from "@/libs/uitls/constants";
+import { MENU_LIST } from "@/libs/utils/constants";
 import { IconMenu } from "@/libs/types/state";
 
 function HomeIcons() {
@@ -35,7 +35,7 @@ function HomeIcons() {
         router.push(menu.href);
       }
     },
-    [router, setLoading, setConfirmMsgState]
+    [router, setLoading, setConfirmMsgState],
   );
   return (
     <div

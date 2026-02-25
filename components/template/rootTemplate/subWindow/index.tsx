@@ -7,7 +7,7 @@ import {
 import {
   DEFAULT_SUB_WINDOW_BOX,
   SUB_WINDOW_LIST,
-} from "@/libs/uitls/constants";
+} from "@/libs/utils/constants";
 import { useAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
 

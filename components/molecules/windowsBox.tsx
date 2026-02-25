@@ -1,4 +1,4 @@
-import { COLOR_THEME } from "@/libs/uitls/constants";
+import { COLOR_THEME } from "@/libs/utils/constants";
 import WindowBoxHeader from "../atoms/windowsBoxHeader";
 
 export default function WindowsBox({

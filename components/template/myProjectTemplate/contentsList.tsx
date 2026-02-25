@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { COLOR_THEME } from "@/libs/uitls/constants";
+import { COLOR_THEME } from "@/libs/utils/constants";
 import { projectContents } from "@/app/my-project/utils";
 import { useSetAtom } from "jotai";
 import { loadingState, mousePositionState } from "@/libs/atom";

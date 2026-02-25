@@ -7,7 +7,7 @@ import { confirmMsgState, isFocusedMainState, loadingState } from "@/libs/atom";
 import WindowTemplateFooter from "./windowTemplateFooter";
 import MouseLoading from "./mouseLoading";
 import HomeIcons from "./homeIcons";
-import { MENU_LIST_DATA } from "@/libs/uitls/constants";
+import { MENU_LIST_DATA } from "@/libs/utils/constants";
 import WindowTemplateMain from "./windowTemplateMain";
 import { SubWindow } from "./subWindow";
 
@@ -20,7 +20,7 @@ export const RootTemplate = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     setLoading(false);
     setIsFocusedMain(true);
-  }, [pathname, setLoading]);
+  }, [pathname, setLoading, setIsFocusedMain]);
   useEffect(() => {
     const alreadyAsked = localStorage.getItem("hideFullscreenPrompt");
     if (!alreadyAsked) {
@@ -36,7 +36,7 @@ export const RootTemplate = ({ children }: { children: React.ReactNode }) => {
         },
       });
     }
-  }, []);
+  }, [setConfirmMsg]);
   return (
     <main className="relative flex h-full w-full flex-col justify-center overflow-hidden">
       <div className="relative h-full w-full overflow-hidden" ref={parentRef}>

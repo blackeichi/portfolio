@@ -1,4 +1,4 @@
-import { pressStart } from "@/libs/uitls/fonts";
+import { pressStart } from "@/libs/utils/fonts";
 import { useEffect, useState } from "react";
 import { FaCaretRight } from "react-icons/fa";
 import { DialogBox } from "../components/dialogBox";

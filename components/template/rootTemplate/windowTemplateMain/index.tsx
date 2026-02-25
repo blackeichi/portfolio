@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Position } from "@/libs/types/state";
-import { DEFAULT_WINDOW_BOX, MENU_LIST_DATA } from "@/libs/uitls/constants";
+import { DEFAULT_WINDOW_BOX, MENU_LIST_DATA } from "@/libs/utils/constants";
 import { WindowsClientActionComponent } from "@/components/organisms/windowsClientActionComponent";
 import { useRouter } from "next/navigation";
 import { useSetAtom } from "jotai";

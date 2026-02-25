@@ -1,4 +1,4 @@
-import { setHoverEvent } from "@/libs/uitls/event";
+import { setHoverEvent } from "@/libs/utils/event";
 import { useState } from "react";
 
 export default function Tooltip({

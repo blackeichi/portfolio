@@ -2,7 +2,7 @@
 
 import { IoIosCloseCircle, IoMdAlert } from "react-icons/io";
 import { SnackbarProvider as Provider } from "notistack";
-import { COLOR_THEME } from "./uitls/constants";
+import { COLOR_THEME } from "./utils/constants";
 
 export default function SnackbarProvider({
   children,

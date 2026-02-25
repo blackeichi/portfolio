@@ -1,7 +1,7 @@
 "use client";
 
 import { atom } from "jotai";
-import { DEFAULT_SUB_WINDOW_BOX, SUB_WINDOW_LIST } from "./uitls/constants";
+import { DEFAULT_SUB_WINDOW_BOX, SUB_WINDOW_LIST } from "./utils/constants";
 import { Position } from "./types/state";
 
 export const errorMsgState = atom<string | null>(null);

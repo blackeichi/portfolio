@@ -1,5 +1,5 @@
 import { isFocusedMainState, subOpenedState } from "@/libs/atom";
-import { MENU_LIST_DATA, SUB_WINDOW_LIST } from "@/libs/uitls/constants";
+import { MENU_LIST_DATA, SUB_WINDOW_LIST } from "@/libs/utils/constants";
 import { useAtom, useAtomValue } from "jotai";
 import Image from "next/image";
 import { usePathname } from "next/navigation";

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { notoSans } from "@/libs/uitls/fonts";
-import { COLOR_THEME } from "@/libs/uitls/constants";
+import { notoSans } from "@/libs/utils/fonts";
+import { COLOR_THEME } from "@/libs/utils/constants";
 import SnackbarProvider from "@/libs/snackbarProvider";
 import { SnackbarComponent } from "@/components/organisms/snackbarComponent";
 import { RootTemplate } from "@/components/template/rootTemplate";
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: {
     template: "%s - 정우의 포트폴리오",
     default: "정우의 포트폴리오",
-  }  ,
+  },
   description: "정우님의 포트폴리오 사이트입니다.",
 };
 

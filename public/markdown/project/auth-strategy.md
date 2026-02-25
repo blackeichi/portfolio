@@ -34,51 +34,6 @@
 
 ---
 
-## 로그인/회원가입 처리
-
-**쿠키 설정의 딜레마**
-
-- 로그인과 회원가입은 비밀번호를 다루기 때문에 **서버 사이드에서 처리하는 것이 이상적**
-- 하지만 로그인 시 쿠키를 설정하는 것은 Nextjs의 서버 사이드보다는 백엔드에서 하는 것이 **보안상 바람직하지 않다고 판단**
-- 따라서 **회원가입은 백엔드의 Server Action**으로, **로그인은 클라이언트 사이드**에서 처리하는 방식으로 절충
-
-```backend/auth/auth.controller.ts
-  @Post('login')
-  @HttpCode(HttpStatus.OK) // 200 return code
-  @ApiOperation({ summary: '로그인' })
-  @ApiResponse({
-    status: 200,
-    description: '로그인이 성공적으로 완료되었습니다.',
-    type: AuthResponseDto,
-  })
-  @ApiResponse({
-    status: 401,
-    description: '인증 실패 (잘못된 이메일 또는 비밀번호)',
-  })
-  async login(
-    @Body() dto: LoginDto,
-    @Res({ passthrough: true }) res: Response,
-  ) {
-    const isGuestLogin = dto.email === process.env.GUEST_EMAIL;
-    const { accessToken, refreshToken } = await this.authService.login(
-      dto.email,
-      isGuestLogin ? process.env.GUEST_PASSWORD || '' : dto.password,
-    );
-    <!-- 쿠키 설정! -->
-    res.cookie('refresh_token', refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-      path: '/',
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 30일
-    });
-
-    return { accessToken };
-  }
-```
-
----
-
 ## 인증 흐름
 
 1. **로그인/회원가입**: Server Action을 통해 서버 사이드에서 처리, RefreshToken을 쿠키로 설정

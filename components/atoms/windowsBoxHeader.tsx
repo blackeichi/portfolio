@@ -1,4 +1,4 @@
-import { COLOR_THEME } from "@/libs/uitls/constants";
+import { COLOR_THEME } from "@/libs/utils/constants";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -20,7 +20,7 @@ export default function WindowBoxHeader({
   style?: React.CSSProperties;
 }) {
   const [position, setPosition] = useState<{ x: number; y: number } | null>(
-    null
+    null,
   );
   return (
     <div

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Dir, Position, RefType } from "../types/state";
-import { DEFAULT_WINDOW_BOX } from "../uitls/constants";
+import { DEFAULT_WINDOW_BOX } from "../utils/constants";
 
 const MIN_W = 350;
 const MIN_H = 250;
@@ -102,7 +102,7 @@ export const useHandleWindowBox = ({
       setIsSticky,
       isStickyed,
       defaultPosition,
-    ]
+    ],
   );
 
   const resizeBox = useCallback(
@@ -152,7 +152,7 @@ export const useHandleWindowBox = ({
         height: newH,
       });
     },
-    [resizeDir, parentRef, setBox]
+    [resizeDir, parentRef, setBox],
   );
 
   useEffect(() => {
@@ -232,7 +232,7 @@ export const useHandleWindowBox = ({
         height: box.height,
       };
     },
-    [box]
+    [box],
   );
   const handleDragStart = useCallback(
     (e: React.MouseEvent) => {
@@ -257,7 +257,7 @@ export const useHandleWindowBox = ({
       }
       setIsDragging(true);
     },
-    [beginInteraction, setIsDragging, isMax, setIsMax, setBox, defaultPosition]
+    [beginInteraction, setIsDragging, isMax, setIsMax, setBox, defaultPosition],
   );
 
   const handleResizeStart = useCallback(
@@ -265,7 +265,7 @@ export const useHandleWindowBox = ({
       beginInteraction(e);
       setResizeDir(dir);
     },
-    [beginInteraction]
+    [beginInteraction],
   );
 
   const onResizeFunc = useCallback(() => {

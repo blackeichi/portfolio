@@ -1,6 +1,6 @@
 "use client";
 
-import { COLOR_THEME } from "@/libs/uitls/constants";
+import { COLOR_THEME } from "@/libs/utils/constants";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { InGame } from "./inGame";
 import { StartScreen } from "./startScreen";

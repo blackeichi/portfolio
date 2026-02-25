@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { FaCaretDown, FaCaretRight } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { pressStart } from "@/libs/uitls/fonts";
+import { pressStart } from "@/libs/utils/fonts";
 
 export const DialogBox = ({
   dialogs,
