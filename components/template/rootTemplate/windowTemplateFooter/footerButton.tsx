@@ -27,6 +27,8 @@ function FooterButton({
         alt="window icon"
         width={20}
         height={20}
+        sizes="20px"
+        style={{ width: '20px', height: '20px' }}
       />
       <span>Menu</span>
     </div>

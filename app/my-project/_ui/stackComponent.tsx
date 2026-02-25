@@ -66,6 +66,8 @@ export const StackComponent = () => {
                     height={35}
                     className="object-contain"
                     unoptimized
+                    sizes="35px"
+                    style={{ width: '35px', height: '35px' }}
                   />
                   <span className="text-xs text-center font-medium">
                     {stack.name}

@@ -16,7 +16,14 @@ export const EachMenu = ({
       className="flex cursor-pointer items-center gap-4 p-3 hover:bg-blue-900 hover:text-white whitespace-nowrap"
       onClick={onClick}
     >
-      <Image src={image} alt={alt} width={25} height={25} />
+      <Image
+        src={image}
+        alt={alt}
+        width={25}
+        height={25}
+        sizes="25px"
+        style={{ width: "25px", height: "25px" }}
+      />
       <span className="pr-20">{text}</span>
     </div>
   );

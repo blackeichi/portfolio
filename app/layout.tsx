@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 
 const notoSans = Noto_Sans_KR({
   subsets: ["latin"],
-  weight: ["400"], // 필요한 굵기만 로드
-  display: "swap", // 폰트 로딩 전 fallback 폰트 표시
+  weight: ["400"],
+  display: "swap",
   preload: true,
 });
 

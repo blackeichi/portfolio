@@ -34,6 +34,8 @@ export const EachHomeIcon = ({
           alt={`${menu.name} icon`}
           width={30}
           height={30}
+          sizes="30px"
+          style={{ width: '30px', height: '30px' }}
         />
         <div
           className={`absolute top-0 left-0 h-full w-full rounded-xs ${

@@ -2,8 +2,22 @@
 
 import { COLOR_THEME } from "@/libs/utils/constants";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { InGame } from "./inGame";
+import dynamic from "next/dynamic";
 import { StartScreen } from "./startScreen";
+
+const InGame = dynamic(
+  () => import("./inGame").then((mod) => ({ default: mod.InGame })),
+  {
+    loading: () => (
+      <div className="w-full h-full flex items-center justify-center">
+        <div className="text-center animate-pulse">
+          <div className="text-2xl">Loading Game...</div>
+        </div>
+      </div>
+    ),
+    ssr: false,
+  },
+);
 
 export const GameLayout = () => {
   const [size, setSize] = useState<string | null>(null);
@@ -42,7 +56,7 @@ export const GameLayout = () => {
         backgroundColor: COLOR_THEME.green,
       }}
     >
-      {size && (
+      {size ? (
         <div
           className="bg-white overflow-hidden relative"
           style={{
@@ -51,6 +65,20 @@ export const GameLayout = () => {
           }}
         >
           {isStarted ? <InGame /> : <StartScreen setIsStarted={setIsStarted} />}
+        </div>
+      ) : (
+        // 초기 로딩 스켈레톤
+        <div className="bg-white overflow-hidden relative w-[90vh] h-[90vh] max-w-full max-h-full animate-pulse">
+          <div className="w-full h-full flex items-center justify-center">
+            <div className="text-center space-y-4">
+              <div className="h-12 w-64 bg-gray-300 rounded mx-auto" />
+              <div className="space-y-2">
+                <div className="h-8 w-48 bg-gray-200 rounded mx-auto" />
+                <div className="h-8 w-48 bg-gray-200 rounded mx-auto" />
+                <div className="h-8 w-48 bg-gray-200 rounded mx-auto" />
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>
