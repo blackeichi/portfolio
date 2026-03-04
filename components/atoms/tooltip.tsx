@@ -19,10 +19,15 @@ export default function Tooltip({
   });
 
   return (
-    <div className="relative" {...(tooltip && setHoverEvent(setPosition))}>
+    <div
+      id="tooltip-wrapper"
+      className="relative"
+      {...(tooltip && setHoverEvent(setPosition))}
+    >
       {children}
       {position.visible && tooltip && (
         <div
+          id="tooltip-content"
           className="absolute z-30 max-w-60 bg-[rgba(0,0,0,0.85)] p-2.5 text-[11px] text-white break-words"
           style={position.style}
         >
