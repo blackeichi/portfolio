@@ -1,6 +1,11 @@
 import { setHoverEvent } from "@/libs/utils/event";
 import { useState } from "react";
 
+interface TooltipPosition {
+  visible: boolean;
+  style: React.CSSProperties;
+}
+
 export default function Tooltip({
   tooltip,
   children,
@@ -8,13 +13,18 @@ export default function Tooltip({
   tooltip?: string;
   children: React.ReactNode;
 }) {
-  const [isHovered, setIsHovered] = useState<string>("");
+  const [position, setPosition] = useState<TooltipPosition>({
+    visible: false,
+    style: {},
+  });
+
   return (
-    <div className="relative" {...(tooltip && setHoverEvent(setIsHovered))}>
+    <div className="relative" {...(tooltip && setHoverEvent(setPosition))}>
       {children}
-      {isHovered && tooltip && (
+      {position.visible && tooltip && (
         <div
-          className={`absolute z-30 max-w-60 bg-[rgba(0,0,0,0.85)] p-2.5 text-[11px] wrap-break-word whitespace-nowrap mt-1 text-white ${isHovered}`}
+          className="absolute z-30 max-w-60 bg-[rgba(0,0,0,0.85)] p-2.5 text-[11px] text-white break-words"
+          style={position.style}
         >
           {tooltip}
         </div>
