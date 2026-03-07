@@ -4,7 +4,7 @@ import { alertMsgState, confirmMsgState, errorMsgState } from "@/libs/atom";
 import { COLOR_THEME } from "@/libs/utils/constants";
 import { useAtom } from "jotai";
 import { SnackbarKey, useSnackbar } from "notistack";
-import { useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import Button from "../atoms/button";
 import Overlay from "../atoms/overlay";
 import WindowsBox from "../molecules/windowsBox";
@@ -27,16 +27,38 @@ export const SnackbarComponent = () => {
   const [errorMsg, setErrorMsg] = useAtom(errorMsgState);
   const [alertMsg, setAlertMsg] = useAtom(alertMsgState);
   const [confirmMsg, setConfirmMsg] = useAtom(confirmMsgState);
-  const action = (snackbarId: SnackbarKey) => (
-    <Button
-      onClick={() => {
-        closeSnackbar(snackbarId);
-      }}
-      text="확인"
-      width={50}
-      height={30}
-    />
+
+  const action = useCallback(
+    (snackbarId: SnackbarKey) => (
+      <Button
+        onClick={() => closeSnackbar(snackbarId)}
+        text="확인"
+        width={50}
+        height={30}
+      />
+    ),
+    [closeSnackbar],
   );
+
+  const handleCloseConfirm = useCallback(() => {
+    setConfirmMsg(null);
+  }, [setConfirmMsg]);
+
+  const handleConfirm = useCallback(() => {
+    confirmMsg?.confirmEvent();
+    setConfirmMsg(null);
+  }, [confirmMsg, setConfirmMsg]);
+
+  const handleCancel = useCallback(() => {
+    confirmMsg?.cancelEvent?.();
+    setConfirmMsg(null);
+  }, [confirmMsg, setConfirmMsg]);
+
+  const headBtns = useMemo(
+    () => <IconButton icon={IoMdClose} onClick={handleCloseConfirm} />,
+    [handleCloseConfirm],
+  );
+
   useEffect(() => {
     if (alertMsg) {
       enqueueSnackbar(alertMsg, {
@@ -46,7 +68,8 @@ export const SnackbarComponent = () => {
       });
       setAlertMsg(null);
     }
-  }, [alertMsg]);
+  }, [alertMsg, enqueueSnackbar, action, setAlertMsg]);
+
   useEffect(() => {
     if (errorMsg) {
       enqueueSnackbar(errorMsg, {
@@ -56,17 +79,14 @@ export const SnackbarComponent = () => {
       });
       setErrorMsg(null);
     }
-  }, [errorMsg]);
+  }, [errorMsg, enqueueSnackbar, action, setErrorMsg]);
+
   return (
-    <Overlay isOpen={!!confirmMsg} onClick={() => setConfirmMsg(null)}>
+    <Overlay isOpen={!!confirmMsg} onClick={handleCloseConfirm}>
       <WindowsBox
         title={confirmMsg?.title || "Hello, world"}
         width={400}
-        headBtns={
-          <>
-            <IconButton icon={IoMdClose} onClick={() => setConfirmMsg(null)} />
-          </>
-        }
+        headBtns={headBtns}
       >
         <div className="flex flex-col items-center justify-center gap-8">
           <div className="relative flex items-center pr-4 pl-16">
@@ -79,23 +99,12 @@ export const SnackbarComponent = () => {
           <div className="flex gap-2">
             <Button
               text="확인"
-              onClick={() => {
-                confirmMsg?.confirmEvent();
-                setConfirmMsg(null);
-              }}
+              onClick={handleConfirm}
               width={80}
               height={35}
               bold
             />
-            <Button
-              text="취소"
-              onClick={() => {
-                confirmMsg?.cancelEvent?.();
-                setConfirmMsg(null);
-              }}
-              width={80}
-              height={35}
-            />
+            <Button text="취소" onClick={handleCancel} width={80} height={35} />
           </div>
         </div>
       </WindowsBox>

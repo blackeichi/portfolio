@@ -1,7 +1,8 @@
 import { COLOR_THEME } from "@/libs/utils/constants";
 import WindowBoxHeader from "../atoms/windowsBoxHeader";
+import { memo, useMemo } from "react";
 
-export default function WindowsBox({
+function WindowsBox({
   width = 200,
   height = 200,
   children,
@@ -20,26 +21,38 @@ export default function WindowsBox({
   needScroll?: boolean;
   style?: React.CSSProperties;
 }) {
+  const containerStyle = useMemo(
+    () => ({ width: `${width}px`, height: `${height}px`, ...style }),
+    [width, height, style],
+  );
+
+  const headerStyle = useMemo(
+    () => ({ backgroundColor: COLOR_THEME.darkGray }),
+    [],
+  );
+
+  const contentClassName = useMemo(
+    () =>
+      `h-full w-full ${
+        needScroll ? "overflow-scroll" : "overflow-hidden"
+      } flex items-center justify-center bg-gray-300`,
+    [needScroll],
+  );
+
   return (
     <div
       className="flex flex-col border-4 border-gray-100 border-r-gray-500 border-b-gray-500"
-      style={{ width: `${width}px`, height: `${height}px`, ...style }}
+      style={containerStyle}
     >
       <WindowBoxHeader
         title={title}
         titleIcon={titleIcon}
         headBtns={headBtns}
-        style={{
-          backgroundColor: COLOR_THEME.darkGray,
-        }}
+        style={headerStyle}
       />
-      <div
-        className={`h-full w-full ${
-          needScroll ? "overflow-scroll" : "overflow-hidden"
-        } flex items-center justify-center bg-gray-300`}
-      >
-        {children}
-      </div>
+      <div className={contentClassName}>{children}</div>
     </div>
   );
 }
+
+export default memo(WindowsBox);
