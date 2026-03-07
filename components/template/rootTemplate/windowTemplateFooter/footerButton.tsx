@@ -10,7 +10,7 @@ function FooterButton({
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   return (
-    <button
+    <div
       className={`flex h-full w-20 items-center justify-center gap-2 border-3 text-[9px] ${
         pressStart.className
       } ${
@@ -31,7 +31,7 @@ function FooterButton({
         style={{ width: "20px", height: "20px" }}
       />
       <span>Menu</span>
-    </button>
+    </div>
   );
 }
 export default memo(FooterButton);

@@ -23,7 +23,7 @@ function FooterMenus({
             image={menu.icon}
             alt={`${menu.name} icon`}
             text={menu.name}
-            onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+            onClick={(event: React.MouseEvent<HTMLDivElement>) => {
               setMousePosition({ x: event.clientX, y: event.clientY });
               setIsOpen(false);
               if (window.location.pathname !== menu.href) {
