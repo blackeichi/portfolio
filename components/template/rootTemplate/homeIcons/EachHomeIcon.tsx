@@ -16,7 +16,7 @@ export const EachHomeIcon = ({
 }) => {
   const isSelected = selectedMenu === index;
   return (
-    <div
+    <button
       key={`${menu.name}-home-icon`}
       className={`relative flex w-16 cursor-pointer flex-col items-center justify-center gap-1 text-xs outline-0 select-none`}
       onClick={() => setSelectedMenu(index)}
@@ -35,7 +35,7 @@ export const EachHomeIcon = ({
           width={30}
           height={30}
           sizes="30px"
-          style={{ width: '30px', height: '30px' }}
+          style={{ width: "30px", height: "30px" }}
         />
         <div
           className={`absolute top-0 left-0 h-full w-full rounded-xs ${
@@ -53,6 +53,6 @@ export const EachHomeIcon = ({
           }`}
         />
       </div>
-    </div>
+    </button>
   );
 };

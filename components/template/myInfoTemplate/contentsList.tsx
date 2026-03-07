@@ -8,8 +8,8 @@ export const ContentsList = () => {
       {sectors.map((sector) => {
         return (
           <li key={sector.id} className="w-full p-1 py-1.5 text-sm">
-            <div
-              className="hover:underline underline-offset-2 cursor-pointer"
+            <button
+              className="hover:underline underline-offset-2 cursor-pointer w-full text-left"
               onClick={() => {
                 const element = document.getElementById(sector.id);
                 if (element) {
@@ -21,7 +21,7 @@ export const ContentsList = () => {
               }}
             >
               {sector.icon} {sector.name}
-            </div>
+            </button>
           </li>
         );
       })}

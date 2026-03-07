@@ -34,9 +34,9 @@ export const ContentsList = () => {
                 {index + 1}. {content.name}
               </span>
             ) : (
-              <div
-                className="hover:underline underline-offset-2 cursor-pointer"
-                onClick={(event: React.MouseEvent<HTMLDivElement>) => {
+              <button
+                className="hover:underline underline-offset-2 cursor-pointer w-full text-left"
+                onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
                   if (window.location.pathname !== content.path) {
                     setMousePosition({ x: event.clientX, y: event.clientY });
                     setLoading(true);
@@ -45,7 +45,7 @@ export const ContentsList = () => {
                 }}
               >
                 {index + 1}. {content.name}
-              </div>
+              </button>
             )}
           </li>
         );

@@ -12,7 +12,7 @@ function FooterOpened() {
   return (
     <>
       {pathname && MENU_LIST_DATA[pathname] && (
-        <div
+        <button
           className={`flex h-full max-w-48 flex-1 items-center gap-2 border-3 px-1 cursor-pointer ${
             isFocusedMain
               ? "border-gray-500 border-r-gray-100 border-b-gray-100"
@@ -29,10 +29,10 @@ function FooterOpened() {
             height={16}
           />
           {MENU_LIST_DATA[pathname]?.title}
-        </div>
+        </button>
       )}
       {subOpened && (
-        <div
+        <button
           className={`flex h-full max-w-48 flex-1 items-center gap-2 border-3 px-1 cursor-pointer ${
             !isFocusedMain
               ? "border-gray-500 border-r-gray-100 border-b-gray-100"
@@ -49,7 +49,7 @@ function FooterOpened() {
             height={16}
           />
           {SUB_WINDOW_LIST[subOpened]?.title}
-        </div>
+        </button>
       )}
     </>
   );
