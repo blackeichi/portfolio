@@ -3,7 +3,7 @@ interface TooltipPosition {
   style: React.CSSProperties;
 }
 
-export function setHoverEvent(
+export function getTooltipHandlers(
   setPosition: React.Dispatch<React.SetStateAction<TooltipPosition>>,
 ) {
   const handleShow = (

@@ -1,4 +1,4 @@
-import { setHoverEvent } from "./event";
+import { getTooltipHandlers } from "./util";
 
 beforeAll(() => {
   // window 크기 설정
@@ -15,7 +15,7 @@ beforeAll(() => {
   });
 });
 
-describe("setHoverEvent", () => {
+describe("getTooltipHandlers", () => {
   let mockSetPosition: jest.Mock;
   let mockMouseEvent: Partial<React.MouseEvent<HTMLDivElement>>;
   let mockFocusEvent: Partial<React.FocusEvent<HTMLDivElement>>;
@@ -53,7 +53,7 @@ describe("setHoverEvent", () => {
   });
 
   it("onMouseEnter, onMouseLeave, onFocus, onBlur 핸들러를 반환해야 한다", () => {
-    const handlers = setHoverEvent(mockSetPosition);
+    const handlers = getTooltipHandlers(mockSetPosition);
 
     expect(handlers).toHaveProperty("onMouseEnter");
     expect(handlers).toHaveProperty("onMouseLeave");
@@ -67,7 +67,7 @@ describe("setHoverEvent", () => {
 
   describe("onMouseEnter", () => {
     it("이벤트 전파를 중지해야 한다", () => {
-      const handlers = setHoverEvent(mockSetPosition);
+      const handlers = getTooltipHandlers(mockSetPosition);
       handlers.onMouseEnter(mockMouseEvent as React.MouseEvent<HTMLDivElement>);
 
       expect(mockMouseEvent.stopPropagation).toHaveBeenCalled();
@@ -78,7 +78,7 @@ describe("setHoverEvent", () => {
       mockRect.x = 100;
       mockRect.y = 100;
 
-      const handlers = setHoverEvent(mockSetPosition);
+      const handlers = getTooltipHandlers(mockSetPosition);
       handlers.onMouseEnter(mockMouseEvent as React.MouseEvent<HTMLDivElement>);
 
       expect(mockSetPosition).toHaveBeenCalledWith({
@@ -96,7 +96,7 @@ describe("setHoverEvent", () => {
       mockRect.x = 600;
       mockRect.y = 100;
 
-      const handlers = setHoverEvent(mockSetPosition);
+      const handlers = getTooltipHandlers(mockSetPosition);
       handlers.onMouseEnter(mockMouseEvent as React.MouseEvent<HTMLDivElement>);
 
       expect(mockSetPosition).toHaveBeenCalledWith({
@@ -114,7 +114,7 @@ describe("setHoverEvent", () => {
       mockRect.x = 100;
       mockRect.y = 500;
 
-      const handlers = setHoverEvent(mockSetPosition);
+      const handlers = getTooltipHandlers(mockSetPosition);
       handlers.onMouseEnter(mockMouseEvent as React.MouseEvent<HTMLDivElement>);
 
       expect(mockSetPosition).toHaveBeenCalledWith({
@@ -132,7 +132,7 @@ describe("setHoverEvent", () => {
       mockRect.x = 600;
       mockRect.y = 500;
 
-      const handlers = setHoverEvent(mockSetPosition);
+      const handlers = getTooltipHandlers(mockSetPosition);
       handlers.onMouseEnter(mockMouseEvent as React.MouseEvent<HTMLDivElement>);
 
       expect(mockSetPosition).toHaveBeenCalledWith({
@@ -151,7 +151,7 @@ describe("setHoverEvent", () => {
       mockRect.x = 100;
       mockRect.y = 100;
 
-      const handlers = setHoverEvent(mockSetPosition);
+      const handlers = getTooltipHandlers(mockSetPosition);
       handlers.onFocus(mockFocusEvent as React.FocusEvent<HTMLDivElement>);
 
       expect(mockSetPosition).toHaveBeenCalledWith({
@@ -167,7 +167,7 @@ describe("setHoverEvent", () => {
 
   describe("onMouseLeave", () => {
     it("툴팁을 숨기고 스타일을 초기화해야 한다", () => {
-      const handlers = setHoverEvent(mockSetPosition);
+      const handlers = getTooltipHandlers(mockSetPosition);
       handlers.onMouseLeave();
 
       expect(mockSetPosition).toHaveBeenCalledWith({
@@ -179,7 +179,7 @@ describe("setHoverEvent", () => {
 
   describe("onBlur", () => {
     it("블러 시 툴팁을 숨기고 스타일을 초기화해야 한다", () => {
-      const handlers = setHoverEvent(mockSetPosition);
+      const handlers = getTooltipHandlers(mockSetPosition);
       handlers.onBlur();
 
       expect(mockSetPosition).toHaveBeenCalledWith({

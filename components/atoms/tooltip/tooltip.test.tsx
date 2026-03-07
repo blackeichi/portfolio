@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import Tooltip from "./tooltip";
+import Tooltip from ".";
 
 // window 크기 mock
 beforeAll(() => {
