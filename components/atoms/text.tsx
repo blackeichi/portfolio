@@ -9,13 +9,11 @@ export const Text = ({
   className?: string;
   style?: React.CSSProperties;
 }) => {
+  const baseClasses = "text-xs sm:text-sm text-gray-700";
+  const fontClasses = isBold ? "font-bold" : "font-normal";
+
   return (
-    <p
-      className={`font-${
-        isBold ? "bold" : "normal"
-      } text-xs sm:text-sm text-gray-700 ${className}`}
-      style={style}
-    >
+    <p className={`${fontClasses} ${baseClasses} ${className}`} style={style}>
       {children}
     </p>
   );

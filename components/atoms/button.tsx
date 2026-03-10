@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { ClipLoader } from "react-spinners";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -27,19 +26,18 @@ export default function Button({
   bold = false,
   ...rest
 }: ButtonProps) {
-  const [isTab, setIsTab] = useState<boolean>(false);
+  const baseClasses =
+    "flex items-center justify-center border-2 border-gray-100 border-r-gray-500 border-b-gray-500 bg-gray-300 disabled:cursor-not-allowed active:border-gray-500 active:border-r-gray-100 active:border-b-gray-100 active:p-0.5";
+  const stateClasses = disabled ? "text-gray-400" : "cursor-pointer text-gray-800";
+  const boldClasses = bold ? "border-3 outline -outline-offset-1 outline-gray-800" : "";
+
   return (
     <button
       {...rest}
-      className={`flex items-center justify-center border-2 bg-gray-300 disabled:cursor-not-allowed ${
-        disabled ? "text-gray-400" : "cursor-pointer text-gray-800"
-      } ${isTab ? "border-gray-500 border-r-gray-100 border-b-gray-100 p-0.5" : "border-gray-100 border-r-gray-500 border-b-gray-500"} ${bold ? "border-3 outline -outline-offset-1 outline-gray-800" : ""}`}
+      className={`${baseClasses} ${stateClasses} ${boldClasses}`}
       disabled={disabled || isLoading}
       tabIndex={-1}
       onClick={!disabled && !isLoading ? onClick : undefined}
-      onMouseDown={() => setIsTab(true)}
-      onMouseUp={() => setIsTab(false)}
-      onMouseLeave={() => setIsTab(false)}
       style={{
         ...style,
         width: typeof width === "number" ? `${width}px` : width,

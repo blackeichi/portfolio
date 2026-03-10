@@ -9,12 +9,11 @@ export default function Overlay({
   children: React.ReactNode;
   style?: React.CSSProperties;
 }) {
+  const containerClasses = "fixed top-0 left-0 z-40 h-screen w-screen items-center justify-center";
+  const displayClasses = isOpen ? "flex" : "hidden";
+
   return (
-    <div
-      className={`fixed top-0 left-0 z-40 h-screen w-screen items-center justify-center ${
-        isOpen ? "flex" : "hidden"
-      }`}
-    >
+    <div className={`${containerClasses} ${displayClasses}`}>
       <div
         id="overlay-background"
         onClick={onClick}
