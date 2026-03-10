@@ -1,31 +1,21 @@
-## 💻 기본 기술
+## 💻 기본 스택
 
-- **HTML** 🌐
-- **CSS** 🎨
-- **JavaScript** 📜
-- **TypeScript** 📘
+- HTML
+- CSS
+- JavaScript
+- TypeScript
 
 ---
 
 ## 🚀 메인 스택
 
-### ⚛️ 프레임워크
+- Frontend: React, Next.js (App Router), TypeScript, JavaScript (ES6+)
 
-- **React**
-- **Next.js**
+- State Management: React Query, Jotai, Recoil, Redux
 
-### 🔄 상태관리
+- Styling: TailwindCSS, Styled-components, Material UI
 
-- **Redux**
-- **Recoil**
-- **Jotai**
-- **Tanstack Query(React Query)**
-
-### 🎨 스타일링
-
-- **TailwindCSS**
-- **Styled-components**
-- **Material UI**
+- Testing/DevOps: Jest, Robot Framework, Docker, Vite, Git
 
 ---
 
@@ -33,9 +23,8 @@
 
 _사이드 프로젝트 또는 약간의 경험_
 
-- **React Native**
-- **Node.js**
-- **NestJS**
-- **Jest**
-- **Docker**
-- **Robot Framework**
+- React Native
+- Node.js
+- NestJS
+
+---

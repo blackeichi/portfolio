@@ -2,6 +2,8 @@
 
 사용자 인증은 보안과 사용자 경험을 동시에 확보하기 위한 **Dual Token 전략**을 시행합니다.
 
+[Dual Token 전략에서 accessToken는 어디에 저장해야 하는가! (Feat. XSS, CSRF)](https://blackeichi.tistory.com/31)
+
 ---
 
 ## AccessToken
@@ -33,6 +35,46 @@
 - 백엔드에서 DB에 저장하여 유효성 검증
 
 ---
+
+## 로그인/회원가입 처리
+
+```backend/auth/auth.controller.ts
+  @Post('login')
+  @HttpCode(HttpStatus.OK) // 200 return code
+  @ApiOperation({ summary: '로그인' })
+  @ApiResponse({
+    status: 200,
+    description: '로그인이 성공적으로 완료되었습니다.',
+    type: AuthResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: '인증 실패 (잘못된 이메일 또는 비밀번호)',
+  })
+  async login(
+    @Body() dto: LoginDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const isGuestLogin = dto.email === process.env.GUEST_EMAIL;
+    const { accessToken, refreshToken } = await this.authService.login(
+      dto.email,
+      isGuestLogin ? process.env.GUEST_PASSWORD || '' : dto.password,
+    );
+    <!-- 쿠키 설정! -->
+    res.cookie('refresh_token', refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      path: '/',
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30일
+    });
+
+    return { accessToken };
+  }
+```
+
+---
+
 
 ## 인증 흐름
 

@@ -1,6 +1,6 @@
 # 📁 프로젝트 구조
 
-모노레포 방식으로 **Next.js (Frontend)**와 **NestJS (Backend)**를 하나의 Git 저장소에서 함께 관리합니다.
+모노레포 방식으로 **Next.js (Frontend)** 와 **NestJS(Backend)** 를 하나의 Git 저장소에서 함께 관리합니다.
 
 ### 주요 특징
 
@@ -18,6 +18,10 @@
 ---
 
 ## 컴포넌트 계층 구조
+
+
+[**Atomic Design 방법론**] : [[아키텍처] Atomic Design vs FSD (Feature-Sliced Design)](https://blackeichi.tistory.com/29)
+
 
 ```
 apps/frontend/app/components/
