@@ -1,30 +1,25 @@
-## 💻 기본 스택
+## 🧰 Technical Skills
 
-- HTML
-- CSS
-- JavaScript
-- TypeScript
+### Frontend
 
----
+- React, Next.js (App Router)
+- TypeScript, JavaScript (ES6+)
 
-## 🚀 메인 스택
+### State Management
 
-- Frontend: React, Next.js (App Router), TypeScript, JavaScript (ES6+)
+- React Query, Jotai, Recoil, Redux
 
-- State Management: React Query, Jotai, Recoil, Redux
+### Styling
 
-- Styling: TailwindCSS, Styled-components, Material UI
+- TailwindCSS, Styled-components, Material UI
 
-- Testing/DevOps: Jest, Robot Framework, Docker, Vite, Git
+### Testing / DevOps
 
----
+- Jest, Robot Framework
+- Docker, Vite, Git
 
-## 🛠️ 서브 스택
+### Others
 
-_사이드 프로젝트 또는 약간의 경험_
-
-- React Native
-- Node.js
-- NestJS
+- React Native, Node.js, NestJS
 
 ---
