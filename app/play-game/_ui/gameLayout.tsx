@@ -8,10 +8,13 @@ import { StartScreen } from "./startScreen";
 const InGame = dynamic(
   () => import("./inGame").then((mod) => ({ default: mod.InGame })),
   {
-    loading: () => (
-      <div className="w-full h-full flex items-center justify-center">
-        <div className="text-center animate-pulse">
-          <div className="text-2xl">Loading Game...</div>
+       loading: () => (
+      <div className="w-full h-full flex items-center justify-center bg-white">
+        <div className="text-center space-y-4">
+          <div className="relative w-8 h-8 mx-auto">
+            <div className="absolute inset-0 border-4 border-gray-200 rounded-full"></div>
+            <div className="absolute inset-0 border-4 border-blue-800 rounded-full border-t-transparent animate-spin"></div>
+          </div>
         </div>
       </div>
     ),
