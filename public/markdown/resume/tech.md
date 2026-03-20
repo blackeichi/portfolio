@@ -9,6 +9,10 @@
 
 - React Query, Jotai, Recoil, Redux
 
+### Data Visualization
+
+- Apache ECharts, Recharts
+
 ### Styling
 
 - TailwindCSS, Styled-components, Material UI
