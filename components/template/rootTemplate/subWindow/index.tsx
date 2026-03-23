@@ -100,7 +100,7 @@ const SubWindowUI = ({
             {/* {children} */}
             {subOpened === "embed_project" && (
               <iframe
-                src="https://daily-log-frontend.vercel.app/"
+                src="https://daily-log-frontend-piof.vercel.app/"
                 className="w-full h-full border-0"
               />
             )}

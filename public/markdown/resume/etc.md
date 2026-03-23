@@ -11,6 +11,6 @@
 https://blackeichi.tistory.com/
 
 **GitHub**  
-https://github.com/blackeichi/portfolio
+https://github.com/blackeichi/
 
 ---

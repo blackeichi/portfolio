@@ -1,6 +1,6 @@
 # 📝 앱 소개
 
-- **프로젝트 배포 주소** : [https://daily-log-frontend.vercel.app/](https://daily-log-frontend.vercel.app/)
+- **프로젝트 배포 주소** : [https://daily-log-frontend-piof.vercel.app/](https://daily-log-frontend-piof.vercel.app/)
 
 - **식단/칼로리** 기록, **루틴** 설정, **일기** 작성, **투두** 관리까지 한 곳에서 관리할 수 있는 올인원 라이프 관리 앱입니다.
 
