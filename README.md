@@ -121,7 +121,6 @@ app/
 │   ├── fe-library/         # 라이브러리 설명
 │   ├── fe-structure/       # 프론트엔드 구조
 │   ├── auth-strategy/      # 인증 전략
-│   ├── handle-api/         # API 처리
 │   ├── performance-optimization/  # 성능 최적화
 │   └── service-policy/    # 비즈니스 정책
 └── play-game/              # 정우의 하루 (미니 게임)

@@ -10,6 +10,7 @@ const techStacks = {
     items: [
       { name: "Next.js", icon: "https://cdn.simpleicons.org/nextdotjs" },
       { name: "React", icon: "https://cdn.simpleicons.org/react" },
+      { name: "React Query", icon: "https://cdn.simpleicons.org/reactquery" },
       { name: "TypeScript", icon: "https://cdn.simpleicons.org/typescript" },
       { name: "Tailwind CSS", icon: "https://cdn.simpleicons.org/tailwindcss" },
       { name: "Framer Motion", icon: "https://cdn.simpleicons.org/framer" },
@@ -67,7 +68,7 @@ export const StackComponent = () => {
                     className="object-contain"
                     unoptimized
                     sizes="35px"
-                    style={{ width: '35px', height: '35px' }}
+                    style={{ width: "35px", height: "35px" }}
                   />
                   <span className="text-xs text-center font-medium">
                     {stack.name}

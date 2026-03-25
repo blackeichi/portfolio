@@ -1,97 +1,113 @@
 # 🔐 인증 및 보안 전략
 
-사용자 인증은 보안과 사용자 경험을 동시에 확보하기 위한 **Dual Token 전략**을 시행합니다.
+사용자 인증은 **AccessToken / RefreshToken 기반의 쿠키 인증 구조**로 구성했습니다.  
+프론트엔드는 Next.js Route Handler를 통해 백엔드와 통신하고,  
+백엔드는 토큰 검증과 재발급을 담당합니다.
 
-[Dual Token 전략에서 accessToken는 어디에 저장해야 하는가! (Feat. XSS, CSRF)](https://blackeichi.tistory.com/31)
+이 구조를 통해 클라이언트와 서버 모두 인증 정보를 활용할 수 있으며,  
+SSR 환경에서도 사용자 상태에 맞는 데이터 요청이 가능하도록 구성했습니다.
 
 ---
 
 ## AccessToken
 
-**저장 위치**: 클라이언트 메모리 상태 (Jotai Atom)
+**저장 위치**: 쿠키
 
 **수명**: 짧은 TTL
 
-**용도**: API 요청 시 Authorization 헤더에 포함
+**용도**: 인증이 필요한 API 요청 처리
 
 **특징**:
 
-- 페이지 새로고침 시 초기화됨
-- 서버 요청마다 헤더에 포함하여 인증
+- 클라이언트와 서버 모두 쿠키를 통해 인증 정보를 활용 가능
+- 페이지 첫 진입 시 서버에서도 인증 상태를 확인할 수 있음
+- SSR 데이터 패칭과 초기 데이터 주입에 활용 가능
 
 ---
 
 ## RefreshToken
 
-**저장 위치**: HttpOnly, Secure 쿠키
+**저장 위치**: 쿠키
 
-**수명**: 긴 TTL (30일)
+**수명**: 긴 TTL
 
 **용도**: AccessToken 재발급
 
 **특징**:
 
-- 자동으로 쿠키에 포함되어 토큰 갱신 API 호출 시 전송
-- 백엔드에서 DB에 저장하여 유효성 검증
+- AccessToken 만료 시 새로운 AccessToken 발급에 사용
+- 백엔드에서 유효성을 검증
+- 세션 유지와 재로그인 빈도 감소에 활용
 
 ---
 
-## 로그인/회원가입 처리
+## 인증 요청 처리 방식
 
-```backend/auth/auth.controller.ts
-  @Post('login')
-  @HttpCode(HttpStatus.OK) // 200 return code
-  @ApiOperation({ summary: '로그인' })
-  @ApiResponse({
-    status: 200,
-    description: '로그인이 성공적으로 완료되었습니다.',
-    type: AuthResponseDto,
-  })
-  @ApiResponse({
-    status: 401,
-    description: '인증 실패 (잘못된 이메일 또는 비밀번호)',
-  })
-  async login(
-    @Body() dto: LoginDto,
-    @Res({ passthrough: true }) res: Response,
-  ) {
-    const isGuestLogin = dto.email === process.env.GUEST_EMAIL;
-    const { accessToken, refreshToken } = await this.authService.login(
-      dto.email,
-      isGuestLogin ? process.env.GUEST_PASSWORD || '' : dto.password,
-    );
-    <!-- 쿠키 설정! -->
-    res.cookie('refresh_token', refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-      path: '/',
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 30일
-    });
+프론트엔드는 백엔드와 직접 통신하지 않고, Next.js의 **Route Handler**를 중간 계층으로 사용합니다.
 
-    return { accessToken };
-  }
-```
+클라이언트는 `/api/*` 형태의 내부 API만 호출하고, Route Handler가 쿠키를 읽어 백엔드로 요청을 전달합니다.
+
+이 구조를 통해 다음을 일관되게 처리할 수 있습니다.
+
+- 인증 쿠키 전달
+- 백엔드 요청 중계
+- 응답 포맷 정리
+- 인증 실패 시 공통 처리
+
+즉, Route Handler는 프론트엔드 내부에서 **BFF(Backend For Frontend)** 역할을 수행합니다.
 
 ---
-
 
 ## 인증 흐름
 
-1. **로그인/회원가입**: Server Action을 통해 서버 사이드에서 처리, RefreshToken을 쿠키로 설정
-2. **API 요청**: AccessToken을 헤더에 포함하여 요청
-3. **토큰 만료**: AccessToken 만료 시 401 에러 발생
-4. **자동 갱신**: 인터셉터가 RefreshToken으로 새로운 AccessToken 발급
-5. **세션 종료**: RefreshToken도 만료되면 로그인 페이지로 리디렉션
+1. **로그인/회원가입**
+   - 사용자가 로그인 또는 회원가입을 요청하면 백엔드에서 토큰을 발급합니다.
+   - 발급된 토큰은 쿠키를 통해 관리됩니다.
+
+2. **일반 API 요청**
+   - 클라이언트는 내부 `/api/*` 경로로 요청을 보냅니다.
+   - 브라우저는 쿠키를 자동으로 포함해 요청하고,
+     Route Handler는 이를 바탕으로 백엔드 요청을 처리합니다.
+
+3. **서버 사이드 데이터 요청**
+   - SSR 시점에는 서버가 쿠키를 읽어 인증 상태를 확인합니다.
+   - 필요한 데이터를 먼저 가져온 뒤, 페이지에 초기 데이터로 전달합니다.
+
+4. **토큰 재발급**
+   - AccessToken이 만료된 경우 RefreshToken을 이용해 재발급을 진행합니다.
+
+5. **세션 종료**
+   - RefreshToken까지 만료되었거나 유효하지 않으면
+     사용자는 다시 로그인해야 합니다.
+
+---
+
+## SSR과 인증
+
+이 앱은 인증 정보를 쿠키 기반으로 관리하기 때문에,  
+클라이언트뿐 아니라 **서버에서도 사용자 인증 상태를 확인할 수 있습니다.**
+
+이를 바탕으로 각 페이지 첫 진입 시 필요한 데이터를 서버에서 미리 가져오고,  
+이를 React Query의 `initialData`로 연결해 초기 로딩 경험을 개선했습니다.
+
+즉, 인증 구조는 단순 로그인 처리뿐 아니라  
+**SSR 기반 초기 데이터 패칭 흐름과도 연결되는 구조**입니다.
 
 ---
 
 ## 추가 보안 조치
 
-- **CORS 설정**: 허용된 출처(Origin)만 API 접근 가능
-- **Bcrypt**: 비밀번호 해싱
-- **FE, BE 더블 체크**: 클라이언트와 서버 양쪽에서 동일한 검증 규칙 적용
-  - 이메일 포맷 검증, 텍스트 입력 제한, 숫자 범위, 필수 입력 및 정상적인 접근인지 등
-- **class-validator**: DTO에서 입력값 검증 및 SQL Injection 방어
-- **Rate Limiting**: @nestjs/throttler로 무차별 대입 공격 방어
-- **Helmet**: HTTP 보안 헤더 자동 설정 (XSS, Clickjacking 방어)
+- **CORS 설정**
+  - 허용된 출처(Origin)만 API에 접근할 수 있도록 제한
+
+- **Bcrypt**
+  - 사용자 비밀번호 해싱 저장
+
+- **class-validator**
+  - DTO 단위 입력값 검증
+
+- **Rate Limiting**
+  - 과도한 요청 및 무차별 대입 공격 방지
+
+- **Helmet**
+  - HTTP 보안 헤더 설정을 통해 XSS, Clickjacking 등 기본 보안 강화

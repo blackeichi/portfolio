@@ -8,6 +8,26 @@
 
 ---
 
+## ![@tanstack/react-query](/images/icons/react-query.jpg) @tanstack/react-query
+
+**용도**: 서버 상태 관리 표준화
+
+**구현 방식**:
+
+- 페이지/컴포넌트 훅을 React Query 패턴으로 마이그레이션
+- SSR 프리페치 데이터와 `initialData`를 연결해 첫 진입 시 UX 개선
+- 캐싱, 재요청, 동기화 흐름을 일관된 방식으로 관리
+
+---
+
+## ![react-window/react-virtualized-auto-sizer](/images/icons/react-window.jpg) react-window/react-virtualized-auto-sizer
+
+**용도**: 로그 목록에서 가상화 테이블을 구현해 많은 데이터를 렌더링할 때 성능 부담 완화
+
+화면 크기에 맞춰 리스트 영역을 자동 계산해 반응형 레이아웃 대응
+
+---
+
 ## ![Jotai](/images/icons/jotai.jpg) Jotai
 
 전역 상태 관리 라이브러리
