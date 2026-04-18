@@ -24,6 +24,6 @@
 
 ### Others
 
-- React Native, Node.js, NestJS
+- React Native, vue/nuxt3, Node.js, NestJS
 
 ---

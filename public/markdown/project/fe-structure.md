@@ -1,73 +1,102 @@
 # 📁 프로젝트 구조
 
-모노레포 방식으로 **Next.js (Frontend)** 와 **NestJS(Backend)** 를 하나의 Git 저장소에서 함께 관리합니다.
+## 핵심 설계 포인트
 
-### 주요 특징
+### Next.js Route Handler 기반 BFF 구조
 
-- **독립적 배포 환경**: 서비스 규모 확장을 고려하여 프론트엔드와 백엔드를 각각 독립적으로 배포
-  - Frontend: Vercel 배포
-  - Backend: Render 배포
+프론트엔드는 백엔드 API를 직접 호출하지 않고, Next.js 내부의 `/api/*` Route Handler를 중간 계층으로 두었습니다.
 
-- **통신 프로토콜**: RESTful API 기반
+이 계층에서 다음 역할을 담당합니다.
 
-- **데이터베이스**:
-  - Database: Neon (PostgreSQL) 활용
-  - ORM: Prisma를 사용한 데이터베이스 스키마 관리 및 Type-safe 쿼리 구현
-  - Deployment: NestJS 백엔드와 Neon 서버리스 DB를 연동하여 배포
+- 인증 쿠키 전달
+- 백엔드 요청 중계
+- 응답 포맷 정리
+- 공통 에러 처리
+
+이 구조를 적용한 이유는 프론트엔드에서 데이터 요청 방식을 일관되게 유지하고, SSR 환경에서도 인증 정보를 자연스럽게 활용하기 위해서입니다.
+
+즉, 클라이언트는 내부 API만 바라보고, Route Handler가 **프론트엔드 내부 BFF(Backend For Frontend)** 역할을 수행하도록 설계했습니다.
+
+### 쿠키 기반 인증 구조
+
+인증은 **Access Token / Refresh Token을 모두 쿠키 기반으로 관리**하도록 구성했습니다.
+
+이를 통해 얻은 장점은 다음과 같습니다.
+
+- 클라이언트와 서버 모두 인증 정보를 활용 가능
+- SSR 시점에도 로그인 상태를 기준으로 데이터 요청 가능
+- 토큰 재발급 흐름을 비교적 안정적으로 구성 가능
+
+단순히 로그인만 구현한 것이 아니라, **SSR 데이터 패칭과 초기 상태 주입까지 연결되는 인증 구조**를 만드는 데 초점을 맞췄습니다.
+
+### React Query 기반 서버 상태 관리 표준화
+
+페이지/기능별 데이터 요청 로직을 React Query 패턴으로 정리해 서버 상태 관리를 표준화했습니다.
+
+- `queryKey` / `queryFn` 기반 요청 패턴 통일
+- 캐싱, 재요청, 동기화 흐름 일관화
+- 서버 상태와 UI 상태 책임 분리
+
+이전보다 각 기능의 요청 흐름을 예측하기 쉬워졌고, 페이지 간 데이터 관리 방식도 훨씬 통일감 있게 유지할 수 있게 됐습니다.
+
+### SSR 프리페치와 초기 로딩 경험 개선
+
+페이지 첫 진입 시 필요한 데이터를 서버에서 먼저 프리페치하고, 이를 React Query의 초기 데이터로 연결하는 방식으로 구성했습니다.
+
+이렇게 해서 개선한 부분은 다음과 같습니다.
+
+- 첫 진입 시 빈 화면 노출 감소
+- 중복 요청 감소
+- 서버 렌더링 이후 클라이언트 상태로 자연스럽게 연결
+
+사용자가 체감하는 “첫 화면 경험”을 개선하는 데 중점을 둔 구조입니다.
 
 ---
 
-## 컴포넌트 계층 구조
+## 프론트엔드 구조
 
-[**Atomic Design 방법론**] : [[아키텍처] Atomic Design vs FSD (Feature-Sliced Design)](https://blackeichi.tistory.com/29)
+현재 프론트엔드는 App Router와 feature 단위 분리를 기준으로 구성했습니다.
 
+```bash
+apps/frontend
+├── app/                    # 라우트 엔트리
+│   ├── home/
+│   ├── diet/
+│   ├── log/
+│   ├── routine/
+│   ├── todo/
+│   ├── profile/
+│   ├── login/
+│   ├── signup/
+│   └── api/                # Route Handler (BFF)
+├── features/               # 도메인별 기능 분리
+│   ├── home/
+│   ├── diet/
+│   ├── log/
+│   ├── routine/
+│   ├── todo/
+│   ├── auth/
+│   └── profile/
+├── components/             # 공통 UI 컴포넌트
+├── lib/                    # fetch, queryClient 등 공통 유틸
+├── constants/
+├── types/
+└── middleware.ts           # 인증/접근 제어
 ```
-apps/frontend/app/components/
-├── atoms/          # 최소 단위 컴포넌트 (UI 일관성 유지)
-│   ├── button.tsx  # 재사용 가능한 기본 버튼
-│   ├── input.tsx   # 입력 필드
-│   ├── checkBox.tsx # 체크박스
-│   └── tooltip.tsx # 툴팁
-├── molecules/      # atoms 조합 (비즈니스 로직 최소화)
-│   ├── iconButton.tsx # 아이콘 + 버튼
-│   └── okCancelBtns.tsx # 확인/취소 버튼 그룹
-├── organisms/      # 복잡한 UI 블록 (비즈니스 로직 포함)
-│   └── Table/      # 테이블 컴포넌트
-└── template/       # 레이아웃 템플릿
-    └── pageLayout.tsx # 페이지 레이아웃
-```
+
+예전처럼 공통 컴포넌트 계층만 강조하는 구조보다, 현재는 **페이지 엔트리와 기능 로직을 분리하는 방향**이 프로젝트 규모에 더 잘 맞는다고 판단해 구조를 정리했습니다.
 
 ---
 
-## 🧱 프론트엔드 설계 포인트
+## 백엔드 구조
 
-## 1. Route Handler 기반 BFF 구조
+백엔드는 NestJS 기반으로 모듈 단위로 구성했습니다.
 
-Next.js Route Handler를 프론트엔드 내부 BFF 계층처럼 두어  
-백엔드 요청 전달, 쿠키 처리, 응답 정리를 한곳에서 담당하도록 구조를 정리했습니다.
+- `auth`: 로그인, 회원가입, 토큰 재발급
+- `users`: 사용자 정보 및 비밀번호 변경
+- `calories`: 식단/칼로리 관련 기능
+- `log`: 일기/로그 관련 기능
+- `routine`: 루틴 관련 기능
+- `todos`: 투두 관련 기능
 
-이 구조를 통해 프론트엔드에서는 `/api/*` 형태의 내부 엔드포인트를 기준으로  
-일관된 방식으로 데이터를 요청할 수 있도록 만들었습니다.
-
-## 2. 쿠키 기반 인증 구조
-
-인증은 AccessToken / RefreshToken을 모두 쿠키 기반으로 관리하는 방향으로 구현했습니다.
-
-이를 통해 서버에서도 인증 정보를 활용할 수 있게 되었고,  
-SSR 시점의 데이터 패칭과 초기 데이터 주입을 보다 자연스럽게 구성할 수 있었습니다.
-
-## 3. React Query 기반 서버 상태 관리
-
-페이지와 컴포넌트 훅을 React Query 패턴으로 마이그레이션해 서버 상태 관리 방식을 표준화했습니다.
-
-- queryKey / queryFn 기반 패턴 통일
-- 캐싱 및 재요청 흐름 일관화
-- 서버 상태와 UI 상태의 책임 분리
-
-## 4. SSR 프리페치 + initialData
-
-각 페이지 첫 진입 시 서버에서 필요한 데이터를 먼저 프리페치하고,  
-이를 React Query `initialData`로 연결해 초기 로딩 경험을 개선했습니다.
-
-이 구조를 통해 첫 화면 진입 시점에 빈 화면이나 중복 요청을 줄이고,  
-클라이언트 진입 이후에도 자연스럽게 React Query 흐름으로 이어지도록 구성했습니다.
+데이터베이스는 PostgreSQL(Neon)을 사용하고, Prisma로 스키마 관리와 타입 안정성을 확보했습니다.
