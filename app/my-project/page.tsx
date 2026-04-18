@@ -21,7 +21,7 @@ export default function MyProjectPage() {
           <Title>Daily Log</Title>
         </div>
         <div className="flex items-center gap-2 sm:gap-4">
-          <Text>폴더버튼을 클릭하여 프로젝트를 확인할 수 있습니다.</Text>
+          <Text isBold>폴더버튼을 클릭하여 프로젝트를 확인할 수 있습니다.</Text>
           <OpenProjectBtn />
         </div>
         <FunctionDescription />

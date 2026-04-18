@@ -10,7 +10,7 @@ export default async function PerformanceOptimizationPage() {
   ]);
 
   return (
-    <div className="text-xs sm:text-sm leading-relaxed w-full h-fit p-6 justify-center flex box-border">
+    <div className="text-sm sm:text-base leading-relaxed w-full h-fit p-6 justify-center flex box-border">
       <div className="w-full max-w-200">
         <MarkdownRendererServer content={content} />
       </div>

@@ -59,7 +59,7 @@ export default function WindowBoxHeader({
           {titleIcon && (
             <Image src={titleIcon} alt="Title Icon" width={16} height={16} />
           )}
-          <div className="text-xs font-bold text-white">{title}</div>
+          <div className="text-sm font-bold text-white">{title}</div>
         </div>
       ) : null}
       {headBtns && <div className="flex gap-1">{headBtns}</div>}

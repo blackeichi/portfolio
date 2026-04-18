@@ -10,7 +10,7 @@ export const FunctionDescription = async () => {
   ]);
 
   return (
-    <div className="my-5">
+    <div className="mt-5">
       <MarkdownRendererServer content={content} />
     </div>
   );

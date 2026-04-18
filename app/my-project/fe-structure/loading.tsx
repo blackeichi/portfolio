@@ -1,6 +1,6 @@
 export default function ProjectPageLoading() {
   return (
-    <div className="text-xs sm:text-sm leading-relaxed w-full h-fit p-6 justify-center flex box-border">
+    <div className="text-sm sm:text-base leading-relaxed w-full h-fit p-6 justify-center flex box-border">
       <div className="w-full max-w-200 space-y-4 animate-pulse">
         {/* Title */}
         <div className="h-6 w-48 bg-gray-300 rounded" />

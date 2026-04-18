@@ -9,7 +9,7 @@ export const Text = ({
   className?: string;
   style?: React.CSSProperties;
 }) => {
-  const baseClasses = "text-xs sm:text-sm text-gray-700";
+  const baseClasses = "text-sm sm:text-base text-gray-700";
   const fontClasses = isBold ? "font-bold" : "font-normal";
 
   return (

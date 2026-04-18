@@ -70,7 +70,7 @@ export const StackComponent = () => {
                     sizes="35px"
                     style={{ width: "35px", height: "35px" }}
                   />
-                  <span className="text-xs text-center font-medium">
+                  <span className="text-sm text-center font-medium">
                     {stack.name}
                   </span>
                 </div>
