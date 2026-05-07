@@ -1,29 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { ARROW_KEYS, CHARACTER_ID, interactables } from "./_ui/utils";
 import { useSetAtom } from "jotai";
 import { loadingContentState } from "./atoms";
 
 export const useHandleMoveEvent = () => {
-  const [pressedKeys, setPressedKeys] = useState<string[]>([]);
-  // 키 입력 처리
+  const pressedKeysRef = useRef<string[]>([]);
+
+  // 키 입력은 ref에 저장해서 requestAnimationFrame 루프가 바로 읽게 하고,
+  // React 렌더링은 실제 키 목록이 바뀔 때만 발생시킨다.
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (ARROW_KEYS.includes(e.key)) {
         e.preventDefault();
-        setPressedKeys((prev) => {
-          if (prev.includes(e.key)) return prev;
-          return [...prev, e.key];
-        });
+        if (pressedKeysRef.current.includes(e.key)) return;
+        pressedKeysRef.current = [...pressedKeysRef.current, e.key];
       }
     };
 
     const handleKeyUp = (e: KeyboardEvent) => {
       if (ARROW_KEYS.includes(e.key)) {
         e.preventDefault();
-        setPressedKeys((prev) => {
-          if (!prev.includes(e.key)) return prev;
-          return prev.filter((key) => key !== e.key);
-        });
+        if (!pressedKeysRef.current.includes(e.key)) return;
+        pressedKeysRef.current = pressedKeysRef.current.filter(
+          (key) => key !== e.key,
+        );
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -35,7 +35,7 @@ export const useHandleMoveEvent = () => {
     };
   }, []);
 
-  return { pressedKeys };
+  return { pressedKeysRef };
 };
 
 export const useHandleActionEvent = ({

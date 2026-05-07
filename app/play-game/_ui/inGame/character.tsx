@@ -32,13 +32,15 @@ const Character = ({
     () => MAP_LIMIT[currentMap],
     [currentMap],
   );
-  const { pressedKeys } = useHandleMoveEvent();
+  const { pressedKeysRef } = useHandleMoveEvent();
+
   useHandleActionEvent({
     mapPositionRef,
     currentMap,
     actionType,
     setActionType,
   });
+
   const movementSpeed = useAtomValue(movementSpeedState);
   const [direction, setDirection] = useAtom(characterDirectionState);
   const [isRunning, setIsRunning] = useState(false);
@@ -73,7 +75,7 @@ const Character = ({
     let newDirection = directionRef.current;
     let running = false;
     // 배열의 마지막 키(가장 최근 입력)를 우선으로 처리
-    const lastKey = pressedKeys[pressedKeys.length - 1];
+    const lastKey = pressedKeysRef.current[pressedKeysRef.current.length - 1];
 
     if (lastKey) {
       running = true;
@@ -102,7 +104,7 @@ const Character = ({
       }
     }
 
-    if (pressedKeys.length === 0) {
+    if (pressedKeysRef.current.length === 0) {
       running = false;
     }
     const directionChanged = newDirection !== directionRef.current;
@@ -124,7 +126,7 @@ const Character = ({
     animationFrameRef.current = requestAnimationFrame(updateCharacter);
   }, [
     actionType,
-    pressedKeys,
+    pressedKeysRef,
     updateMapPosition,
     mapPositionRef,
     maxX,
