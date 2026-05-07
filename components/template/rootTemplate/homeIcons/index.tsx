@@ -69,7 +69,7 @@ function HomeIcons() {
           index={index}
           menu={menu}
           handleRunIcon={handleRunIcon}
-          selectedMenu={selectedMenu}
+          isSelected={selectedMenu === index}
           setSelectedMenu={setSelectedMenu}
         />
       ))}

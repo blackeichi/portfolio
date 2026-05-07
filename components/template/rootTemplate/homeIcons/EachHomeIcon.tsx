@@ -1,20 +1,20 @@
 import { IconMenu } from "@/libs/types/state";
 import Image from "next/image";
+import { memo } from "react";
 
-export const EachHomeIcon = ({
+function EachHomeIconComponent({
   index,
   menu,
   handleRunIcon,
-  selectedMenu,
+  isSelected,
   setSelectedMenu,
 }: {
   menu: IconMenu;
   index: number;
   handleRunIcon: (menu: IconMenu) => void;
-  selectedMenu: number | null;
+  isSelected: boolean;
   setSelectedMenu: React.Dispatch<React.SetStateAction<number | null>>;
-}) => {
-  const isSelected = selectedMenu === index;
+}) {
   return (
     <button
       key={`${menu.name}-home-icon`}
@@ -55,4 +55,6 @@ export const EachHomeIcon = ({
       </div>
     </button>
   );
-};
+}
+
+export const EachHomeIcon = memo(EachHomeIconComponent);

@@ -43,6 +43,7 @@ export const useHandleWindowBox = ({
 
   const boxRef = useRef(box);
   const isStickyRef = useRef(isSticky);
+  const isStickyedRef = useRef(isStickyed);
   const resizeDirRef = useRef<Dir | null>(resizeDir);
   const rafRef = useRef<number | null>(null);
   const pendingBoxRef = useRef<Position | null>(null);
