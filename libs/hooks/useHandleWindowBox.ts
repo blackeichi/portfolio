@@ -40,11 +40,60 @@ export const useHandleWindowBox = ({
   const [isDragging, setIsDragging] = useState(false);
   const [resizeDir, setResizeDir] = useState<Dir | null>(null);
   const [isStickyed, setIsStickyed] = useState<boolean>(false);
+
+  const boxRef = useRef(box);
+  const isStickyRef = useRef(isSticky);
+  const resizeDirRef = useRef<Dir | null>(resizeDir);
+  const rafRef = useRef<number | null>(null);
+  const pendingBoxRef = useRef<Position | null>(null);
   const startPos = useRef<RefType>({
     mouseX: 0,
     mouseY: 0,
     ...defaultPosition,
   });
+
+  useEffect(() => {
+    boxRef.current = box;
+  }, [box]);
+
+  useEffect(() => {
+    isStickyRef.current = isSticky;
+  }, [isSticky]);
+
+  useEffect(() => {
+    isStickyedRef.current = isStickyed;
+  }, [isStickyed]);
+
+  useEffect(() => {
+    resizeDirRef.current = resizeDir;
+  }, [resizeDir]);
+
+  const commitBox = useCallback(
+    (nextBox: Position) => {
+      boxRef.current = nextBox;
+      pendingBoxRef.current = nextBox;
+
+      if (rafRef.current !== null) return;
+      // 바로 setBox를 호출하지 않고 requestAnimationFrame으로 감싸서 애니메이션 프레임마다 최대 한 번만 setBox가 호출되도록 최적화
+      // 이렇게 하면 드래그나 리사이즈 이벤트가 매우 빈번하게 발생해도 setBox가 과도하게 호출되는 것을 방지할 수 있음
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = null;
+        if (!pendingBoxRef.current) return;
+        setBox(pendingBoxRef.current);
+        pendingBoxRef.current = null;
+      });
+    },
+    [setBox],
+  );
+
+  useEffect(() => {
+    return () => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
+  }, []);
+
   // isMax가 변경될 때만 애니메이션 클래스를 추가/제거하는 훅.
   // resize, drag 등의 이벤트마다 애니메이션이 작동하면 부자연스러움
   useEffect(() => {
@@ -66,49 +115,51 @@ export const useHandleWindowBox = ({
       const parent = parentRef.current;
       if (!parent) return;
       const r = parent.getBoundingClientRect();
+      const currentBox = boxRef.current;
 
-      const newX = clamp(startPos.current.x + dx, 0, r.width - box.width);
-      const newY = clamp(startPos.current.y + dy, 0, r.height - box.height);
-      if (
-        ((newX === 0 || newX === r.width - box.width) &&
+      const newX = clamp(
+        startPos.current.x + dx,
+        0,
+        r.width - currentBox.width,
+      );
+      const newY = clamp(
+        startPos.current.y + dy,
+        0,
+        r.height - currentBox.height,
+      );
+      const shouldStick =
+        ((newX === 0 || newX === r.width - currentBox.width) &&
           (clientX <= 200 || clientX >= window.innerWidth - 200)) ||
-        (newY === 0 && clientY <= 100)
-      ) {
-        setIsSticky(true);
-      } else {
-        if (isSticky) {
-          setIsSticky(false);
-        }
+        (newY === 0 && clientY <= 100);
+
+      if (shouldStick !== isStickyRef.current) {
+        isStickyRef.current = shouldStick;
+        setIsSticky(shouldStick);
       }
-      if (isStickyed) {
-        setBox((prev) => ({
-          ...prev,
+
+      if (isStickyedRef.current) {
+        const nextBox = {
+          ...currentBox,
           height: defaultPosition.height,
           width: defaultPosition.width,
           x: newX,
           y: newY,
-        }));
+        };
+        commitBox(nextBox);
+        isStickyedRef.current = false;
         setIsStickyed(false);
       } else {
-        setBox((prev) => ({ ...prev, x: newX, y: newY }));
+        commitBox({ ...currentBox, x: newX, y: newY });
       }
     },
-    [
-      parentRef,
-      box.width,
-      box.height,
-      setBox,
-      isSticky,
-      setIsSticky,
-      isStickyed,
-      defaultPosition,
-    ],
+    [parentRef, setIsSticky, defaultPosition, commitBox],
   );
 
   const resizeBox = useCallback(
     (mouseX: number, mouseY: number) => {
       const parent = parentRef.current;
-      if (!parent) return;
+      const currentResizeDir = resizeDirRef.current;
+      if (!parent || !currentResizeDir) return;
       const r = parent.getBoundingClientRect();
 
       const { x, y, width, height, mouseX: sx, mouseY: sy } = startPos.current;
@@ -124,19 +175,19 @@ export const useHandleWindowBox = ({
       let newH = height;
 
       // 수평
-      if (resizeDir?.includes("left")) {
+      if (currentResizeDir.includes("left")) {
         newX = clamp(x + dx, 0, right - MIN_W);
         newW = right - newX;
-      } else if (resizeDir?.includes("right")) {
+      } else if (currentResizeDir.includes("right")) {
         newW = Math.max(MIN_W, width + dx);
         if (x + newW > r.width) newW = r.width - x;
       }
 
       // 수직
-      if (resizeDir?.includes("top")) {
+      if (currentResizeDir.includes("top")) {
         newY = clamp(y + dy, 0, bottom - MIN_H);
         newH = bottom - newY;
-      } else if (resizeDir?.includes("bottom")) {
+      } else if (currentResizeDir.includes("bottom")) {
         newH = Math.max(MIN_H, height + dy);
         if (y + newH > r.height) newH = r.height - y;
       }
@@ -145,14 +196,14 @@ export const useHandleWindowBox = ({
       if (newX + newW > r.width) newW = r.width - newX;
       if (newY + newH > r.height) newH = r.height - newY;
 
-      setBox({
+      commitBox({
         x: Math.max(0, newX),
         y: Math.max(0, newY),
         width: newW,
         height: newH,
       });
     },
-    [resizeDir, parentRef, setBox],
+    [parentRef, commitBox],
   );
 
   useEffect(() => {
@@ -162,37 +213,41 @@ export const useHandleWindowBox = ({
       e.preventDefault();
       if (isDragging) {
         moveBox(e.clientX, e.clientY);
-      } else if (resizeDir) {
+      } else if (resizeDirRef.current) {
         resizeBox(e.clientX, e.clientY);
       }
     };
 
     const onUp = () => {
-      if (isSticky) {
-        const isFull = box.y === 0;
+      if (isStickyRef.current) {
+        const currentBox = boxRef.current;
+        const isFull = currentBox.y === 0;
+        isStickyedRef.current = true;
         setIsStickyed(true);
         if (isFull) {
           setIsMax(true);
-          setBox((prev) => ({
-            ...prev,
+          commitBox({
+            ...currentBox,
             height: window.innerHeight - 42,
             width: window.innerWidth,
             x: 0,
             y: 0,
-          }));
+          });
         } else {
-          const isAtLeft = box.x === 0;
-          setBox((prev) => ({
-            ...prev,
+          const isAtLeft = currentBox.x === 0;
+          commitBox({
+            ...currentBox,
             height: window.innerHeight - 42,
             width: window.innerWidth / 2,
             x: isAtLeft ? 0 : window.innerWidth / 2,
             y: 0,
-          }));
+          });
         }
+        isStickyRef.current = false;
         setIsSticky(false);
       }
       setIsDragging(false);
+      resizeDirRef.current = null;
       setResizeDir(null);
       document.body.style.cursor = "";
       document.body.style.userSelect = "";
@@ -214,64 +269,61 @@ export const useHandleWindowBox = ({
     resizeDir,
     moveBox,
     resizeBox,
-    box,
-    isSticky,
-    setBox,
     setIsSticky,
     setIsMax,
+    commitBox,
   ]);
 
-  const beginInteraction = useCallback(
-    (e: React.MouseEvent) => {
-      startPos.current = {
-        mouseX: e.clientX,
-        mouseY: e.clientY,
-        x: box.x,
-        y: box.y,
-        width: box.width,
-        height: box.height,
-      };
-    },
-    [box],
-  );
+  const beginInteraction = useCallback((e: React.MouseEvent) => {
+    const currentBox = boxRef.current;
+    startPos.current = {
+      mouseX: e.clientX,
+      mouseY: e.clientY,
+      x: currentBox.x,
+      y: currentBox.y,
+      width: currentBox.width,
+      height: currentBox.height,
+    };
+  }, []);
+
   const handleDragStart = useCallback(
     (e: React.MouseEvent) => {
       if (isMax) {
-        setIsMax(false);
-        setBox({
+        const nextBox = {
           width: defaultPosition.width,
           height: defaultPosition.height,
           x: e.clientX - defaultPosition.width / 2,
           y: e.clientY,
-        });
+        };
+        setIsMax(false);
+        commitBox(nextBox);
         startPos.current = {
           mouseX: e.clientX,
           mouseY: e.clientY,
-          x: e.clientX - defaultPosition.width / 2,
-          y: e.clientY,
-          width: defaultPosition.width,
-          height: defaultPosition.height,
+          ...nextBox,
         };
       } else {
         beginInteraction(e);
       }
       setIsDragging(true);
     },
-    [beginInteraction, setIsDragging, isMax, setIsMax, setBox, defaultPosition],
+    [beginInteraction, isMax, setIsMax, defaultPosition, commitBox],
   );
 
   const handleResizeStart = useCallback(
     (dir: Dir, e: React.MouseEvent) => {
       beginInteraction(e);
+      resizeDirRef.current = dir;
       setResizeDir(dir);
     },
     [beginInteraction],
   );
 
   const onResizeFunc = useCallback(() => {
+    const currentBox = boxRef.current;
     if (isMax) {
       setIsMax(false);
-      setBox({
+      commitBox({
         x: startPos.current.x,
         y: startPos.current.y,
         width: startPos.current.width,
@@ -282,25 +334,29 @@ export const useHandleWindowBox = ({
       startPos.current = {
         mouseX: 0,
         mouseY: 0,
-        x: box.x,
-        y: box.y,
-        width: box.width,
-        height: box.height,
+        x: currentBox.x,
+        y: currentBox.y,
+        width: currentBox.width,
+        height: currentBox.height,
       };
-      setBox({
+      commitBox({
         x: 0,
         y: 0,
         width: window.innerWidth,
         height: window.innerHeight - 42,
       });
     }
-  }, [isMax, box, setBox, setIsMax]);
+  }, [isMax, commitBox, setIsMax]);
+
   useEffect(() => {
+    const initialPosition = defaultPosition;
     return () => {
-      setBox(defaultPosition);
+      boxRef.current = initialPosition;
+      setBox(initialPosition);
       setIsMax(true);
     };
   }, [setBox, setIsMax, defaultPosition]);
+
   return {
     handleDragStart,
     handleResizeStart,
